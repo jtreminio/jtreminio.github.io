@@ -20,7 +20,7 @@ pipeline:
     secrets: [ docker_username, docker_password ]
     tags:
       - latest
-    dockerfile: ./deploy/nginx/Dockerfile
+    dockerfile: ./build/Dockerfile
     context: ./
 
   deploy:

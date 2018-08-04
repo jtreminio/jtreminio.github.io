@@ -1,4 +1,44 @@
 {{ define "main" -}}
-<h1>404: Page not found</h1>
-<p class="lead">Sorry, we've misplaced that URL or it's pointing to something that doesn't exist. <a href="{{ .Site.BaseURL }}">Head back home</a> to try finding it again.</p>
+<!-- Page Header -->
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="site-heading">
+                    <h1>404</h1>
+                    <hr class="small">
+                    <span class="subheading">File not found</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="post col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h1 id="oops">Oops!</h1>
+
+                <p>Looks like the file you are looking for does not exist.</p>
+
+                <p>I recently switched to Hugo Static Site Generator and may
+                    have broken a thing or two.</p>
+
+                <p>My apologies! Please <a href="/">go to the frontpage</a>
+                    and search for content you were looking for. I promise I
+                    did not delete any posts, you will probably find it
+                    quickly!</p>
+
+                <p>I would also appreciate a quick email telling me what you
+                    were expecting to find. Just click the email icon below!</p>
+
+                <p>Thanks!</p>
+
+                <p>Juan Treminio</p>
+            </div>
+        </div>
+    </div>
+</article>
 {{- end }}

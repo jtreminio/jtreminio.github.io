@@ -1,0 +1,20 @@
+baseurl: "https://jtreminio.com/"
+title: "Juan Treminio - Dallas based senior web developer"
+author: "Juan Treminio"
+copyright: "Copyright © Juan Treminio"
+canonifyurls: false
+permalinks:
+    blog: /blog/:slug
+params:
+    author: Juan Treminio
+    email: jtreminio@gmail.com
+    dateform: "Jan 2, 2006"
+    social:
+        -
+            title: github
+            url: https://github.com/jtreminio
+        -
+            title: twitter
+            url: https://twitter.com/juantreminio
+pygmentsUseClasses: true
+pygmentsCodeFences: true

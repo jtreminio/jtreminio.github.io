@@ -1,0 +1,103 @@
+.intro-header .site-heading,
+.intro-header .post-heading,
+.intro-header .page-heading {
+    color: #000;
+}
+
+.navbar-custom .navbar-brand {
+    margin-bottom: 15px;
+}
+
+.intro-header {
+    margin-top: 30px;
+    margin-bottom: 0;
+}
+
+.intro-header .site-heading,
+.intro-header .post-heading,
+.intro-header .page-heading {
+    padding-bottom: 0;
+}
+
+@media only screen and (min-width: 768px) {
+    .navbar-custom .navbar-brand,
+    .navbar-custom .nav li a {
+        color: #000;
+        margin-bottom: 0;
+    }
+
+    .intro-header {
+        margin-top: 0;
+    }
+
+    .intro-header .post-heading h1 {
+        font-size: 1.8em;
+    }
+
+    .intro-header .site-heading,
+    .intro-header .post-heading,
+    .intro-header .page-heading {
+        padding: 100px 0 0;
+    }
+
+    .navbar-custom {
+        background-color: #3084C5;
+    }
+
+    .navbar-custom .navbar-brand,
+    .navbar-custom .nav li a {
+        color: #fff;
+    }
+}
+
+@media only screen and (min-width: 990px) {
+    pre.chroma:hover {
+        margin-right: -100px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    pre.chroma:hover {
+        margin-right: -150px;
+    }
+}
+
+.pager li {
+    max-width: 48%;
+    display: inline-block;
+}
+
+.pager .previous {
+    float: right;
+}
+
+.pager .next {
+    float: left;
+}
+
+div.highlight {
+    background-color: #f5f5f5;
+}
+
+pre.chroma {
+    background-color: #f8f8f8;
+    padding: 12px;
+    overflow-x: scroll;
+}
+
+pre code {
+    font-size: 1.2em;
+    white-space: pre;
+}
+
+.intro-header .post-heading .meta a {
+    color: #000;
+}
+
+hr.small {
+    border-color: #000;
+}
+
+article div.post li a {
+    text-decoration: underline;
+}

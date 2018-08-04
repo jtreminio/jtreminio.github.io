@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="{{ if .Description }}{{ .Description }}{{ end }}" />
+<meta name="author" content="{{ if .Site.Params.Author }}{{.Site.Params.Author}}{{ end }}" />
+<meta name="keywords" content="{{ if .Keywords }}{{ delimit .Keywords " ," }}{{ end }}" />
+
+<link rel="icon" href="/favicon/favicon.ico" />
+<link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/png" href="/favicon/favicon-32x32.png" sizes="32x32" />
+
+<title>{{ .Title }} | {{ .Site.Title }}</title>
+
+{{ if .RSSLink }}
+<link href="{{ .RSSLink }}" rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" />
+<link href="{{ .RSSLink }}" rel="feed" type="application/rss+xml" title="{{ .Site.Title }}" />
+{{ end }}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-clean-blog/3.3.7/css/clean-blog.min.css" rel="stylesheet" type="text/css" />
+<link href="/css/markdown-notices.min.css" rel="stylesheet" type="text/css" />
+<link href="/css/syntax.min.css" rel="stylesheet" type="text/css" />
+<link href="/css/style.css" rel="stylesheet" type="text/css" />
+
+<!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body>
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#main-navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="main-navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="{{ .Site.BaseURL }}">Blog</a>
+                </li>
+                {{ range .Site.Menus.main }}
+                <li>
+                    <a href="{{ .URL }}">{{ .Name }}</a>
+                </li>
+                {{end}}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+{{ block "main" . -}}{{- end }}
+
+<hr />
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    {{ with .Site.Params.email }}
+                    <li>
+                        <a href="mailto:{{ . }}">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    {{ end }}
+
+                    {{ if isset .Site.Params "social" }}
+                    {{ range .Site.Params.social }}
+                    <li>
+                        <a href="{{ .url }}">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-{{ .title }} fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    {{ end }}
+                    {{ end }}
+                </ul>
+
+                <p class="copyright text-muted">{{ .Site.Copyright }}</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-clean-blog/3.3.7/js/clean-blog.min.js"></script>
+
+{{ template "shortcodes/load-photoswipe.html" . }}
+{{ template "_internal/google_analytics_async.html" . }}
+</body>
+</html>

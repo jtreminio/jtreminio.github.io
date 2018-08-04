@@ -1,0 +1,15 @@
+#!/bin/bash
+set -e
+set -o pipefail
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+USER_ID=$(id -u ${USER})
+GROUP_ID=$(id -g ${USER})
+IMAGE="skyscrapers/hugo:0.46"
+
+docker container run --rm \
+    -u ${USER_ID}:${GROUP_ID} \
+    -p 1313:1313 \
+    -v ${DIR}/../:/var/www \
+    -w /var/www \
+    ${IMAGE} hugo server --bind 0.0.0.0

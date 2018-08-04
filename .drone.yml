@@ -1,4 +1,10 @@
 pipeline:
   hugo:
     image: cbrgm/drone-hugo:latest
+    output: public
     validate: true
+  minify:
+    image: node:9-alpine
+    commands:
+      - npm install
+      - npm run build

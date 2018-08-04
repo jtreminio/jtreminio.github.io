@@ -5,16 +5,16 @@ set -o pipefail
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 USER_ID=$(id -u ${USER})
 GROUP_ID=$(id -g ${USER})
-CONTAINER="node:9-alpine"
+IMAGE="node:9-alpine"
 
 docker container run -it --rm \
     -v ${DIR}/../:/var/www \
     -w /var/www \
     -u ${USER_ID}:${GROUP_ID} \
-    ${CONTAINER} npm install
+    ${IMAGE} npm install
 
 docker container run -it --rm \
     -v ${DIR}/../:/var/www \
     -w /var/www \
     -u ${USER_ID}:${GROUP_ID} \
-    ${CONTAINER} npm run build
+    ${IMAGE} npm run build

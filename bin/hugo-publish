@@ -7,6 +7,8 @@ USER_ID=$(id -u ${USER})
 GROUP_ID=$(id -g ${USER})
 IMAGE="skyscrapers/hugo:0.46"
 
+rm -rf ${DIR}/../public/*
+
 docker container run --rm \
     -u ${USER_ID}:${GROUP_ID} \
     -p 1313:1313 \

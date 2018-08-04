@@ -1,0 +1,5 @@
+pipeline:
+  hugo:
+    image: skyscrapers/hugo:0.46
+    commands:
+      - hugo

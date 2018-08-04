@@ -1,5 +1,4 @@
 pipeline:
   hugo:
-    image: skyscrapers/hugo:0.46
-    commands:
-      - hugo
+    image: cbrgm/drone-hugo:latest
+    validate: true

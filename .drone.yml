@@ -13,7 +13,7 @@ pipeline:
   publish-docker:
     image: plugins/docker
     repo: jtreminio/jtreminio.com
-+   secrets: [ docker_username, docker_password ]
+    secrets: [ docker_username, docker_password ]
     tags:
       - latest
     dockerfile: ./Dockerfile

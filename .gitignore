@@ -1,6 +1,8 @@
 /node_modules
-/public
 /themes
+
+/public/*
+!/public/.gitkeep
 
 /resources/*
 !/resources/.gitkeep

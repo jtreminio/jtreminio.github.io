@@ -33,11 +33,11 @@ pipeline:
       - docker image pull jtreminio/jtreminio.com
       - docker container rm -f jtreminio_com
       - >-
-        docker container run -d --name jtreminio_com
-          --label "traefik.backend=jtreminio_com"
-          --label "traefik.docker.network=traefik_webgateway"
-          --label "traefik.frontend.rule=Host:jtreminio.com"
-          --label "traefik.port=80"
-          --network traefik_webgateway
-          --restart always
+        docker container run -d --name jtreminio_com \
+          --label "traefik.backend=jtreminio_com" \
+          --label "traefik.docker.network=traefik_webgateway" \
+          --label "traefik.frontend.rule=Host:jtreminio.com" \
+          --label "traefik.port=80" \
+          --network traefik_webgateway \
+          --restart always \
           jtreminio/jtreminio.com

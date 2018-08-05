@@ -15,8 +15,8 @@ non-trivial environments without polluting the local system with tools.
 There are still some things that make working with it just a tad bit harder
 than necessary.
 
-Today's topic is on making running Docker containers are the current local
-user,
+Today's topic involves running Docker containers using the local host system's
+current logged-in user.
 
 ## The Problem
 
@@ -146,7 +146,7 @@ finishes executing.
 
 What if you want to run a web app with PHP-FPM? It must be able to create its
 PID file at `/var/run/php-fpm.pid`, if you are using file-based sessions it
-must write to `/var/lib/php/sessions`. Any number of things that required root
+must write to `/var/lib/php/sessions`. Any number of things that require root
 or a predefined user will no longer work because the container is
 _running using your user/group ID_:
 
@@ -169,7 +169,7 @@ $ docker container run --rm \
 1000:1000
 ```
 
-If you try to do anything that requires elevated permissions, or a specific
+If you try to do anything that requires elevated permissions or a specific
 user, you will be denied:
 
 ```bash
@@ -194,7 +194,7 @@ touch: cannot touch '/var/lib/php/sessions/foo': Permission denied
 
 The above means running the PHP-FPM daemon as your local user will quickly
 encounter permissions issues. In this case it is because
-`/var/lib/php/sessions` is owned by `www-data:www-data` which ost likely does
+`/var/lib/php/sessions` is owned by `www-data:www-data` which most likely does
 not share your local user's IDs:
 
 ```bash
@@ -255,8 +255,8 @@ drwxr-xr-x. 7 jtreminio jtreminio 4.0K Aug  4 19:31 ../
 
 We might as well add another grievance to our list:
 
-* non-root internal user with required permissions works great inside the,
-    container completely falters on host system with volumes.
+* non-root internal user with required permissions works great inside the
+    container but completely falters on host system with volumes.
 
 ## Why is this happening?
 
@@ -326,7 +326,7 @@ drwxr-xr-x. 1  0  0 4096 Jul 26 09:08 ..
 
 In the container `www-data:www-data` is simply an alias to `33:33`.
 
-## Ok, so what do?
+## User namespaces
 
 The container does not care what user and group name is used, it simply wants
 the IDs to match.
@@ -342,7 +342,7 @@ For example, you can tell Docker to use your current user/group ID as the
 `1000:1000` would map directly to `0:0` in a container.
 
 In other words, we tell Docker to consider our current user on the host as root
-in containers! Local system user ID `1000`maps directly to container user ID
+in containers! Local system user ID `1000` maps directly to container user ID
 `0`.
 
 User namespaces would allow us to run all containers as root internally which
@@ -392,8 +392,8 @@ Anything done as non-root in the container will run against the same issues we
 saw earlier: what might be considered sufficient permissions inside the
 container will probably not work the same on your host.
 
-My host's is still owned by `1000:1000` and a user with `1033:1033` will be
-denied.
+My host's directories are still owned by `1000:1000` and a user with
+`1033:1033` will be denied.
 
 #### All containers on your system are affected
 
@@ -468,7 +468,7 @@ it much easier to have your container perform SSH actions using your host's SSH
 keys as long as you bind a volume.
 
 Even though we are done with recreating the user and group, there is a problem:
-Any files and directories that we owned by the `www-data` group will not
+Any files and directories that were owned by the `www-data` user will not
 automatically point to the new ID values. Since the names are just _labels_,
 `/var/lib/php/sessions` is still owned by `33:33`, not matching our spiffy new
 `1000:1000`!
@@ -477,7 +477,7 @@ This is the part where you need to know just enough about the container you
 want to run that you can pinpoint which files and directories you need to
 update the owner for.
 
-Thankfully, the rallying cry of containers is to have them to one single thing,
+Thankfully, the rallying cry of containers is to have them do one single thing,
 which limits the number of places we need to update. In this image, it is not
 very many at all:
 
@@ -645,7 +645,7 @@ $ docker container run --rm \
 You can take the `docker image build` command and save it to a bash file for
 easy execution.
 
-However, most folks will rather use Docker Compose for local development.
+However, most folks would rather use Docker Compose for local development.
 
 Here is what your `docker-compose.yml` might look like:
 

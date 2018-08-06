@@ -1,6 +1,6 @@
 Posted on {{ dateFormat (.Site.Params.DateForm | default "Mon, Jan 2, 2006") .Date }}
 <br/>
-Tags {{ range $index, $tag :=  .Params.tags }}
+<i class="feather icon-tag"></i> Tags {{ range $index, $tag :=  .Params.tags }}
     {{- if eq $index 0 -}}
         <a href="/tags/{{ urlize . }}">{{ lower . }}</a>
     {{- else -}}

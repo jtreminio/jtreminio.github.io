@@ -106,13 +106,33 @@ article div.post li a {
     padding-left: .25em;
     opacity: 0;
     transition: all .25s linear;
-    font-size: .5em;
+}
+
+.anchor-link i {
+    font-size: .8em;
+}
+
+.anchor-link i:before {
+    vertical-align: middle;
 }
 
 .anchor-link-container:hover .anchor-link {
     visibility: visible;
     opacity: 1;
     box-sizing: border-box;
+    text-decoration: none;
+}
+
+.footer-icons li {
+    margin: auto 10px;
+}
+
+.footer-icons a {
+    text-decoration: none;
+}
+
+.footer-icons i {
+    font-size: 2em;
 }
 
 /*

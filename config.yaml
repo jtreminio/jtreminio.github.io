@@ -18,3 +18,6 @@ params:
             url: https://twitter.com/juantreminio
 pygmentsUseClasses: true
 pygmentsCodeFences: true
+
+blackFriday:
+    hrefTargetBlank: true

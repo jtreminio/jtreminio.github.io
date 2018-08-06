@@ -102,6 +102,19 @@ article div.post li a {
     text-decoration: underline;
 }
 
+.anchor-link {
+    padding-left: .25em;
+    opacity: 0;
+    transition: all .25s linear;
+    font-size: .5em;
+}
+
+.anchor-link-container:hover .anchor-link {
+    visibility: visible;
+    opacity: 1;
+    box-sizing: border-box;
+}
+
 /*
  * Markdown notices
  * License: https://github.com/getgrav/grav-plugin-markdown-notices

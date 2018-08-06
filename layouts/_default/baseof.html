@@ -21,7 +21,6 @@
 {{ end }}
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-clean-blog/3.3.7/css/clean-blog.min.css" rel="stylesheet" type="text/css" />
@@ -75,10 +74,7 @@
                     {{ with .Site.Params.email }}
                     <li>
                         <a href="mailto:{{ . }}">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
-                            </span>
+                            <i data-feather="mail"></i>
                         </a>
                     </li>
                     {{ end }}
@@ -86,11 +82,8 @@
                     {{ if isset .Site.Params "social" }}
                     {{ range .Site.Params.social }}
                     <li>
-                        <a href="{{ .url }}">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-{{ .title }} fa-stack-1x fa-inverse"></i>
-                            </span>
+                        <a href="{{ .url }}" target="_blank">
+                            <i data-feather="{{ .title }}"></i>
                         </a>
                     </li>
                     {{ end }}
@@ -105,7 +98,9 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.7.3/feather.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-clean-blog/3.3.7/js/clean-blog.min.js"></script>
+<script src="/js/custom.js"></script>
 
 {{ partial "photoswipe.html" . }}
 {{ template "_internal/google_analytics_async.html" . }}

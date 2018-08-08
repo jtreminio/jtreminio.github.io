@@ -4,7 +4,7 @@ pipeline {
     stage('Hugo') {
       agent {
         docker {
-          image 'cbrgm/drone-hugo:latest'
+          image 'skyscrapers/hugo:0.46'
         }
 
       }

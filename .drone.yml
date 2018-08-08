@@ -45,6 +45,7 @@ pipeline:
         docker-compose \
           -f /opt/docker-compose-jtreminio.com/docker-compose.yml \
           pull
-      - docker-compose \
+      - >-
+        docker-compose \
           -f /opt/docker-compose-jtreminio.com/docker-compose.yml \
           up -d

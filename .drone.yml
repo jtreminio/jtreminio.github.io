@@ -29,9 +29,10 @@ pipeline:
     username: root
     port: 22
     secrets: [ ssh_key ]
-    target: /opt/docker-compose-jtreminio.com.yml
+    target: /opt/docker-compose-jtreminio.com/
     source:
       - ./build/docker-compose.yml
+    strip_components: 1
 
   deploy:
     image: appleboy/drone-ssh
@@ -40,5 +41,10 @@ pipeline:
     port: 22
     secrets: [ ssh_key ]
     script:
-      - docker-compose -f /opt/docker-compose-jtreminio.com.yml pull
-      - docker-compose -f /opt/docker-compose-jtreminio.com.yml up -d
+      - >-
+        docker-compose \
+          -f /opt/docker-compose-jtreminio.com/docker-compose.yml \
+          pull
+      - docker-compose \
+          -f /opt/docker-compose-jtreminio.com/docker-compose.yml \
+          up -d

@@ -32,7 +32,7 @@ pipeline:
     target: /opt/docker-compose-jtreminio.com/
     source:
       - ./build/docker-compose.yml
-    strip_components: 1
+    strip_components: 2
 
   deploy:
     image: appleboy/drone-ssh

@@ -10,7 +10,7 @@ pipeline {
       }
       steps {
         sh 'hugo'
-        stash(name: 'public', includes: 'public')
+        stash(name: 'hugo-output', includes: 'public/**/*')
       }
     }
     stage('Minify') {
@@ -21,7 +21,7 @@ pipeline {
 
       }
       steps {
-        unstash 'public'
+        unstash 'hugo-output'
         sh '''minify --recursive --verbose --match=\\.*.js$ \\
     --type=js --output public/ public/
       - >-

@@ -2,14 +2,10 @@ pipeline {
   agent none
   stages {
     stage('Hugo') {
-      agent {
-        docker {
-          image 'skyscrapers/hugo:0.46'
-        }
-
-      }
+      agent any
       steps {
         sh 'hugo'
+        stash(name: 'public', includes: 'public')
       }
     }
     stage('Minify') {
@@ -20,6 +16,7 @@ pipeline {
 
       }
       steps {
+        unstash 'public'
         sh '''minify --recursive --verbose --match=\\.*.js$ \\
     --type=js --output public/ public/
       - >-

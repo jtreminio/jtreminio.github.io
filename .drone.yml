@@ -30,14 +30,5 @@ pipeline:
     port: 22
     secrets: [ ssh_key ]
     script:
-      - docker image pull jtreminio/jtreminio.com
-      - docker container rm -f jtreminio_com
-      - >-
-        docker container run -d --name jtreminio_com \
-          --label "traefik.backend=jtreminio_com" \
-          --label "traefik.docker.network=traefik_webgateway" \
-          --label "traefik.frontend.rule=Host:jtreminio.com" \
-          --label "traefik.port=80" \
-          --network traefik_webgateway \
-          --restart always \
-          jtreminio/jtreminio.com
+      - docker-compose -f build/docker-compose.yml pull
+      - docker-compose -f build/docker-compose.yml up -d

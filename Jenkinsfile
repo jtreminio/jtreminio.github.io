@@ -2,7 +2,12 @@ pipeline {
   agent none
   stages {
     stage('Hugo') {
-      agent any
+      agent {
+        docker {
+          image 'cbrgm/drone-hugo:latest'
+        }
+
+      }
       steps {
         sh 'hugo'
         stash(name: 'public', includes: 'public')

@@ -26,7 +26,7 @@ pipeline:
   scp:
     image: appleboy/drone-scp
     host: jtreminio.com
-    user: root
+    username: root
     port: 22
     secrets: [ ssh_key ]
     target: /opt/docker-compose-jtreminio.com.yml

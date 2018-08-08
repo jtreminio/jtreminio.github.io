@@ -30,5 +30,5 @@ pipeline:
     port: 22
     secrets: [ ssh_key ]
     script:
-      - docker-compose -f build/docker-compose.yml pull
-      - docker-compose -f build/docker-compose.yml up -d
+      - docker-compose -f ./build/docker-compose.yml pull
+      - docker-compose -f ./build/docker-compose.yml up -d

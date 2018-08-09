@@ -2,7 +2,7 @@
 date: 2013-03-03
 title: "Unit Testing Tutorial Part III: Testing Protected/Private Methods, Coverage Reports and CRAP"
 description: PHP Unit introduction series
-slug: unit-testing-tutorial-part-v-mock-methods-and-overriding-constructors
+slug: unit-testing-tutorial-part-iii-testing-protected-private-methods-coverage-reports-and-crap
 aliases: /2013/03/unit-testing-tutorial-part-3-testing-protected-private-methods-coverage-reports-and-crap
 tags:
     - webdev

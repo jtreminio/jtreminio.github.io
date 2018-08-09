@@ -65,13 +65,9 @@ host. If you are in need of a host I can recommend
 The basic $5/month plan will be more than enough. If you have your own host you
 would prefer to use, by all means use it!
 
-## Configure servers
+## Configure server
 
-The servers are up and running, your chosen hostnames are pointing to the
-correct IP addresses. 
-
-Next we need to install Docker and Docker Compose on both servers, and Drone
-on the build server.
+First we need to install Docker and Docker Compose on the server.
 
 I have created a
 [simple Ansible-based configuration](https://github.com/jtreminio/docker-bootstrap)

@@ -135,6 +135,12 @@ article div.post li a {
     font-size: 2em;
 }
 
+.last-built {
+    font-size: .7em;
+    text-align: right;
+    margin-bottom: 0;
+}
+
 /*
  * Markdown notices
  * License: https://github.com/getgrav/grav-plugin-markdown-notices

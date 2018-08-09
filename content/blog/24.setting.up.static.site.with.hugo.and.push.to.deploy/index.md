@@ -67,14 +67,13 @@ would prefer to use, by all means use it!
 
 ## Configure server
 
-First we need to install Docker and Docker Compose on the server.
+First we need to install Docker, Traefik and Watchtower on the server.
 
 I have created a
 [simple Ansible-based configuration](https://github.com/jtreminio/docker-bootstrap)
 that
 
 * installs Docker,
-* installs Docker Compose,
 * opens ports `80`, `443` and `8080` on firewall (optional),
 * adds Traefik and configures Let's Encrypt support,
 * creates a Watchtower container.
@@ -405,14 +404,15 @@ container for our blog on our server.
 SSH into your server and run the following:
 
 ```bash
-NAME=jtreminio_com \
-HOST=jtreminio.com \
-IMAGE="jtreminio/jtreminio.com" \
+NAME=jtreminio_com
+HOST=jtreminio.com
+IMAGE="jtreminio/jtreminio.com"
 docker container run -d --name ${NAME} \
     --label traefik.backend=${NAME} \
     --label traefik.docker.network=traefik_webgateway \
     --label traefik.frontend.rule=Host:${HOST} \
     --label traefik.port=80 \
+    --label com.centurylinklabs.watchtower.enable=true \
     --network traefik_webgateway \
     --restart always \
     ${IMAGE}

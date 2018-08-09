@@ -35,3 +35,7 @@ To run an nginx container from files in `/public` (after publish):
 
 * Uses [starbootstrap.com's Clean Blog](https://startbootstrap.com/template-overviews/clean-blog/)
 * Uses [humboldtux/startbootstrap-clean-blog](https://github.com/humboldtux/startbootstrap-clean-blog)
+
+## License
+
+MIT!

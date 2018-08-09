@@ -247,7 +247,8 @@ Step 12/17 : WORKDIR /data
  ---> Running in 404cb0f24509
 Removing intermediate container 404cb0f24509
  ---> d0a02742aa3c
-Step 13/17 : RUN minify --recursive --verbose         --match=\.*.js$         --type=js         --output public/         public/
+Step 13/17 : RUN minify --recursive --verbose         --match=\.*.js$
+                        --type=js         --output public/         public/
  ---> Running in 38f21d784856
 INFO: use mimetype text/javascript
 INFO: expanding directory public/ recursively
@@ -257,7 +258,8 @@ INFO: ( 68.167µs,   32 B,  49.2%, 954 kB/s) - public/js/custom.js
 INFO: 3.055423ms total
 Removing intermediate container 38f21d784856
  ---> d0d80a7d1ab1
-Step 14/17 : RUN minify --recursive --verbose         --match=\.*.css$         --type=css         --output public/         public/
+Step 14/17 : RUN minify --recursive --verbose         --match=\.*.css$
+                        --type=css         --output public/         public/
  ---> Running in 81e9840eb053
 INFO: use mimetype text/css
 INFO: expanding directory public/ recursively
@@ -267,7 +269,8 @@ INFO: (389.209µs, 6.0 kB, 100.0%,  15 MB/s) - public/css/style.css
 INFO: 3.797968ms total
 Removing intermediate container 81e9840eb053
  ---> 80108c675341
-Step 15/17 : RUN minify --recursive --verbose         --match=\.*.html$         --type=html         --output public/         public/
+Step 15/17 : RUN minify --recursive --verbose         --match=\.*.html$
+                        --type=html         --output public/         public/
  ---> Running in d0c1c70b3e80
 INFO: use mimetype text/html
 INFO: expanding directory public/ recursively

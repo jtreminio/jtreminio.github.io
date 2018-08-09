@@ -79,7 +79,7 @@ that
 * creates a Watchtower container.
 
 The only things you must configure are all handled by creating a `.env` file
-and filling out the the following:
+and filling out the following:
 
 {{% table %}}
 name                | description

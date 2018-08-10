@@ -1,0 +1,409 @@
+body {
+    background-color: #26262B;
+    color: #e9e3d5;
+}
+
+::-webkit-scrollbar {
+    background-color: #25252a;
+    color: #ccc0ac;
+}
+
+::-webkit-scrollbar-corner {
+    background-color: #212127;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #303339;
+}
+
+a, body {
+    color: #d9d1bf;
+}
+
+a:focus,
+a:hover {
+    color: #7cdcec;
+}
+
+blockquote {
+    border-left-color: #403f3d;
+    color: #c5b7a1;
+}
+
+hr {
+    border-top-color: #403f3d;
+}
+
+hr.small {
+    border-color: #6c6b68;
+}
+
+.btn-info {
+    color: #fbf7f1;
+    background-color: #204066;
+    border-color: #336285;
+}
+
+.navbar-custom {
+    background-color: #486281;
+}
+
+.navbar-custom.is-fixed {
+    background-color: rgba(33, 33, 39, 0.9);
+    border-bottom-color: #403f3d;
+}
+
+.navbar-custom.is-fixed .navbar-brand,
+.navbar-custom.is-fixed .nav li a,
+.post-preview > a,
+.post-preview > .post-meta > a {
+    color: #d9d1bf;
+}
+
+.navbar-custom.is-fixed .navbar-brand:focus,
+.navbar-custom.is-fixed .navbar-brand:hover,
+.navbar-custom.is-fixed .nav li a:focus,
+.navbar-custom.is-fixed .nav li a:hover,
+.post-preview > .post-meta > a:focus,
+.post-preview > .post-meta > a:hover {
+    color: #7cdcec;
+}
+
+.navbar-custom .navbar-brand,
+.navbar-custom .nav li a,
+.intro-header .page-heading,
+.intro-header .post-heading,
+.intro-header .post-heading .meta a,
+.intro-header .site-heading {
+    color: #e9e3d5;
+}
+
+.post-preview > a:focus,
+.post-preview > a:hover {
+    color: #A0DAE9;
+}
+
+.post-preview > .post-meta,
+.text-muted {
+    color: #c5b7a1;
+}
+
+table {
+    border-color: #545351;
+}
+
+.table > thead > tr > th {
+    border-bottom-color: #434241;
+}
+
+.table-striped > tbody > tr:nth-of-type(2n+1) {
+    background-color: #28282D;
+}
+
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+    border-top-color: #434241;
+}
+
+.img-thumbnail {
+    background-color: #212127;
+    border-color: #434241;
+}
+
+div.highlight {
+    background-color: #24242a;
+}
+
+.notices.yellow {
+    background-color: #382b18;
+    border-left-color: #a46e21;
+    color: #e6ad5d;
+}
+
+.notices.red {
+    background-color: #341817;
+    border-left-color: #8c312c;
+    color: #d67e78;
+}
+
+.notices.blue {
+    background-color: #1f2a30;
+    border-left-color: #30788b;
+    color: #7ac0d2;
+}
+
+.notices.green {
+    background-color: #20321e;
+    border-left-color: #41763e;
+    color: #a0cb98;
+}
+
+.theme-toggle {
+    background-color: #204066;
+    border-color: #336285;
+}
+
+.theme-toggle .theme-light {
+    display: none;
+}
+
+.theme-toggle .theme-dark {
+    display: block;
+}
+
+code {
+    background-color: #311f23;
+    color: #d77287;
+}
+
+pre {
+    background-color: #24242a;
+    border-bottom-width: 3px;
+    border-color: #464543;
+    color: #d9d1bf;
+}
+
+pre,
+pre.chroma {
+    background-color: #232329;
+}
+
+.chroma .hl {
+    background-color: #585713;
+}
+
+.chroma .k {
+    color: #8cf184;
+}
+
+.chroma .kc {
+    color: #8cf184;
+}
+
+.chroma .kd {
+    color: #8cf184;
+}
+
+.chroma .kn {
+    color: #8cf184;
+}
+
+.chroma .kp {
+    color: #8cf184;
+}
+
+.chroma .kr {
+    color: #8cf184;
+}
+
+.chroma .kt {
+    color: #ee6d97;
+}
+
+.chroma .na {
+    color: #cfd891;
+}
+
+.chroma .nb {
+    color: #8cf184;
+}
+
+.chroma .nc {
+    color: #8a8ae4;
+}
+
+.chroma .no {
+    color: #ef817d;
+}
+
+.chroma .nd {
+    color: #ab43e5;
+}
+
+.chroma .ni {
+    color: #c3b49e;
+}
+
+.chroma .ne {
+    color: #d1756d;
+}
+
+.chroma .nf {
+    color: #8a8ae4;
+}
+
+.chroma .nl {
+    color: #f8f578;
+}
+
+.chroma .nn {
+    color: #8a8ae4;
+}
+
+.chroma .nt {
+    color: #8cf184;
+}
+
+.chroma .nv {
+    color: #9794d8;
+}
+
+.chroma .s {
+    color: #d97773;
+}
+
+.chroma .sa {
+    color: #d97773;
+}
+
+.chroma .sb {
+    color: #d97773;
+}
+
+.chroma .sc {
+    color: #d97773;
+}
+
+.chroma .dl {
+    color: #d97773;
+}
+
+.chroma .sd {
+    color: #d97773;
+}
+
+.chroma .s2 {
+    color: #d97773;
+}
+
+.chroma .se {
+    color: #dca475;
+}
+
+.chroma .sh {
+    color: #d97773;
+}
+
+.chroma .si {
+    color: #c48b9d;
+}
+
+.chroma .sx {
+    color: #8cf184;
+}
+
+.chroma .sr {
+    color: #c48b9d;
+}
+
+.chroma .s1 {
+    color: #d97773;
+}
+
+.chroma .ss {
+    color: #9794d8;
+}
+
+.chroma .m {
+    color: #cbbda9;
+}
+
+.chroma .mb {
+    color: #cbbda9;
+}
+
+.chroma .mf {
+    color: #cbbda9;
+}
+
+.chroma .mh {
+    color: #cbbda9;
+}
+
+.chroma .mi {
+    color: #cbbda9;
+}
+
+.chroma .il {
+    color: #cbbda9;
+}
+
+.chroma .mo {
+    color: #cbbda9;
+}
+
+.chroma .o {
+    color: #cbbda9;
+}
+
+.chroma .ow {
+    color: #ab43e5;
+}
+
+.chroma .c {
+    color: #a7cbc6;
+}
+
+.chroma .ch {
+    color: #a7cbc6;
+}
+
+.chroma .cm {
+    color: #a7cbc6;
+}
+
+.chroma .c1 {
+    color: #a7cbc6;
+}
+
+.chroma .cs {
+    color: #a7cbc6;
+}
+
+.chroma .cp {
+    color: #f4c267;
+}
+
+.chroma .cpf {
+    color: #f4c267;
+}
+
+.chroma .gd {
+    color: #ee7571;
+}
+
+.chroma .gr {
+    color: #e9423f;
+}
+
+.chroma .gh {
+    color: #8684e7;
+}
+
+.chroma .gi {
+    color: #7cf074;
+}
+
+.chroma .go {
+    color: #c3b49e;
+}
+
+.chroma .gp {
+    color: #8684e7;
+}
+
+.chroma .gu {
+    color: #f288eb;
+}
+
+.chroma .gt {
+    color: #5683e6;
+}
+
+.chroma .w {
+    color: #c9bca7;
+}

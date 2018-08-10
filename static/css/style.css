@@ -141,6 +141,24 @@ article div.post li a {
     margin-bottom: 0;
 }
 
+.theme-toggle {
+    background-color: #5bc0de;
+    border-color: #46b8da;
+}
+
+.is-fixed .theme-toggle {
+    background-color: transparent;
+    border-color: transparent;
+}
+
+.theme-toggle .theme-light {
+    display: block;
+}
+
+.theme-toggle .theme-dark {
+    display: none;
+}
+
 /*
  * Markdown notices
  * License: https://github.com/getgrav/grav-plugin-markdown-notices

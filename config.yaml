@@ -7,6 +7,7 @@ permalinks:
     blog: /blog/:slug
 params:
     author: Juan Treminio
+    shortTitle: Juan Treminio - Senior Developer
     email: jtreminio@gmail.com
     dateform: "Jan 2, 2006"
     social:

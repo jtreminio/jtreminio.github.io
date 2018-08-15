@@ -2,8 +2,10 @@
 date: 2013-03-01 02:00:00
 title: "Unit Testing Tutorial Part II: Assertions, Writing a Useful Test and @dataProvider"
 description: PHP Unit introduction series
-slug: unit-testing-tutorial-part-2-assertions-writing-a-useful-test-and-dataprovider
-aliases: /2013/03/unit-testing-tutorial-part-2-assertions-writing-a-useful-test-and-dataprovider
+slug: unit-testing-tutorial-part-ii-assertions-writing-a-useful-test-and-dataprovider
+aliases:
+    - /2013/03/unit-testing-tutorial-part-2-assertions-writing-a-useful-test-and-dataprovider
+    - /blog/unit-testing-tutorial-part-2-assertions-writing-a-useful-test-and-dataprovider
 tags:
     - webdev
     - tutorial
@@ -18,7 +20,7 @@ tutorial!
 
 * [Unit Testing Tutorial Part I: Introduction to PHPUnit](/blog/unit-testing-tutorial-part-i-introduction-to-phpunit)
 * Unit Testing Tutorial Part II: Assertions, Writing a Useful Test and @dataProvider
-* [Unit Testing Tutorial Part III: Testing Protected/Private Methods, Coverage Reports and CRAP](/blog/unit-testing-tutorial-part-3-testing-protected-private-methods-coverage-reports-and-crap)
+* [Unit Testing Tutorial Part III: Testing Protected/Private Methods, Coverage Reports and CRAP](/blog/unit-testing-tutorial-part-iii-testing-protected-private-methods-coverage-reports-and-crap)
 * [Unit Testing Tutorial Part IV: Mock Objects, Stub Methods and Dependency Injection](/blog/unit-testing-tutorial-part-iv-mock-objects-stub-methods-and-dependency-injection)
 * [Unit Testing Tutorial Part V: Mock Methods and Overriding Constructors](/blog/unit-testing-tutorial-part-v-mock-methods-and-overriding-constructors)
 {{% /notice %}}

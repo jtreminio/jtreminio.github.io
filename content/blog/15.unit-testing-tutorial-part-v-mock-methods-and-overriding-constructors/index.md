@@ -3,7 +3,9 @@ date: 2013-03-31
 title: "Unit Testing Tutorial Part V: Mock Methods and Overriding Constructors"
 description: PHP Unit introduction series
 slug: unit-testing-tutorial-part-v-mock-methods-and-overriding-constructors
-aliases: /2013/03/unit-testing-tutorial-part-5-mock-methods-and-overriding-constructors
+aliases:
+    - /2013/03/unit-testing-tutorial-part-5-mock-methods-and-overriding-constructors
+    - /blog/unit-testing-tutorial-part-5-mock-methods-and-overriding-constructors
 tags:
     - webdev
     - tutorial
@@ -17,8 +19,8 @@ This is Part V of a multi-part series. Below are the links to other parts of thi
 tutorial!
 
 * [Unit Testing Tutorial Part I: Introduction to PHPUnit](/blog/unit-testing-tutorial-part-i-introduction-to-phpunit)
-* [Unit Testing Tutorial Part II: Assertions, Writing a Useful Test and @dataProvider](/blog/unit-testing-tutorial-part-2-assertions-writing-a-useful-test-and-dataprovider)
-* [Unit Testing Tutorial Part III: Testing Protected/Private Methods, Coverage Reports and CRAP](/blog/unit-testing-tutorial-part-3-testing-protected-private-methods-coverage-reports-and-crap)
+* [Unit Testing Tutorial Part II: Assertions, Writing a Useful Test and @dataProvider](/blog/unit-testing-tutorial-part-ii-assertions-writing-a-useful-test-and-dataprovider)
+* [Unit Testing Tutorial Part III: Testing Protected/Private Methods, Coverage Reports and CRAP](/blog/unit-testing-tutorial-part-iii-testing-protected-private-methods-coverage-reports-and-crap)
 * [Unit Testing Tutorial Part IV: Mock Objects, Stub Methods and Dependency Injection](/blog/unit-testing-tutorial-part-iv-mock-objects-stub-methods-and-dependency-injection)
 * Unit Testing Tutorial Part V: Mock Methods and Overriding Constructors
 {{% /notice %}}

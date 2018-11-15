@@ -33,7 +33,7 @@ you create a new container and define the database credentials:
 
 This creates a new MariaDB container with a database named `dbname`,
 user `dbuser` and password `dbpassword`. You do not need to create a separate
-configuration file, the ahove takes care of that for you!
+configuration file, the above takes care of that for you!
 
 What if we could do the same for a PHP container? Having to keep track of a
 separate INI file for both PHP and PHP-FPM is not nearly as smooth as how
@@ -241,7 +241,7 @@ PHP INI/FPM config file so the variable names are perfectly valid.
 
 ### Child Images
 
-Now that I have created an image that defines all the INI setings I want to
+Now that I have created an image that defines all the INI settings I want to
 expose to env vars, I can create child images that can reference the env vars
 in their php.ini files!
 

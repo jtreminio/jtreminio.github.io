@@ -130,7 +130,7 @@ have empty values. For example, you cannot have an `extension=`. PHP will
 complain.
 
 In FPM if you have `slowlog=` FPM will crash immediately. Unfortunately some
-INI settings are not amendable to env vars unless you enforce a value for them.
+INI settings are not amenable to env vars unless you enforce a value for them.
 
 The final point is a minor inconvenience. You cannot define a setting with an
 inline env var in the same line. You have to do this process separately.

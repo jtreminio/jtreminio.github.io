@@ -730,6 +730,16 @@ Creating temp_php_1 ... done
 We now have a PHP-FPM container running with my system user/group ID
 `1000:1000` waiting for connections from Nginx or Apache.
 
+If you want to avoid having a the `.env` file for every project you can export
+permanently `USER_ID` and `GROUP_ID` in your `~/.profile`:
+
+```bash
+cat <<'EOF' >> ~/.profile
+export USER_ID=$(id --user "$USER")
+export GROUP_ID=$(id --group "$USER")
+EOF
+```
+
 ## What containers need this?
 
 Not all containers actually require these steps. For simpler images like the

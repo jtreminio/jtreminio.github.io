@@ -9,7 +9,7 @@ tags:
 
 In my previous post,
 [Docker PHP/PHP-FPM Configuration via Environment Variables](/blog/docker-php/php-fpm-configuration-via-environment-variables/)
-I introduced my new PHP image that uses environment variables to configures its
+I introduced my new PHP image that uses environment variables to configure its
 INI settings.
 
 The `Dockerfile` is a beast, to be sure.

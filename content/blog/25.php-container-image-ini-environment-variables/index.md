@@ -41,7 +41,7 @@ What if we could do the same for a PHP container? Having to keep track of a
 separate INI file for both PHP and PHP-FPM is not nearly as smooth as how
 MariaDB's image can be configured.
 
-## Our goals
+## Our Goals
 
 I will talk you through the thought process required for creating a Docker
 image that is capable of configuring its service using environment variable
@@ -388,7 +388,7 @@ $ docker container run --rm \
 [15-Nov-2018 23:33:08] ERROR: FPM initialization failed
 ```
 
-## Wrapping it up
+## Wrapping It Up
 
 Not all services are amenable to configuration by environment variables, which
 is a shame. Tools like Nginx require special modules (Lua) for this

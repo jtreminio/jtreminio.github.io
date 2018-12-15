@@ -25,11 +25,13 @@ was created with this in mind).
 For example, with the [MariaDB image](https://hub.docker.com/_/mariadb/)
 you create a new container and define the database credentials:
 
-    docker run -it --rm \
-        -e MYSQL_DATABASE=dbname \
-        -e MYSQL_USER=dbuser \
-        -e MYSQL_PASSWORD=dbpassword \
-        mariadb
+```bash
+docker run -it --rm \
+    -e MYSQL_DATABASE=dbname \
+    -e MYSQL_USER=dbuser \
+    -e MYSQL_PASSWORD=dbpassword \
+    mariadb
+```
 
 This creates a new MariaDB container with a database named `dbname`,
 user `dbuser` and password `dbpassword`. You do not need to create a separate
@@ -45,7 +47,9 @@ I will talk you through the thought process required for creating a Docker
 image that is capable of configuring its service using environment variable
 flags:
 
-    -e {ENV_NAME}={ENV_VALUE}
+```bash
+-e {ENV_NAME}={ENV_VALUE}
+```
 
 I will detail the gotchas you would encounter trying to create this for
 yourself from scratch, and the solutions I came up with and implemented.
@@ -166,11 +170,17 @@ would have the env var `allow_url_fopen` available to them.
 
 To change this value when spinning up a container you would simply do
 
-    docker container run -it --rm -e allow_url_fopen=0 {image_name}
+```bash
+docker container run -it --rm \
+    -e allow_url_fopen=0 \
+    {image_name}
+```
 
 and in the php.ini using
 
-    allow_url_fopen=${allow_url_fopen}
+```ini
+allow_url_fopen=${allow_url_fopen}
+```
 
 would allow us to change the setting on the fly without having to further edit
 a static INI file.
@@ -196,7 +206,11 @@ services:
 
 If you are spinning up a container from an existing image you can likewise do
 
-    docker container run --env-file=${PWD}/env-file.env
+```bash
+docker container run \
+    --env-file=${PWD}/env-file.env \
+    [..]
+```
 
 However, you cannot do the same when _building_ a new image. There is no
 `ENV_FILE` in a Dockerfile - you have to list each env var one by one!
@@ -221,11 +235,15 @@ but define all the INI env vars my PHP images will be able to use.
 
 For settings that have no default value, and can remain blank, I did
 
-    PHP.allow_url_include=
+```ini
+PHP.allow_url_include=
+```
 
 For settings that ship with default values, I did
 
-    PHP.allow_url_fopen=1
+```ini
+PHP.allow_url_fopen=1
+```
 
 {{% notice blue %}}
 Notice that I namespaced all my variables. The actual variable name is
@@ -314,51 +332,61 @@ It is simple enough to use these images.
 
 For the default INI values:
 
-    $ docker container run --rm \
-        jtreminio/php:7.2 php -i | grep error_reporting
-    195:error_reporting => 0 => 0
+```bash
+$ docker container run --rm \
+    jtreminio/php:7.2 php -i | grep error_reporting
+195:error_reporting => 0 => 0
+```
 
 To override the defaults:
 
-    $ docker container run --rm \
-        -e PHP.error_reporting=-1 \
-        jtreminio/php:7.2 php -i | grep error_reporting
-    195:error_reporting => -1 => -1
+```bash
+$ docker container run --rm \
+    -e PHP.error_reporting=-1 \
+    jtreminio/php:7.2 php -i | grep error_reporting
+195:error_reporting => -1 => -1
+```
 
 You can just as easily override multiple settings:
 
-    $ docker container run --rm \
-        -e PHP.error_reporting=-1 \
-        -e PHP.display_errors=On \
-        -e "PHP.date.timezone=America/Chicago" \
-        jtreminio/php:7.2 php -i | \
-            egrep 'error_reporting|display_errors|date.timezone'
-    display_errors => STDOUT => STDOUT
-    error_reporting => -1 => -1
-    date.timezone => America/Chicago => America/Chicago
+```bash
+$ docker container run --rm \
+    -e PHP.error_reporting=-1 \
+    -e PHP.display_errors=On \
+    -e "PHP.date.timezone=America/Chicago" \
+    jtreminio/php:7.2 php -i | \
+        egrep 'error_reporting|display_errors|date.timezone'
+display_errors => STDOUT => STDOUT
+error_reporting => -1 => -1
+date.timezone => America/Chicago => America/Chicago
+```
 
 To run PHP-FPM you just call the service:
 
-    $ docker container run --rm \
-        -e PHP.error_reporting=-1 \
-        -e PHP.display_errors=On \
-        -e "PHP.date.timezone=America/Chicago" \
-        jtreminio/php:7.2 /usr/bin/php-fpm
-    [15-Nov-2018 23:32:39] NOTICE: fpm is running, pid 9
-    [15-Nov-2018 23:32:39] NOTICE: ready to handle connections
-    [15-Nov-2018 23:32:39] NOTICE: systemd monitor interval set to 10000ms
+```bash
+$ docker container run --rm \
+    -e PHP.error_reporting=-1 \
+    -e PHP.display_errors=On \
+    -e "PHP.date.timezone=America/Chicago" \
+    jtreminio/php:7.2 /usr/bin/php-fpm
+[15-Nov-2018 23:32:39] NOTICE: fpm is running, pid 9
+[15-Nov-2018 23:32:39] NOTICE: ready to handle connections
+[15-Nov-2018 23:32:39] NOTICE: systemd monitor interval set to 10000ms
+```
 
 You can test if PHP-FPM is reading env vars as well by doing:
 
-    $ docker container run --rm \
-      -e PHP.error_reporting=-1 \
-      -e PHP.display_errors=On \
-      -e "PHP.date.timezone=America/Chicago" \
-      -e FPM.pm=foobar \
-      jtreminio/php:7.2 /usr/bin/php-fpm
-    [15-Nov-2018 23:33:08] ERROR: [/etc/php/7.2/fpm/php-fpm.conf:14] unable to parse value for entry 'pm': invalid process manager (static, dynamic or ondemand)
-    [15-Nov-2018 23:33:08] ERROR: failed to load configuration file '/etc/php/7.2/fpm/php-fpm.conf'
-    [15-Nov-2018 23:33:08] ERROR: FPM initialization failed
+```bash
+$ docker container run --rm \
+  -e PHP.error_reporting=-1 \
+  -e PHP.display_errors=On \
+  -e "PHP.date.timezone=America/Chicago" \
+  -e FPM.pm=foobar \
+  jtreminio/php:7.2 /usr/bin/php-fpm
+[15-Nov-2018 23:33:08] ERROR: [/etc/php/7.2/fpm/php-fpm.conf:14] unable to parse value for entry 'pm': invalid process manager (static, dynamic or ondemand)
+[15-Nov-2018 23:33:08] ERROR: failed to load configuration file '/etc/php/7.2/fpm/php-fpm.conf'
+[15-Nov-2018 23:33:08] ERROR: FPM initialization failed
+```
 
 ## Wrapping it up
 

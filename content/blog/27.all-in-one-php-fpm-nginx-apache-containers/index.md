@@ -1,5 +1,5 @@
 ---
-date: 2018-12-14
+date: 2018-12-18
 title: All-in-One PHP-FPM + Nginx/Apache Containers
 description: Highly Customizable, Production-Ready and Development-Friendly Containers
 slug: all-in-one-php-fpm-nginx-apache-containers

@@ -24,8 +24,14 @@
             <div class="post col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 {{ .Content }}
 
-                {{ if .Site.DisqusShortname -}}
-                    {{ template "_internal/disqus.html" . }}
+                {{ if .Params.gh_comment_id -}}
+                    <hr />
+
+                    <section id="comments">
+                        <h2>Comments</h2>
+
+                    </section>
+                    <script async>ghCommentify({{ .Params.gh_comment_id }});</script>
                 {{- end }}
             </div>
         </div>

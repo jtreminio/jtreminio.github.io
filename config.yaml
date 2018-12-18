@@ -17,6 +17,10 @@ params:
         -
             title: twitter
             url: https://twitter.com/juantreminio
+    gh_commentify:
+        api: https://gh-commentify.jtreminio.com
+        owner: jtreminio
+        repo: jtreminio.com
 pygmentsUseClasses: true
 pygmentsCodeFences: true
 

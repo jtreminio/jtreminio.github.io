@@ -4,6 +4,7 @@ title: Running Docker Containers as Current Host User
 description: Making local development less aggravating
 tags:
     - docker
+gh_comment_id: 14
 ---
 
 _ed: If you want to jump right to the solution, jump ahead to

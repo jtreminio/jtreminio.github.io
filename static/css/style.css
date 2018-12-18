@@ -497,3 +497,23 @@ article div.post li a {
 .chroma .w {
     color: #bbb
 }
+
+section#comments > h2 {
+    margin-bottom: 20px;
+}
+
+section#comments .comment {
+    margin-bottom: 30px;
+}
+
+section#comments .comment-username img {
+    margin-right: 10px;
+}
+
+section#comments .comment-username img:hover {
+    cursor: pointer;
+}
+
+section#comments .comment-body {
+    padding-left: 20px;
+}

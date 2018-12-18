@@ -10,6 +10,7 @@ tags:
     - server
     - php
     - composer
+gh_comment_id: 5
 ---
 
 You’ve heard of [Composer](http://getcomposer.org/), right? The nifty new tool for

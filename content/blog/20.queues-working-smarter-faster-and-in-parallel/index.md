@@ -8,6 +8,7 @@ tags:
     - webdev
     - tutorial
     - php
+gh_comment_id: 11
 ---
 
 A common mistake I keep coming across when browsing through other developer's

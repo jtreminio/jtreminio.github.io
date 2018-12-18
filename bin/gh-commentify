@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+GITHUB_ACCESS_TOKEN=${GITHUB_ACCESS_TOKEN:-""}
+
+docker container run --rm -d \
+    --name gh-commentify \
+    -p 5000:5000 \
+    -e GITHUB_ACCESS_TOKEN=${GITHUB_ACCESS_TOKEN} \
+    -e ONLY_OWNER=jtreminio \
+    gh-commentify:latest
+
+echo "Container name: gh-commentify"

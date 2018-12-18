@@ -156,7 +156,7 @@ The [PHP-FPM runit init file is already created](https://github.com/jtreminio/ph
 at the `jtreminio/php:7.2` level. Nginx can immediately start working with this
 existing service and nothing else is required on your part. However, we want to
 also optionally add a second PHP-FPM instance with Xdebug enabled _but only when
-`PHPFPM_XDEBUG=On`!
+`PHPFPM_XDEBUG=On`_!
 
 runit requires a bash file with `+x` flag set (making it executable). One route
 we could have taken was to simply mount a file volume via a 

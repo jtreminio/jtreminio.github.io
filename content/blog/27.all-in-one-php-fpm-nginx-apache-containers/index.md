@@ -167,7 +167,7 @@ any file system changes and make everything configurable via env vars then
 we need to figure out a way to prevent runit from running a second PHP-FPM
 instance when Xdebug is not to be enabled.
 
-[The solution I implemented](https://github.com/jtreminio/php-docker/blob/3e1a6c355f9462dd676628016648882a17b613b2/nginx/files/fpm-xdebug)
+[The solution I implemented](https://github.com/jtreminio/php-docker/blob/875edc1b59b4cad83e48f457d599c709b1e932dc/apache/files/fpm-xdebug)
 does just that.
 
 If `PHPFPM_XDEBUG` is _not_ set to `On|on` then a harmless, low-resource
@@ -203,7 +203,7 @@ fairly simple.
 is very similar to the Nginx one.
 
 Likewise, [the runit init file for Apache looks similar](https://github.com/jtreminio/php-docker/blob/f8b499cb59882cc903cdf174f0b50bc37689ab7d/apache/files/apache)
-and [the runit init file for PHP-FPM is identical](https://github.com/jtreminio/php-docker/blob/f8b499cb59882cc903cdf174f0b50bc37689ab7d/apache/files/fpm-xdebug).
+and [the runit init file for PHP-FPM is identical](https://github.com/jtreminio/php-docker/blob/875edc1b59b4cad83e48f457d599c709b1e932dc/apache/files/fpm-xdebug).
 
 Apache has built-in support for env vars (looking at you, Nginx) so
 [only the vhost config file needs changed](https://github.com/jtreminio/php-docker/blob/f8b499cb59882cc903cdf174f0b50bc37689ab7d/apache/files/vhost.conf).

@@ -97,7 +97,7 @@ method is called `assertFalse()`.
 ### Available assertions
 
 PHPUnit ships with 90 assertions,
-[which are listed here](http://www.phpunit.de/manual/current/en/appendixes.assertions.html).
+[which are listed here](https://phpunit.readthedocs.io/en/8.2/assertions.html).
 If you use a proper IDE, you will not need to memorize any of them, as they are
 accessible through `$this->assert*`. You also do not need to use them all. Most of
 the time you will only use `assertArrayHasKey()`, `assertEquals()`, `assertFalse()`,
@@ -119,7 +119,7 @@ I will go through this in more detail in the future.
 ## FIRST USEFUL TEST
 
 So enough with the introduction to the API! If you really want to, you can
-[head over to the official PHPUnit manual and read through everything](http://www.phpunit.de/manual/current/en/).
+[head over to the official PHPUnit manual and read through everything](https://phpunit.readthedocs.io/en/8.2/).
 Warning: it is very *dry*.
 
 ### The code
@@ -440,12 +440,12 @@ public function testFoo()
 ```
 
 There are
-[plenty of useful annotations that ship with PHPUnit](http://www.phpunit.de/manual/current/en/appendixes.annotations.html),
+[plenty of useful annotations that ship with PHPUnit](https://phpunit.readthedocs.io/en/8.2/annotations.html),
 but the one we want right now is the very powerful `dataProvider`.
 
 ### @dataProvider
 
-[PHPUnit defines data providers as](http://www.phpunit.de/manual/current/en/writing-tests-for-phpunit.html#writing-tests-for-phpunit.data-providers):
+[PHPUnit defines data providers as](https://phpunit.readthedocs.io/en/8.2/annotations.html#dataprovider):
 
 > A test method can accept arbitrary arguments. These arguments are to be provided by 
 > a data provider method.

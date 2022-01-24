@@ -45,7 +45,7 @@ const themeToggle = cookie => {
     if (dark.disabled) {
       cookie.set("lighttheme", 0, 30);
       setDataTheme("dark");
-      utterancesThemeToggle();
+      utterancesThemeToggle("dark");
       dark.disabled = false;
 
       return;
@@ -53,7 +53,7 @@ const themeToggle = cookie => {
 
     cookie.set("lighttheme", 1, 30);
     setDataTheme("light");
-    utterancesThemeToggle();
+    utterancesThemeToggle("light");
     dark.disabled = true;
   });
 };
@@ -62,17 +62,34 @@ const setDataTheme = value => {
   document.documentElement.setAttribute("data-theme", value);
 };
 
-const utterancesThemeToggle = () => {
-  if (document.querySelector(".utterances-frame")) {
-    const theme = document.documentElement.getAttribute('data-theme') === 'dark'
-      ? 'photon-dark'
-      : 'github-light'
+/**
+ * Set utterances theme on page load
+ * @param style "light" or "dark"
+ */
+const utterancesThemeInit = style => {
+  addEventListener("message", event => {
+    if (event.origin !== "https://utteranc.es") {
+      return;
+    }
+
+    utterancesThemeToggle(style)
+  });
+};
+
+/**
+ * Set utterances theme on site theme change
+ */
+const utterancesThemeToggle = style => {
+  const theme = style === "light" ? "github-light" : "photon-dark";
+
+  if (document.querySelector("iframe.utterances-frame")) {
     const message = {
-      type: 'set-theme',
-      theme: theme
+      type: "set-theme",
+      theme,
     };
-    const iframe = document.querySelector('.utterances-frame');
-    iframe.contentWindow.postMessage(message, 'https://utteranc.es');
+
+    const utterances = document.querySelector("iframe.utterances-frame");
+    utterances.contentWindow.postMessage(message, "https://utteranc.es");
   }
 };
 
@@ -195,8 +212,10 @@ const loadPhotoswipe = () => {
   if (cookie.get("lighttheme") === "1") {
     document.querySelector('[data-dark-style]').disabled = true;
     setDataTheme("light");
+    utterancesThemeInit("light");
   } else {
     setDataTheme("dark");
+    utterancesThemeInit("dark");
   }
 
   themeToggle(cookie);
@@ -204,16 +223,4 @@ const loadPhotoswipe = () => {
   addAnchors();
   toggleNavbarMobile();
   loadPhotoswipe();
-
-  addEventListener('message', event => {
-    if (event.origin !== 'https://utteranc.es') {
-      return;
-    }
-    const message = {
-      type: 'set-theme',
-      theme: 'github-dark'
-    };
-    const utterances = document.querySelector('iframe').contentWindow; // try event.source instead
-    utterances.postMessage(message, 'https://utteranc.es');
-  });
 })();

@@ -47,9 +47,6 @@ kramdown:
       line_numbers: true
       start_line: 1
 
-sass:
-  style: compressed
-
 relative_links:
   enabled:     true
   collections: true

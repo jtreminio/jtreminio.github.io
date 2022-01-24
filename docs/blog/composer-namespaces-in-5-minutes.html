@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Juan Treminio - Dallas based senior web developer">
+  <meta name="keywords" content="">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Composer Namespaces in 5 Minutes - Juan Treminio - Senior Web Developer Blog">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:description" content="You’ve heard of Composer, right? The nifty new tool for
+PHP that aims to centralize and streamline package management?
+
+">
+      
+      
+  <meta property="article:tag" content="webdev">
+      
+  <meta property="article:tag" content="tutorial">
+      
+  <meta property="article:tag" content="server">
+      
+  <meta property="article:tag" content="php">
+      
+  <meta property="article:tag" content="composer">
+      
+    
+  <meta property="og:url" content="https://jtreminio.com/blog/composer-namespaces-in-5-minutes">
+  <meta property="og:site_name" content="Juan Treminio - Senior Web Developer Blog">
+
+  <title>Composer Namespaces in 5 Minutes - Juan Treminio - Senior Web Developer Blog</title>
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" type="image/png" href="/static/favicon/favicon.ico" />
+  <link rel="shortcut icon" type="image/png" href="/static/favicon/favicon-96x96.png" sizes="96x96" />
+  <link rel="shortcut icon" type="image/png" href="/static/favicon/favicon-32x32.png" sizes="32x32" />
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://jtreminio.com/blog/composer-namespaces-in-5-minutes">
+
+  <!-- Bootstrap Core CSS -->
+  <link href="//cdn.jsdelivr.net/npm/bootstrap-no-fonts-no-js@3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="//cdnjs.cloudflare.com/ajax/libs/startbootstrap-clean-blog/3.3.7/css/clean-blog.min.css" rel="stylesheet" type="text/css" />
+
+  <!-- Custom Fonts -->
+  <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+  <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
+  <script src="//cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/static/css/rouge.css" />
+  <link rel="stylesheet" href="/static/css/custom.css?1642983746" />
+  <link rel="stylesheet" href="/static/css/dark.css?1642983746" data-style="dark" />
+</head>
+
+<body>
+  <!-- Navigation -->
+<nav class="navbar navbar-default navbar-expand-md navbar-custom navbar-fixed-top is-fixed is-visible">
+  <div class="container-fluid">
+    <div class="navbar-header page-scroll">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand hidden-xs hidden-sm" href="/">Juan Treminio - Senior Web Developer Blog</a>
+      <a class="navbar-brand visible-xs visible-sm" href="/">Juan Treminio - Developer Blog</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar-collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/">Blog</a></li>
+        
+          
+        
+          
+        <li><a href="/about">About</a></li>
+          
+        
+          
+        
+          
+        <li><a href="/hire-me">Hire Me</a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <li>
+          <a class="btn theme-toggle">
+            <span class="theme-dark"><i data-feather="moon"></i> Dark Theme</span>
+            <span class="theme-light"><i data-feather="sun"></i> Light Theme</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <!-- Post Header -->
+<header class="intro-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-heading">
+          <h1>Composer Namespaces in 5 Minutes</h1>
+          <h2 class="subheading">The best thing in recent years</h2>
+          <span class="meta">Posted on Oct 02, 2012
+<br />
+<i class="feather icon-tag"></i>Tags
+
+<a href="/tags#webdev">webdev</a>,
+
+<a href="/tags#tutorial">tutorial</a>,
+
+<a href="/tags#server">server</a>,
+
+<a href="/tags#php">php</a>,
+
+<a href="/tags#composer">composer</a>
+
+</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+<!-- Post Content -->
+<article>
+  <div class="container">
+    <div class="row">
+      <div class="post col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <p>You’ve heard of <a href="http://getcomposer.org/">Composer</a>, right? The nifty new tool for
+PHP that aims to centralize and streamline package management?</p>
+
+<p>Do you also know of, but don’t really understand how namespaces work in PHP?</p>
+
+<p>Then let’s set you straight! In 5 minutes you’ll learn how Composer’s autoloader and
+namespaces work!</p>
+
+<p>Ready? Go!</p>
+
+<h2 id="setup-composer-and-download-packages">Setup Composer and Download Packages</h2>
+
+<p>Download composer to your server:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nv">$ </span>curl <span class="nt">-s</span> https://getcomposer.org/installer | php
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Create a simple <code class="language-plaintext highlighter-rouge">composer.json</code> file and add some packages to it. Packages can be
+found at <a href="http://packagist.org/">packagist.org</a>:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="p">{</span><span class="w">
+    </span><span class="nl">"require"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"symfony/validator"</span><span class="p">:</span><span class="w">         </span><span class="s2">"2.1.*"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"doctrine/dbal"</span><span class="p">:</span><span class="w">             </span><span class="s2">"2.2.*"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"monolog/monolog"</span><span class="p">:</span><span class="w">           </span><span class="s2">"dev-master"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"jtreminio/test-extensions"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dev-master"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"minimum-stability"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dev"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Run install, which will make composer setup initial environment and download
+requested packages:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nv">$ </span>./composer.phar <span class="nb">install</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="whats-been-created">What’s Been Created</h2>
+
+<p>You’ll now have a <code class="language-plaintext highlighter-rouge">composer.json</code>, <code class="language-plaintext highlighter-rouge">composer.lock</code> and <code class="language-plaintext highlighter-rouge">composer.phar</code> file, as well
+as a <code class="language-plaintext highlighter-rouge">vendor</code> folder which contains:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre>vendor/composer
+vendor/jtreminio
+vendor/symfony
+vendor/autoload.php
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">vendor/autoload.php</code> file is basically a fake loader (it calls
+<code class="language-plaintext highlighter-rouge">vendor/composer/autoload_real.php</code> – that’s about as fake as you can get!). Ignore
+it.</p>
+
+<p>Inside <code class="language-plaintext highlighter-rouge">vendor/bin</code> is the PHPUnit bin (YOU’RE TESTING, RIGHT???). They were created
+by the <code class="language-plaintext highlighter-rouge">phpunit/PHPUnit</code> package that the <code class="language-plaintext highlighter-rouge">jtreminio/test-extensions</code> package
+requires. Ignore it.</p>
+
+<h2 id="the-autoload_namespacesphp-file">The autoload_namespaces.php file</h2>
+
+<p>Now, open up <code class="language-plaintext highlighter-rouge">vendor/composer/autoload_namespaces.php</code> and you’ll see:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre><span class="cp">&lt;?php</span>
+<span class="c1">// ...</span>
+
+    <span class="k">return</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">'jtreminio\\TestExtensions'</span>     <span class="o">=&gt;</span> <span class="nv">$vendorDir</span> <span class="mf">.</span> <span class="s1">'/jtreminio/test-extensions/src/'</span><span class="p">,</span>
+        <span class="s1">'Symfony\\Component\\Validator'</span> <span class="o">=&gt;</span> <span class="nv">$vendorDir</span> <span class="mf">.</span> <span class="s1">'/symfony/validator/'</span><span class="p">,</span>
+        <span class="s1">'Symfony\\Component\\Finder\\'</span>  <span class="o">=&gt;</span> <span class="nv">$vendorDir</span> <span class="mf">.</span> <span class="s1">'/symfony/finder/'</span><span class="p">,</span>
+        <span class="s1">'Monolog'</span>                       <span class="o">=&gt;</span> <span class="nv">$vendorDir</span> <span class="mf">.</span> <span class="s1">'/monolog/monolog/src/'</span><span class="p">,</span>
+        <span class="s1">'Doctrine\\DBAL'</span>                <span class="o">=&gt;</span> <span class="nv">$vendorDir</span> <span class="mf">.</span> <span class="s1">'/doctrine/dbal/lib/'</span><span class="p">,</span>
+        <span class="s1">'Doctrine\\Common'</span>              <span class="o">=&gt;</span> <span class="nv">$vendorDir</span> <span class="mf">.</span> <span class="s1">'/doctrine/common/lib/'</span><span class="p">,</span>
+    <span class="p">);</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>These are your available namespaces. For all intents and purposes these are the
+namespaces your application can use (if this is the only autoloader you’re using).
+If the namespace is not listed in here, you can’t autoload that class.</p>
+
+<p>The double backslash is for escaping purposes – composer inserts double backspaces
+so it won’t escape an apostrophe. It can manually be changed to a single backspace,
+but Don’t Do That. Never edit any files inside the vendor folder.</p>
+
+<p>If you remove or add any namespaces manually, the next time you run
+<code class="language-plaintext highlighter-rouge">./composer.phar update</code> all your changes will be thrown out the window. These
+namespaces are set via the <code class="language-plaintext highlighter-rouge">composer.json</code> file. You can also define custom
+namespaces, which I will show you at the end of this article.</p>
+
+<h2 id="hurry-it-up">Hurry it up!</h2>
+
+<p>Ok it’s been, what, 3 minutes? I guess I only have 2 minutes to explain namespaces now!</p>
+
+<p>Here it is: your app’s <code class="language-plaintext highlighter-rouge">index.php</code> file (or whatever) needs to require the
+<code class="language-plaintext highlighter-rouge">vendor/autoload.php</code> file:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="cp">&lt;?php</span>
+<span class="c1">// ...</span>
+
+<span class="k">require_once</span> <span class="k">__DIR__</span><span class="mf">.</span><span class="s1">'/vendor/autoload.php'</span><span class="p">;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>And now you can call any namespace identified by composer!</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="cp">&lt;?php</span>
+<span class="c1">// ...</span>
+
+<span class="nv">$foo</span> <span class="o">=</span> <span class="k">new</span> <span class="err">\</span><span class="nf">Monolog\Logger</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">);</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="1-minute-30-seconds">1 minute 30 seconds!</h2>
+
+<p>What’s the magic?</p>
+
+<p>In <code class="language-plaintext highlighter-rouge">vendor/composer/autoload_namespaces.php</code>:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre><span class="cp">&lt;?php</span>
+<span class="c1">// ...</span>
+
+<span class="k">return</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">'jtreminio\\TestExtensions'</span>     <span class="o">=&gt;</span> <span class="nv">$vendorDir</span> <span class="mf">.</span> <span class="s1">'/jtreminio/test-extensions/src/'</span><span class="p">,</span>
+    <span class="s1">'Symfony\\Component\\Validator'</span> <span class="o">=&gt;</span> <span class="nv">$vendorDir</span> <span class="mf">.</span> <span class="s1">'/symfony/validator/'</span><span class="p">,</span>
+    <span class="s1">'Symfony\\Component\\Finder\\'</span>  <span class="o">=&gt;</span> <span class="nv">$vendorDir</span> <span class="mf">.</span> <span class="s1">'/symfony/finder/'</span><span class="p">,</span>
+    <span class="s1">'Monolog'</span>                       <span class="o">=&gt;</span> <span class="nv">$vendorDir</span> <span class="mf">.</span> <span class="s1">'/monolog/monolog/src/'</span><span class="p">,</span>
+    <span class="s1">'Doctrine\\DBAL'</span>                <span class="o">=&gt;</span> <span class="nv">$vendorDir</span> <span class="mf">.</span> <span class="s1">'/doctrine/dbal/lib/'</span><span class="p">,</span>
+    <span class="s1">'Doctrine\\Common'</span>              <span class="o">=&gt;</span> <span class="nv">$vendorDir</span> <span class="mf">.</span> <span class="s1">'/doctrine/common/lib/'</span><span class="p">,</span>
+<span class="p">);</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Looking at this specific line: <code class="language-plaintext highlighter-rouge">'Monolog' =&gt; $vendorDir . '/monolog/monolog/src/',</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">Monolog</code> is the namespace, and <code class="language-plaintext highlighter-rouge">$vendorDir . '/monolog/monolog/src/'</code> is where this
+namespace can be found. All a namespace is in this instance is a folder name. Check
+your folder directory. The <code class="language-plaintext highlighter-rouge">Logger()</code> class is found in
+<code class="language-plaintext highlighter-rouge">vendor/monolog/monolog/src/Monolog/Logger.php</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">vendor/monolog/monolog/src/</code> is the path to the namespace, <code class="language-plaintext highlighter-rouge">Monolog</code> is the base
+namespace, and <code class="language-plaintext highlighter-rouge">Logger.php</code> contains the Logger class.</p>
+
+<p>What about the other namespaces?</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre><span class="cp">&lt;?php</span>
+<span class="c1">// \TestExtensions\TestExtensions</span>
+
+<span class="c1">// PHP Code</span>
+<span class="nv">$bar</span> <span class="o">=</span> <span class="k">new</span> <span class="err">\</span><span class="nf">jtreminio\TestExtensions\TestExtensions</span><span class="p">();</span>
+
+<span class="c1">// Namespace Identifier</span>
+<span class="s1">'jtreminio\\TestExtensions'</span> <span class="o">=&gt;</span> <span class="nv">$vendorDir</span> <span class="mf">.</span> <span class="s1">'/jtreminio/test-extensions/src/'</span><span class="p">,</span>
+
+<span class="c1">// Maps to</span>
+<span class="n">vendor</span><span class="o">/</span><span class="n">jtreminio</span><span class="o">/</span><span class="n">test</span><span class="o">-</span><span class="n">extensions</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">jtreminio</span><span class="o">/</span><span class="nc">TestExtensions</span><span class="o">/</span><span class="nc">TestExtensions</span><span class="mf">.</span><span class="n">php</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre><span class="cp">&lt;?php</span>
+<span class="c1">// \Symfony\Component\Validator</span>
+
+<span class="c1">// PHP Code</span>
+<span class="nv">$baz</span> <span class="o">=</span> <span class="k">new</span> <span class="err">\</span><span class="nf">Symfony\Component\Validator\Validator</span><span class="p">();</span>
+
+<span class="c1">// Namespace Identifier</span>
+<span class="s1">'Symfony\\Component\\Validator'</span> <span class="o">=&gt;</span> <span class="nv">$vendorDir</span> <span class="mf">.</span> <span class="s1">'/symfony/validator/'</span><span class="p">,</span>
+
+<span class="c1">// Maps to</span>
+<span class="n">vendor</span><span class="o">/</span><span class="n">symfony</span><span class="o">/</span><span class="n">validator</span><span class="o">/</span><span class="nc">Symfony</span><span class="o">/</span><span class="nc">Component</span><span class="o">/</span><span class="nc">Validator</span><span class="o">/</span><span class="nc">Validator</span><span class="mf">.</span><span class="n">php</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Holy shit this is simple</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre><span class="cp">&lt;?php</span>
+<span class="c1">// \Symfony\Component\Finder</span>
+
+<span class="c1">// PHP Code</span>
+<span class="nv">$qux</span> <span class="o">=</span> <span class="k">new</span> <span class="err">\</span><span class="nf">Symfony\Component\Finder\Finder</span><span class="p">();</span>
+
+<span class="c1">// Namespace Identifier</span>
+<span class="s1">'Symfony\\Component\\Finder\\'</span> <span class="o">=&gt;</span> <span class="nv">$vendorDir</span> <span class="mf">.</span> <span class="s1">'/symfony/finder/'</span><span class="p">,</span>
+
+<span class="c1">// Maps to</span>
+<span class="n">vendor</span><span class="o">/</span><span class="n">symfony</span><span class="o">/</span><span class="n">finder</span><span class="o">/</span><span class="nc">Symfony</span><span class="o">/</span><span class="nc">Component</span><span class="o">/</span><span class="nc">Finder</span><span class="mf">.</span><span class="n">php</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td><td class="rouge-code"><pre><span class="cp">&lt;?php</span>
+<span class="c1">// \Doctrine\DBAL</span>
+
+<span class="c1">// PHP Code</span>
+<span class="nv">$qwe</span> <span class="o">=</span> <span class="k">new</span> <span class="err">\</span><span class="nf">Doctrine\DBAL\Connection</span><span class="p">();</span>
+
+<span class="c1">// Namespace Identifier</span>
+<span class="s1">'Doctrine\\DBAL'</span> <span class="o">=&gt;</span> <span class="nv">$vendorDir</span> <span class="mf">.</span> <span class="s1">'/doctrine/dbal/lib/'</span><span class="p">,</span>
+
+<span class="c1">// Maps to</span>
+<span class="n">vendor</span><span class="o">/</span><span class="n">doctrine</span><span class="o">/</span><span class="n">dbal</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="nc">Doctrine</span><span class="o">/</span><span class="no">DBAL</span><span class="o">/</span><span class="nc">Connection</span><span class="mf">.</span><span class="n">php</span>
+
+<span class="c1">// * Won’t actually run because classes are either abstract</span>
+<span class="c1">//   or require constructor arguments.</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Got it? Good! Because that’s 5 minutes.</p>
+
+<h2 id="bonus-round-custom-namespaces">Bonus Round: Custom Namespaces</h2>
+
+<p>So you’ve been contracted to write the next Facebook for ponies? You’re getting 10%
+of all future profit?! JAWESOME!</p>
+
+<p>It needs a name! Let’s call it … <code class="language-plaintext highlighter-rouge">Brony</code>. Just roll with it.</p>
+
+<p>Your app’s namespace should be <code class="language-plaintext highlighter-rouge">Brony</code>. It’s safe to use because I swear to God no
+one has had the guts to name their application <code class="language-plaintext highlighter-rouge">Brony</code> before you.</p>
+
+<p>Open up the <code class="language-plaintext highlighter-rouge">composer.json</code> file and make it look like this:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre></td><td class="rouge-code"><pre><span class="p">{</span><span class="w">
+    </span><span class="nl">"require"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"symfony/validator"</span><span class="p">:</span><span class="w">         </span><span class="s2">"2.1.*"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"doctrine/dbal"</span><span class="p">:</span><span class="w">             </span><span class="s2">"2.2.*"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"monolog/monolog"</span><span class="p">:</span><span class="w">           </span><span class="s2">"dev-master"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"jtreminio/test-extensions"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dev-master"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"minimum-stability"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dev"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"autoload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"psr-0"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"Brony"</span><span class="p">:</span><span class="w">        </span><span class="s2">"src/"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"Brony\\Tests"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tests/"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Run <code class="language-plaintext highlighter-rouge">./composer.phar update</code> and checkout <code class="language-plaintext highlighter-rouge">vendor/composer/autoload_namespaces.php</code>.
+You should see these two lines somewhere in that array:</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="cp">&lt;?php</span>
+<span class="c1">// ...</span>
+
+    <span class="s1">'Brony\\Tests'</span> <span class="o">=&gt;</span> <span class="nv">$baseDir</span> <span class="mf">.</span> <span class="s1">'/tests/'</span><span class="p">,</span>
+    <span class="s1">'Brony'</span>        <span class="o">=&gt;</span> <span class="nv">$baseDir</span> <span class="mf">.</span> <span class="s1">'/src/'</span><span class="p">,</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>That’s it, brother. Your own custom namespace about emotionally disturbed ponies.
+Your final application structure
+would look like this:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre>/src/     // The <span class="s2">"Brony"</span> namespace
+/vendor/  // Contains all composer packages
+/tests/   // The <span class="s2">"Brony/Tests"</span> namespace
+index.php // Calls the autoloader
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Have fun out there!</p>
+
+
+        <hr class="invisible">
+
+        <ul class="pager">
+          
+          <li class="previous">
+            <a href="/blog/xdebug-and-you-why-you-should-be-using-a-real-debugger" data-toggle="tooltip"
+               data-placement="top" title="Xdebug and You: Why You Should be Using a Real Debugger">
+              Previous &rarr;<br>
+              <span>Xdebug and You: Why You Should be Using a Real Debugger</span>
+            </a>
+          </li>
+          
+          
+          <li class="next">
+            <a href="/blog/an-introduction-to-pimple-and-service-containers" data-toggle="tooltip"
+               data-placement="top" title="An introduction to Pimple and Service Containers">
+              &larr; Next<br>
+              <span>An introduction to Pimple and Service Containers</span>
+            </a>
+          </li>
+          
+        </ul>
+
+        <hr class="invisible">
+
+        
+      </div>
+    </div>
+  </div>
+</article>
+
+  <!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-icons">
+          <li><a href="mailto:jtreminio@gmail.com"><i data-feather="mail"></i></a></li>
+          
+          <li>
+            <a href="https://github.com/jtreminio" target="_blank">
+              <i data-feather="github"></i>
+            </a>
+          </li>
+          
+          <li>
+            <a href="https://twitter.com/juantreminio" target="_blank">
+              <i data-feather="twitter"></i>
+            </a>
+          </li>
+          
+          <li>
+            <a href="https://www.linkedin.com/in/jtreminio-1" target="_blank">
+              <i data-feather="linkedin"></i>
+            </a>
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  <link href="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" rel="stylesheet" type="text/css" />
+<link href="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" rel="stylesheet" type="text/css" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+  <!-- Background of PhotoSwipe.
+       It's a separate element, as animating opacity is faster than rgba(). -->
+  <div class="pswp__bg"></div>
+  <!-- Slides wrapper with overflow:hidden. -->
+  <div class="pswp__scroll-wrap">
+    <!-- Container that holds slides.
+      PhotoSwipe keeps only 3 of them in DOM to save memory.
+      Don't modify these 3 pswp__item elements, data is added later on. -->
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+    <div class="pswp__ui pswp__ui--hidden">
+      <div class="pswp__top-bar">
+        <!--  Controls are self-explanatory. Order can be changed. -->
+        <div class="pswp__counter"></div>
+        <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+        <button class="pswp__button pswp__button--share" title="Share"></button>
+        <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+        <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+        <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+        <!-- element will get class pswp__preloader--active when preloader is running -->
+        <div class="pswp__preloader">
+          <div class="pswp__preloader__icn">
+            <div class="pswp__preloader__cut">
+              <div class="pswp__preloader__donut"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+        <div class="pswp__share-tooltip"></div>
+      </div>
+      <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+      </button>
+      <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+      </button>
+      <div class="pswp__caption">
+        <div class="pswp__caption__center"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+<script src="/static/js/custom.js?1642983746"></script>
+</html>

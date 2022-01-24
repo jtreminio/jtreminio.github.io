@@ -1,0 +1,274 @@
+body {
+  background-color: #26262B;
+  color: #e9e3d5;
+}
+
+::-webkit-scrollbar {
+  background-color: #25252a;
+  color: #ccc0ac;
+}
+
+::-webkit-scrollbar-corner {
+  background-color: #212127;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #303339;
+}
+
+a, body {
+  color: #d9d1bf;
+}
+
+a:focus,
+a:hover {
+  color: #7cdcec;
+}
+
+blockquote {
+  border-left-color: #403f3d;
+  color: #c5b7a1;
+}
+
+hr {
+  border-top-color: #403f3d;
+}
+
+hr.small {
+  border-color: #6c6b68;
+}
+
+.btn-info {
+  color: #fbf7f1;
+  background-color: #204066;
+  border-color: #336285;
+}
+
+.navbar-custom {
+  background-color: #486281 !important;
+}
+
+.navbar-custom.is-fixed {
+  background-color: rgba(33, 33, 39, 0.9) !important;
+  border-bottom-color: #403f3d !important;
+}
+
+.navbar-custom.is-fixed .navbar-brand,
+.navbar-custom.is-fixed .nav li a,
+.post-preview > a,
+.post-preview > .post-meta > a {
+  color: #d9d1bf;
+}
+
+.navbar-custom.is-fixed .navbar-brand:focus,
+.navbar-custom.is-fixed .navbar-brand:hover,
+.navbar-custom.is-fixed .nav li a:focus,
+.navbar-custom.is-fixed .nav li a:hover,
+.post-preview > .post-meta > a:focus,
+.post-preview > .post-meta > a:hover {
+  color: #7cdcec;
+}
+
+.navbar-custom .navbar-brand,
+.navbar-custom .nav li a,
+.intro-header .page-heading,
+.intro-header .post-heading,
+.intro-header .post-heading .meta a,
+.intro-header .site-heading {
+  color: #e9e3d5;
+}
+
+.post-preview > a:focus,
+.post-preview > a:hover {
+  color: #A0DAE9;
+}
+
+.post-preview > .post-meta,
+.text-muted {
+  color: #c5b7a1;
+}
+
+table {
+  border-color: #545351;
+}
+
+.table > thead > tr > th {
+  border-bottom-color: #434241;
+}
+
+.table-striped > tbody > tr:nth-of-type(2n+1) {
+  background-color: #28282D;
+}
+
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+  border-top-color: #434241;
+}
+
+.img-thumbnail {
+  background-color: #212127;
+  border-color: #434241;
+}
+
+div.highlight {
+  background-color: #24242a;
+}
+
+.notices.yellow {
+  background-color: #382b18;
+  border-left-color: #a46e21;
+  color: #e6ad5d;
+}
+
+.notices.red {
+  background-color: #341817;
+  border-left-color: #8c312c;
+  color: #d67e78;
+}
+
+.notices.blue {
+  background-color: #1f2a30;
+  border-left-color: #30788b;
+  color: #7ac0d2;
+}
+
+.notices.green {
+  background-color: #20321e;
+  border-left-color: #41763e;
+  color: #a0cb98;
+}
+
+.theme-toggle {
+  background-color: #204066;
+  border-color: #336285;
+}
+
+.theme-toggle .theme-light {
+  display: none;
+}
+
+.theme-toggle .theme-dark {
+  display: block;
+}
+
+.pager li > a,
+.pager li > span {
+  background-color: #26262B;
+  text-decoration: none !important;
+}
+
+.pager li > a:focus,
+.pager li > a:hover {
+  background-color: #486281 !important;
+}
+
+pre {
+  background-color: #232329 !important;
+}
+
+code {
+  background-color: #311f23;
+  color: #d77287;
+}
+
+div.highlighter-rouge {
+  border-color: #464543;
+}
+
+.highlight .err {
+  color: #151515;
+  background-color: #ac4142;
+}
+
+.highlight .c, .highlight .cd, .highlight .cm, .highlight .c1, .highlight .cs {
+  color: #888;
+}
+
+.highlight .cp {
+  color: #f4bf75;
+}
+
+.highlight .nt {
+  color: #f4bf75;
+}
+
+.highlight .o, .highlight .ow {
+  color: #d0d0d0;
+}
+
+.highlight .p, .highlight .pi {
+  color: #d0d0d0;
+}
+
+.highlight .gi {
+  color: #90a959;
+}
+
+.highlight .gd {
+  color: #ac4142;
+}
+
+.highlight .gh {
+  color: #6a9fb5;
+  font-weight: bold;
+}
+
+.highlight .k, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kv {
+  color: #aa759f;
+}
+
+.highlight .kc {
+  color: #d28445;
+}
+
+.highlight .kt {
+  color: #d28445;
+}
+
+.highlight .kd {
+  color: #d28445;
+}
+
+.highlight .s, .highlight .sb, .highlight .sc, .highlight .sd, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .s1 {
+  color: #90a959;
+}
+
+.highlight .sr {
+  color: #75b5aa;
+}
+
+.highlight .si {
+  color: #8f5536;
+}
+
+.highlight .se {
+  color: #8f5536;
+}
+
+.highlight .nn {
+  color: #f4bf75;
+}
+
+.highlight .nc {
+  color: #f4bf75;
+}
+
+.highlight .no {
+  color: #f4bf75;
+}
+
+.highlight .na {
+  color: #6a9fb5;
+}
+
+.highlight .m, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mb, .highlight .mx {
+  color: #90a959;
+}
+
+.highlight .ss {
+  color: #90a959;
+}

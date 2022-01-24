@@ -44,13 +44,30 @@ const themeToggle = (cookie) => {
 
     if (dark.disabled) {
       cookie.set("lighttheme", 0, 30);
+      utterancesThemeToggle("photon-dark");
       dark.disabled = false;
 
       return;
     }
 
     cookie.set("lighttheme", 1, 30);
+    utterancesThemeToggle("github-light");
     dark.disabled = true;
+  });
+};
+
+const utterancesThemeToggle = theme => {
+  // wait for utterances to load and send it's first message.
+  addEventListener('message', event => {
+    if (event.origin !== 'https://utteranc.es') {
+      return;
+    }
+    const message = {
+      type: 'set-theme',
+      theme: theme,
+    };
+    const utterances = document.querySelector('iframe').contentWindow;
+    utterances.postMessage(message, 'https://utteranc.es');
   });
 };
 

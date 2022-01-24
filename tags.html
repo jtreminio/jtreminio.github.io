@@ -1,0 +1,33 @@
+---
+layout: page
+title: Tags
+description: "All Tags"
+hide-in-nav: true
+---
+
+{% assign tags = '' | split: '' %}
+
+{% for tag in site.tags %}
+  {% assign tagName = tag | first | split: ' ' %}
+  {% assign tags = tags | concat: tagName %}
+{% endfor %}
+
+{% assign tags = tags | sort %}
+
+<ul class="list-inline">
+  {% for tag in tags %}
+  <li><a href="#{{ tag }}" class="label label-default">{{ tag }}</a></li>
+  {% endfor %}
+</ul>
+
+{% for tag in tags %}
+<div>
+  <h2 id="{{ tag | slugify }}" class="post-title">{{ tag }}</h2>
+  <ul class="tags-expo-posts">
+    {% for post in site.tags[tag] %}
+    <li><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></li>
+    {% endfor %}
+  </ul>
+  <hr>
+</div>
+{% endfor %}

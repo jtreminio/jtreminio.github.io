@@ -1,0 +1,47 @@
+---
+layout: default
+---
+
+{% include post-header.html %}
+
+<!-- Post Content -->
+<article>
+  <div class="container">
+    <div class="row">
+      <div class="post col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        {{ content }}
+
+        <hr class="invisible">
+
+        <ul class="pager">
+          {% if page.previous.url %}
+          <li class="previous">
+            <a href="{{ page.previous.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip"
+               data-placement="top" title="{{page.previous.title}}">
+              Previous &rarr;<br>
+              <span>{{page.previous.title}}</span>
+            </a>
+          </li>
+          {% endif %}
+          {% if page.next.url %}
+          <li class="next">
+            <a href="{{ page.next.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip"
+               data-placement="top" title="{{page.next.title}}">
+              &larr; Next<br>
+              <span>{{page.next.title}}</span>
+            </a>
+          </li>
+          {% endif %}
+        </ul>
+
+        <hr class="invisible">
+
+        {% if site.disqus_username %}
+        <div class="comment">
+          <div id="disqus_thread" class="disqus-thread"></div>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</article>

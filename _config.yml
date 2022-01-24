@@ -1,0 +1,56 @@
+title: "Juan Treminio - Senior Web Developer Blog"
+shortTitle: "Juan Treminio - Developer Blog"
+SEOTitle: "Juan Treminio - Senior Web Developer Blog"
+email: jtreminio@gmail.com
+description: "Juan Treminio - Dallas based senior web developer"
+keyword: ""
+url: "https://jtreminio.com"
+baseurl: ""
+
+# Publish posts or collection documents with a future date.
+future: true
+
+RSS: false
+social:
+  - 
+    title: github
+    url: https://github.com/jtreminio
+  - 
+    title: twitter
+    url: https://twitter.com/juantreminio
+  - 
+    title: linkedin
+    url: https://www.linkedin.com/in/jtreminio-1
+
+# Build settings
+highlighter: rouge
+permalink: /:categories/:title
+paginate: 100
+exclude: ["README.md", "nonversioned"]
+timezone: America/Chicago
+
+# Gems
+plugins:
+  - jekyll-paginate
+  - jekyll-redirect-from
+  - jekyll-relative-links
+
+whitelist:
+  - jekyll-paginate
+  - jekyll-redirect-from
+  - jekyll-relative-links
+
+  # Markdown settings
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter_opts:
+    span:
+      line_numbers: false
+    block:
+      line_numbers: true
+      start_line: 1
+
+relative_links:
+  enabled:     true
+  collections: true

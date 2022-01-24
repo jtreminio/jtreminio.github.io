@@ -1,0 +1,9 @@
+/themes
+
+/public/*
+!/public/.gitkeep
+
+/resources/*
+!/resources/.gitkeep
+.jekyll-cache
+_site

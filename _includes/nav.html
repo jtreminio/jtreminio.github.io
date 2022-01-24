@@ -1,0 +1,32 @@
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-expand-md navbar-custom navbar-fixed-top is-fixed is-visible">
+  <div class="container-fluid">
+    <div class="navbar-header page-scroll">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand hidden-xs hidden-sm" href="{{ site.baseurl }}/">{{ site.title }}</a>
+      <a class="navbar-brand visible-xs visible-sm" href="{{ site.baseurl }}/">{{ site.shortTitle }}</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar-collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="{{ site.baseurl }}/">Blog</a></li>
+        {% for page in site.pages %}
+          {% if page.title and page.hide-in-nav != true %}
+        <li><a href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a></li>
+          {% endif %}
+        {% endfor %}
+        <li>
+          <a class="btn theme-toggle">
+            <span class="theme-dark"><i data-feather="moon"></i> Dark Theme</span>
+            <span class="theme-light"><i data-feather="sun"></i> Light Theme</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

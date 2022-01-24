@@ -1,0 +1,19 @@
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-icons">
+          <li><a href="mailto:{{ site.email }}"><i data-feather="mail"></i></a></li>
+          {% for social in site.social %}
+          <li>
+            <a href="{{ social.url }}" target="_blank">
+              <i data-feather="{{ social.title }}"></i>
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>

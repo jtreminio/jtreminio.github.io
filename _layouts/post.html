@@ -37,13 +37,14 @@ layout: default
         <hr class="invisible">
 
         <div class="comment">
+          {% if page.gh_comment_id and site.environment != "dev" %}
           <script src="//utteranc.es/client.js"
                   repo="jtreminio/jtreminio.github.io"
                   issue-number="{{ page.gh_comment_id }}"
-                  theme="photon-dark"
+                  theme="github-light"
                   crossorigin="anonymous"
-                  async disabled>
-          </script>
+                  async></script>
+          {% endif %}
         </div>
       </div>
     </div>

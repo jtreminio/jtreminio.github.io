@@ -215,7 +215,8 @@ const loadPhotoswipe = () => {
     utterancesThemeInit("light");
   } else {
     setDataTheme("dark");
-    utterancesThemeInit("dark");
+    // Utterances starts off in dark mode, no need to toggle
+    // utterancesThemeInit("dark");
   }
 
   themeToggle(cookie);

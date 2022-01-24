@@ -24,7 +24,7 @@ social:
 
 # Build settings
 highlighter: rouge
-permalink: /:categories/:title
+permalink: /:categories/:title/
 paginate: 100
 exclude: ["README.md", "nonversioned"]
 timezone: America/Chicago

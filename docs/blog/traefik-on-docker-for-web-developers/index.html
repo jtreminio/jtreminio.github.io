@@ -1,0 +1,197 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="utf-8"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"> <meta name="description" content="Juan Treminio - Dallas based senior web developer"> <meta name="keywords" content=""> <meta property="og:title" content="Traefik on Docker for Web Developers - Juan Treminio - Senior Web Developer Blog"> <meta property="og:type" content="article"> <meta property="og:description" content="Over the last 5+ years I have done all my development on local virtual machines managed by Vagrant and provisioned by Puppet. I even created a fairly well-received FOSS called PuPHPet. "> <meta property="article:tag" content="webdev"> <meta property="article:tag" content="docker"> <meta property="article:tag" content="lets-encrypt"> <meta property="og:url" content="https://jtreminio.com/blog/traefik-on-docker-for-web-developers/"> <meta property="og:site_name" content="Juan Treminio - Senior Web Developer Blog"> <title>Traefik on Docker for Web Developers - Juan Treminio - Senior Web Developer Blog</title> <link rel="shortcut icon" type="image/png" href="/static/favicon/favicon.ico"/> <link rel="shortcut icon" type="image/png" href="/static/favicon/favicon-96x96.png" sizes="96x96"/> <link rel="shortcut icon" type="image/png" href="/static/favicon/favicon-32x32.png" sizes="32x32"/> <link rel="canonical" href="https://jtreminio.com/blog/traefik-on-docker-for-web-developers/"> <link href="//cdn.jsdelivr.net/npm/bootstrap-no-fonts-no-js@3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css"/> <link href="//cdnjs.cloudflare.com/ajax/libs/startbootstrap-clean-blog/3.3.7/css/clean-blog.min.css" rel="stylesheet" type="text/css"/> <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css"/> <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css"/> <script src="//cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script> <link rel="stylesheet" href="/static/css/rouge.css"/> <link rel="stylesheet" href="/static/css/custom.css?1643041288"/> <link rel="stylesheet" href="/static/css/dark.css?1643041288" data-dark-style/> </head> <body> <nav class="navbar navbar-default navbar-expand-md navbar-custom navbar-fixed-top is-fixed is-visible"> <div class="container-fluid"> <div class="navbar-header page-scroll"> <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar-collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button> <a class="navbar-brand hidden-xs hidden-sm" href="/">Juan Treminio - Senior Web Developer Blog</a> <a class="navbar-brand visible-xs visible-sm" href="/">Juan Treminio - Developer Blog</a> </div> <div class="collapse navbar-collapse" id="main-navbar-collapse"> <ul class="nav navbar-nav navbar-right"> <li><a href="/">Blog</a></li> <li><a href="/about/">About</a></li> <li><a href="/hire-me/">Hire Me</a></li> <li> <a class="btn theme-toggle"> <span class="theme-dark"><i data-feather="moon"></i> Dark Theme</span> <span class="theme-light"><i data-feather="sun"></i> Light Theme</span> </a> </li> </ul> </div> </div> </nav> <header class="intro-header"> <div class="container"> <div class="row"> <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"> <div class="post-heading"> <h1>Traefik on Docker for Web Developers</h1> <h2 class="subheading">With bonus Let's Encrypt SSL!</h2> <span class="meta">Posted on Jul 31, 2018 <br/> <i class="feather icon-tag"></i>Tags <a href="/tags#webdev">webdev</a>, <a href="/tags#docker">docker</a>, <a href="/tags#lets-encrypt">lets-encrypt</a> </span> </div> </div> </div> </div> </header> <article> <div class="container"> <div class="row"> <div class="post col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"> <p>Over the last 5+ years I have done all my development on local virtual machines managed by Vagrant and provisioned by Puppet. I even created a fairly well-received FOSS called <a href="https://puphpet.com">PuPHPet</a>.</p> <p>At the end of 2017 I started really looking into containers, and as of January started working on what will become <a href="https://puphpet.com">PuPHPet’s</a> successor, <a href="https://dashtainer.com">Dashtainer</a>.</p> <p>While this is not a post on containers in general, or Dashtainer, the thing I will talk about fits in perfectly in the container world and is used heavily in <a href="https://dashtainer.com">Dashtainer</a>.</p> <h2 id="problems-with-docker">Problems with Docker</h2> <p>While Docker is an amazingly useful tool, it does not come without its own set of problems.</p> <p>One of the biggest is what I call <em>Docker port dancing</em>. In Docker, you can bind a port on your host to forward to a container.</p> <p>For example, you can bind port <code class="language-plaintext highlighter-rouge">80</code> on host to port <code class="language-plaintext highlighter-rouge">80</code> on a container, so going to <code class="language-plaintext highlighter-rouge">http://localhost</code> will automatically forward the request to the container. In this way you can bind a webserver (<code class="language-plaintext highlighter-rouge">80</code>), PHP-FPM (<code class="language-plaintext highlighter-rouge">9000</code>) and MySQL (<code class="language-plaintext highlighter-rouge">3306</code>) and very quickly have a complete working environment on your local machine without having to actually install any of those tools, existing only within their containers.</p> <p>If you ever have only a single project, this may be fine, but once you start spinning up more projects you quickly realize the biggest limitation: you cannot bind a port on host multiple times.</p> <p>If port <code class="language-plaintext highlighter-rouge">80</code> is mapped to <code class="language-plaintext highlighter-rouge">web-server-A</code> you must choose another port to bind for <code class="language-plaintext highlighter-rouge">web-server-B</code> and <code class="language-plaintext highlighter-rouge">web-server-C</code>. This can quickly get old because you must remember that <code class="language-plaintext highlighter-rouge">http://localhost</code> goes to <code class="language-plaintext highlighter-rouge">A</code>, <code class="language-plaintext highlighter-rouge">http://localhost:81</code> goes to<code class="language-plaintext highlighter-rouge">B</code> and <code class="language-plaintext highlighter-rouge">http://localhost:82</code> goes to <code class="language-plaintext highlighter-rouge">C</code>. Of course the actual port you bind is completely up to you so you can do <code class="language-plaintext highlighter-rouge">8080</code> or <code class="language-plaintext highlighter-rouge">8000</code> or any unused port on your local machine.</p> <p>On virtual machines this problem does not really occur because you can assign a static IP address to your servers, and bind it to your system’s hosts file (<code class="language-plaintext highlighter-rouge">/etc/hosts</code>). Containers are ephemeral by nature and do not normally get created on your host’s network but rather private networks with their own random IP addresses within special ranges. However, you <em>must</em> edit <code class="language-plaintext highlighter-rouge">/etc/hosts</code> for every VM you spin up and the list grows with the number of projects you handle.</p> <p>Træfik solves both of these problems, first by removing the need to use ports in URLs and second by not needing you to edit <code class="language-plaintext highlighter-rouge">/etc/hosts</code> at all.</p> <h2 id="what-is-træfik">What is Træfik?</h2> <p><a href="https://traefik.io/">Træfik</a> (pronounced <em>traffic</em>, spelled <em>Traefik</em> from now on) is a reverse proxy / load balancer similar to HAProxy or Nginx in reverse proxy mode.</p> <p>Simply put, as a reverse proxy it monitors traffic to specified ports (<code class="language-plaintext highlighter-rouge">80</code>,<code class="language-plaintext highlighter-rouge">443</code>) and routes traffic to the proper endpoint.</p> <p>Traefik includes baked-in support for Docker and you can configure it almost fully through flags, with no need for config files. It supports hot-loading and automatically detects changes to environment. Best of all, it supports Let’s Encrypt right out of the box.</p> <p>Traefik runs as a separate container and this single container can work across any number of separate projects you want. It works by listening to the Docker daemon and reacting to <code class="language-plaintext highlighter-rouge">labels</code> you define for each container.</p> <h2 id="creating-a-traefik-container">Creating a Traefik Container</h2> <p>First create the network Traefik will use:</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>docker network create <span class="nt">--driver</span> bridge traefik_webgateway
+</pre></td></tr></tbody></table></code></pre></div></div> <p>Then create the actual Traefik container:</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre>docker container run <span class="nt">-d</span> <span class="nt">--name</span> traefik_proxy <span class="se">\</span>
+    <span class="nt">--network</span> traefik_webgateway <span class="se">\</span>
+    <span class="nt">-p</span> 80:80 <span class="se">\</span>
+    <span class="nt">-p</span> 8080:8080 <span class="se">\</span>
+    <span class="nt">--restart</span> always <span class="se">\</span>
+    <span class="nt">--volume</span> /var/run/docker.sock:/var/run/docker.sock <span class="se">\</span>
+    <span class="nt">--volume</span> /dev/null:/traefik.toml <span class="se">\</span>
+    traefik <span class="nt">--api</span> <span class="nt">--docker</span>
+</pre></td></tr></tbody></table></code></pre></div></div> <p>With the above we,</p> <ul> <li>tell Traefik to watch to a specific network (<code class="language-plaintext highlighter-rouge">--network traefik_webgateway</code>) for new containers. Any containers attached to this network can be monitored by Traefik.</li> <li>tell Traefik to attach itself to the Docker daemon (<code class="language-plaintext highlighter-rouge">--volume /var/run/docker.sock:/var/run/docker.sock</code>). This is what allows Traefik to listen to the above network and read other containers’ labels.</li> <li>decline the use of a config file (<code class="language-plaintext highlighter-rouge">--volume /dev/null:/traefik.toml</code>) to highlight Traefik’s ability to be completely configured via arguments.</li> <li>bind host’s ports <code class="language-plaintext highlighter-rouge">80</code> and <code class="language-plaintext highlighter-rouge">8080</code> (<code class="language-plaintext highlighter-rouge">-p 80:80</code> and <code class="language-plaintext highlighter-rouge">-p 8080:8080</code>) to Traefik.</li> <li>enable the Traefik GUI dashboard (<code class="language-plaintext highlighter-rouge">--api</code>)</li> </ul> <h2 id="how-traefik-solves-the-port-dance">How Traefik Solves the Port Dance</h2> <p>Traefik can automatically pick up any containers that use the <code class="language-plaintext highlighter-rouge">traefik_webgateway</code> network and reads labels applied.</p> <p>For example, to spin up a new Nginx container you could do something like:</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre>docker run <span class="nt">-d</span> <span class="nt">--name</span> some-nginx <span class="se">\</span>
+    <span class="nt">-v</span> <span class="k">${</span><span class="nv">PWD</span><span class="k">}</span>:/usr/share/nginx/html:ro <span class="se">\</span>
+    <span class="nt">--network</span> traefik_webgateway <span class="se">\</span>
+    <span class="nt">--label</span> traefik.docker.network<span class="o">=</span>traefik_webgateway <span class="se">\</span>
+    <span class="nt">--label</span> traefik.frontend.rule<span class="o">=</span>Host:some-nginx.localhost <span class="se">\</span>
+    <span class="nt">--label</span> traefik.port<span class="o">=</span>80 <span class="se">\</span>
+    nginx:alpine
+</pre></td></tr></tbody></table></code></pre></div></div> <p>Here we tell Traefik that this container’s hostname is <code class="language-plaintext highlighter-rouge">some-nginx.localhost</code> and it receives traffic on port <code class="language-plaintext highlighter-rouge">80</code>.</p> <p>If you open <a href="http://some-nginx.localhost">some-nginx.localhost</a> in Chrome<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup> you should see the Nginx container responding.</p> <p>Using hostnames directly without having to append port numbers to them makes working with Docker containers much easier than having to remember which port goes with which project and which container.</p> <h2 id="traefik-gui">Traefik GUI</h2> <p>Above I mentioned the Traefik GUI dashboard. It listens on port <code class="language-plaintext highlighter-rouge">8080</code> so simply open <a href="http://localhost:8080">localhost:8080</a> and you will see all the containers Traefik is currently monitoring for changes.</p> <h2 id="non-port-80-example">Non-port 80 Example</h2> <p>Some containers do not listen on port 80 by default. This is fine because you can forward any traffic on port <code class="language-plaintext highlighter-rouge">80</code> on the container’s hostname to the specified port.</p> <p>For example, MailHog’s GUI sits on port <code class="language-plaintext highlighter-rouge">8025</code>. You can run it with:</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre>docker run <span class="nt">-d</span> <span class="nt">--name</span> some-mailhog <span class="se">\</span>
+    <span class="nt">--network</span> traefik_webgateway <span class="se">\</span>
+    <span class="nt">--label</span> traefik.docker.network<span class="o">=</span>traefik_webgateway <span class="se">\</span>
+    <span class="nt">--label</span> traefik.frontend.rule<span class="o">=</span>Host:mailhog.localhost <span class="se">\</span>
+    <span class="nt">--label</span> traefik.port<span class="o">=</span>8025 <span class="se">\</span>
+    mailhog/mailhog
+</pre></td></tr></tbody></table></code></pre></div></div> <p>Even though the container listens to <code class="language-plaintext highlighter-rouge">8025</code>, opening <a href="http://mailhog.localhost">mailhog.localhost</a> will automatically forward traffic to the proper port.</p> <p>If you open the Traefik dashboard you will see this new container listed.</p> <p>When you run <code class="language-plaintext highlighter-rouge">docker container rm -f some-mailhog</code> it will automatically be removed.</p> <h2 id="built-in-lets-encrypt-support">Built-in Let’s Encrypt Support</h2> <p>Once you are ready to go live with your website configuring Traefik to automatically request and maintain a valid Let’s Encrypt SSL certificate is fairly easy!</p> <p>There are some extra arguments you must define but nothing too foreign:</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+</pre></td><td class="rouge-code"><pre>docker container run <span class="nt">-d</span> <span class="nt">--name</span> traefik_proxy <span class="se">\</span>
+    <span class="nt">--network</span> traefik_webgateway <span class="se">\</span>
+    <span class="nt">-p</span> 80:80 <span class="se">\</span>
+    <span class="nt">-p</span> 443:443 <span class="se">\</span>
+    <span class="nt">-p</span> 8080:8080 <span class="se">\</span>
+    <span class="nt">--restart</span> always <span class="se">\</span>
+    <span class="nt">--volume</span> /var/run/docker.sock:/var/run/docker.sock <span class="se">\</span>
+    <span class="nt">--volume</span> /dev/null:/traefik.toml <span class="se">\</span>
+    <span class="nt">--volume</span> /root/acme.json:/root/acme.json <span class="se">\</span>
+    traefik <span class="nt">--docker</span> <span class="nt">--logLevel</span><span class="o">=</span>INFO <span class="se">\</span>
+        <span class="nt">--acme</span> <span class="se">\</span>
+        <span class="nt">--acme</span>.acmelogging <span class="se">\</span>
+        <span class="nt">--acme</span>.dnschallenge<span class="o">=</span><span class="nb">false</span> <span class="se">\</span>
+        <span class="nt">--acme</span>.entrypoint<span class="o">=</span><span class="s2">"https"</span> <span class="se">\</span>
+        <span class="nt">--acme</span>.httpchallenge <span class="se">\</span>
+        <span class="nt">--acme</span>.httpChallenge.entryPoint<span class="o">=</span><span class="s2">"http"</span> <span class="se">\</span>
+        <span class="nt">--acme</span>.onhostrule<span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
+        <span class="nt">--acme</span>.storage<span class="o">=</span><span class="s2">"/root/acme.json"</span> <span class="se">\</span>
+        <span class="nt">--acme</span>.email<span class="o">=</span><span class="s2">"your-email-here@example.com"</span> <span class="se">\</span>
+        <span class="nt">--entrypoints</span><span class="o">=</span><span class="s2">"Name:http Address::80 Redirect.EntryPoint:https"</span> <span class="se">\</span>
+        <span class="nt">--entrypoints</span><span class="o">=</span><span class="s2">"Name:https Address::443 TLS"</span> <span class="se">\</span>
+        <span class="nt">--defaultentrypoints</span><span class="o">=</span><span class="s2">"http,https"</span>
+</pre></td></tr></tbody></table></code></pre></div></div> <p>Since we will handle SSL traffic we add <code class="language-plaintext highlighter-rouge">-p 443:443</code> to the ports list, and since this is for a live server we remove the dashboard (<code class="language-plaintext highlighter-rouge">--api</code>).</p> <p>Let’s Encrypt stores its data in files and it requires special permissions before it will work. Unfortunately this is the only thing you cannot do via only CLI arguments. You <strong>must</strong> create this file and set permissions properly before running the above command.</p> <p>Simply do <code class="language-plaintext highlighter-rouge">touch /root/acme.json &amp;&amp; chmod 600 /root/acme.json</code> and you are all set.</p> <p>We redirect all <code class="language-plaintext highlighter-rouge">80</code> traffic to <code class="language-plaintext highlighter-rouge">443</code> to encrypt all traffic (as you should already be doing!). Let’s Encrypt cert is generated after it pings <code class="language-plaintext highlighter-rouge">http://your-website.com/.well-known/acme-challenge</code> to verify ownership.</p> <p>Traefik will take care of keeping all certs up to date.</p> <h2 id="explicitly-disable-traefik-for-non-http-services">Explicitly Disable Traefik for Non-HTTP Services</h2> <p>It seems by default Traefik will attempt to generate a Let’s Encrypt cert for all containers, even if the containers are not on the Traefik network.</p> <p>To prevent Let’s Encrypt errors from breaking your build, you <em>must</em> explicitly disable Traefik on containers that do not need a cert, like a PHP-FPM container.</p> <p>It is easy enough:</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre>docker run <span class="nt">-d</span> <span class="nt">--name</span> php-fpm <span class="se">\</span>
+    <span class="nt">--network</span> private <span class="se">\</span>
+    <span class="nt">--label</span> traefik.enable<span class="o">=</span><span class="nb">false</span> <span class="se">\</span>
+    your-php/image
+</pre></td></tr></tbody></table></code></pre></div></div> <p>The above is not required on dev since you will not be generating SSL certs.</p> <h2 id="limitations">Limitations</h2> <p>Traefik only handles HTTP/HTTPS traffic. It cannot currently handle TCP/UDP.</p> <p>This means any database containers cannot be aliased to a hostname, and you will need to do the port dance on these services.</p> <p>This is an unfortunate limitation, and <a href="https://github.com/containous/traefik/issues/10">the GitHub issue</a> has been open for a while without much movement.</p> <p>This does <em>not</em> mean your services cannot communicate with each other via normal Docker hostnames. For example, a service named <code class="language-plaintext highlighter-rouge">php-fpm</code> on network <code class="language-plaintext highlighter-rouge">foobar</code> can still communicate with a service named <code class="language-plaintext highlighter-rouge">mysql</code> on the same <code class="language-plaintext highlighter-rouge">foobar</code> network, using the hostname <code class="language-plaintext highlighter-rouge">mysql</code>.</p> <p>You, however, cannot access <code class="language-plaintext highlighter-rouge">mysql</code> from your host via a GUI like Sequel Pro or MySQL Administrator. You can either bind a port from host to container, or use something like Adminer.</p> <h2 id="via-docker-composeyml">Via docker-compose.yml</h2> <p>If you prefer to try this out using Docker-Compose, create the following 3 files:</p> <div class="language-ini highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="c">; traefik/.env
+</span><span class="py">COMPOSE_PROJECT_NAME</span><span class="p">=</span><span class="s">traefik</span>
+</pre></td></tr></tbody></table></code></pre></div></div> <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+</pre></td><td class="rouge-code"><pre><span class="c1"># traefik/docker-compose.yml</span>
+<span class="na">version</span><span class="pi">:</span> <span class="s1">'</span><span class="s">3.2'</span>
+
+<span class="na">services</span><span class="pi">:</span>
+  <span class="na">proxy</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">traefik</span>
+    <span class="na">command</span><span class="pi">:</span> <span class="s">--api --docker --docker.domain=docker.localhost --logLevel=DEBUG</span>
+    <span class="na">networks</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">webgateway</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">80:80"</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">8080:8080"</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">/var/run/docker.sock:/var/run/docker.sock</span>
+      <span class="pi">-</span> <span class="s">/dev/null:/traefik.toml</span>
+
+<span class="na">networks</span><span class="pi">:</span>
+  <span class="na">webgateway</span><span class="pi">:</span>
+    <span class="na">driver</span><span class="pi">:</span> <span class="s">bridge</span>
+</pre></td></tr></tbody></table></code></pre></div></div> <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+</pre></td><td class="rouge-code"><pre><span class="c1"># app/docker-compose.yml</span>
+<span class="na">version</span><span class="pi">:</span> <span class="s1">'</span><span class="s">3.2'</span>
+
+<span class="na">networks</span><span class="pi">:</span>
+  <span class="na">private</span><span class="pi">:</span>
+  <span class="na">public</span><span class="pi">:</span>
+    <span class="na">external</span><span class="pi">:</span>
+      <span class="na">name</span><span class="pi">:</span> <span class="s">traefik_webgateway</span>
+<span class="na">services</span><span class="pi">:</span>
+  <span class="na">nginx</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">nginx:alpine</span>
+    <span class="na">labels</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">traefik.backend=nginx</span>
+      <span class="pi">-</span> <span class="s">traefik.docker.network=traefik_webgateway</span>
+      <span class="pi">-</span> <span class="s">traefik.frontend.rule=Host:some-nginx.localhost</span>
+      <span class="pi">-</span> <span class="s">traefik.port=80</span>
+    <span class="na">networks</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">private</span>
+      <span class="pi">-</span> <span class="s">public</span>
+  <span class="na">mailhog</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">mailhog/mailhog</span>
+    <span class="na">labels</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">traefik.backend=mailhog</span>
+      <span class="pi">-</span> <span class="s">traefik.docker.network=traefik_webgateway</span>
+      <span class="pi">-</span> <span class="s">traefik.frontend.rule=Host:mailhog.localhost</span>
+      <span class="pi">-</span> <span class="s">traefik.port=8025</span>
+    <span class="na">networks</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">private</span>
+      <span class="pi">-</span> <span class="s">public</span>
+</pre></td></tr></tbody></table></code></pre></div></div> <p>Run <code class="language-plaintext highlighter-rouge">docker-compose up -d</code> in the <code class="language-plaintext highlighter-rouge">traefik</code> directory, then the <code class="language-plaintext highlighter-rouge">app</code> directory.</p> <h2 id="shameless-plug">Shameless Plug</h2> <p>If you are new to the world of containers, I have created a FOSS called <a href="https://dashtainer.com">Dashtainer</a> to help you quickly generate and run containers tailored to your app’s requirements.</p> <p>If you give it a go, I would love to hear from you!</p> <h2 id="wrapping-it-up">Wrapping it up</h2> <p>Docker has brought containers to the mainstream, but little gotchas like port dancing can be frustrating to new users. Hopefully with this small tutorial you are able to get up and running and get back to developing your <em>Make the World a Better Place</em> app.</p> <p>Until next time, this is Señor PHP Developer Juan Treminio wishing you adios!</p> <div class="footnotes" role="doc-endnotes"> <ol> <li id="fn:1" role="doc-endnote"> <p>I specify Chrome because as of this writing I believe it is the only browser that will always resolve any *.localhost to the loopback interface. This means you do not need to touch the <code class="language-plaintext highlighter-rouge">/etc/hosts</code> file, the hostname will work automatically. If you do not want to use Chrome then you must install dnsmasq on MacOS or Acrylic on Windows. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p> </li> </ol> </div> <hr class="invisible"> <ul class="pager"> <li class="previous"> <a href="/blog/developing-at-full-speed-with-xdebug/" data-toggle="tooltip" data-placement="top" title="Developing at Full Speed with Xdebug"> Previous &rarr;<br> <span>Developing at Full Speed with Xdebug</span> </a> </li> <li class="next"> <a href="/blog/running-docker-containers-as-current-host-user/" data-toggle="tooltip" data-placement="top" title="Running Docker Containers as Current Host User"> &larr; Next<br> <span>Running Docker Containers as Current Host User</span> </a> </li> </ul> <hr class="invisible"> <div class="comment"> <script src="//utteranc.es/client.js" repo="jtreminio/jtreminio.github.io" issue-number="13" theme="photon-dark" crossorigin="anonymous" async></script> </div> </div> </div> </div> </article> <footer> <div class="container"> <div class="row"> <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"> <ul class="list-inline text-center footer-icons"> <li><a href="mailto:jtreminio@gmail.com"><i data-feather="mail"></i></a></li> <li> <a href="https://github.com/jtreminio" target="_blank"> <i data-feather="github"></i> </a> </li> <li> <a href="https://twitter.com/juantreminio" target="_blank"> <i data-feather="twitter"></i> </a> </li> <li> <a href="https://www.linkedin.com/in/jtreminio-1" target="_blank"> <i data-feather="linkedin"></i> </a> </li> </ul> </div> </div> </div> </footer> <link href="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" rel="stylesheet" type="text/css"/> <link href="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" rel="stylesheet" type="text/css"/> <script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js"></script> <script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js"></script> <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true"> <div class="pswp__bg"></div> <div class="pswp__scroll-wrap"> <div class="pswp__container"> <div class="pswp__item"></div> <div class="pswp__item"></div> <div class="pswp__item"></div> </div> <div class="pswp__ui pswp__ui--hidden"> <div class="pswp__top-bar"> <div class="pswp__counter"></div> <button class="pswp__button pswp__button--close" title="Close (Esc)"></button> <button class="pswp__button pswp__button--share" title="Share"></button> <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button> <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button> <div class="pswp__preloader"> <div class="pswp__preloader__icn"> <div class="pswp__preloader__cut"> <div class="pswp__preloader__donut"></div> </div> </div> </div> </div> <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"> <div class="pswp__share-tooltip"></div> </div> <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"> </button> <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"> </button> <div class="pswp__caption"> <div class="pswp__caption__center"></div> </div> </div> </div> </div> </body> <script src="/static/js/custom.js?1643041288"></script> </html>

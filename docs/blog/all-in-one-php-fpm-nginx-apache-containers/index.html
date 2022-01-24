@@ -1,0 +1,187 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="utf-8"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"> <meta name="description" content="Juan Treminio - Dallas based senior web developer"> <meta name="keywords" content=""> <meta property="og:title" content="All-in-One PHP-FPM + Nginx/Apache Containers - Juan Treminio - Senior Web Developer Blog"> <meta property="og:type" content="article"> <meta property="og:description" content="In a previous post, Docker PHP/PHP-FPM Configuration via Environment Variables, I described how to use environment variables to configure PHP FPM and CLI. With my method you can override one of ove..."> <meta property="article:tag" content="docker"> <meta property="article:tag" content="php"> <meta property="article:tag" content="nginx"> <meta property="article:tag" content="apache"> <meta property="og:url" content="https://jtreminio.com/blog/all-in-one-php-fpm-nginx-apache-containers/"> <meta property="og:site_name" content="Juan Treminio - Senior Web Developer Blog"> <title>All-in-One PHP-FPM + Nginx/Apache Containers - Juan Treminio - Senior Web Developer Blog</title> <link rel="shortcut icon" type="image/png" href="/static/favicon/favicon.ico"/> <link rel="shortcut icon" type="image/png" href="/static/favicon/favicon-96x96.png" sizes="96x96"/> <link rel="shortcut icon" type="image/png" href="/static/favicon/favicon-32x32.png" sizes="32x32"/> <link rel="canonical" href="https://jtreminio.com/blog/all-in-one-php-fpm-nginx-apache-containers/"> <link href="//cdn.jsdelivr.net/npm/bootstrap-no-fonts-no-js@3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css"/> <link href="//cdnjs.cloudflare.com/ajax/libs/startbootstrap-clean-blog/3.3.7/css/clean-blog.min.css" rel="stylesheet" type="text/css"/> <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css"/> <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css"/> <script src="//cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script> <link rel="stylesheet" href="/static/css/rouge.css"/> <link rel="stylesheet" href="/static/css/custom.css?1643041288"/> <link rel="stylesheet" href="/static/css/dark.css?1643041288" data-dark-style/> </head> <body> <nav class="navbar navbar-default navbar-expand-md navbar-custom navbar-fixed-top is-fixed is-visible"> <div class="container-fluid"> <div class="navbar-header page-scroll"> <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar-collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button> <a class="navbar-brand hidden-xs hidden-sm" href="/">Juan Treminio - Senior Web Developer Blog</a> <a class="navbar-brand visible-xs visible-sm" href="/">Juan Treminio - Developer Blog</a> </div> <div class="collapse navbar-collapse" id="main-navbar-collapse"> <ul class="nav navbar-nav navbar-right"> <li><a href="/">Blog</a></li> <li><a href="/about/">About</a></li> <li><a href="/hire-me/">Hire Me</a></li> <li> <a class="btn theme-toggle"> <span class="theme-dark"><i data-feather="moon"></i> Dark Theme</span> <span class="theme-light"><i data-feather="sun"></i> Light Theme</span> </a> </li> </ul> </div> </div> </nav> <header class="intro-header"> <div class="container"> <div class="row"> <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"> <div class="post-heading"> <h1>All-in-One PHP-FPM + Nginx/Apache Containers</h1> <h2 class="subheading">Highly Customizable, Production-Ready and Development-Friendly Containers</h2> <span class="meta">Posted on Dec 18, 2018 <br/> <i class="feather icon-tag"></i>Tags <a href="/tags#docker">docker</a>, <a href="/tags#php">php</a>, <a href="/tags#nginx">nginx</a>, <a href="/tags#apache">apache</a> </span> </div> </div> </div> </div> </header> <article> <div class="container"> <div class="row"> <div class="post col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"> <p>In a previous post, <a href="/blog/docker-php-php-fpm-configuration-via-environment-variables/">Docker PHP/PHP-FPM Configuration via Environment Variables</a>, I described how to use environment variables to configure PHP FPM and CLI. With my method you can override one of over 650 PHP INI settings. More INI settings are but a PR away!</p> <p>In a more recent post, <a href="/blog/php-modules-toggled-via-environment-variables/">PHP Modules Toggled via Environment Variables</a> I extended this concept to include modules. You can now easily (and quickly!) enable over 20 common modules, including GD, Imagick, Mongodb, and more! The images I built come with over 30 modules installed, with a small selection enabled by default, and the rest toggable by simple environment variables.</p> <p>With these two concepts combined my other post, <a href="/blog/developing-at-full-speed-with-xdebug/">Developing at Full Speed with Xdebug</a> becomes that much more powerful, because now you can easily enable Xdebug via a very simple env var flag. A truly delay-free debug-ready development environment has never been easier to maintain.</p> <p>However, my Xdebug post uses a method that requires two separate PHP-FPM servers, one with Xdebug enabled and another without. To run a normal PHP project you would be required to run 4 containers in total:</p> <ul> <li>2 PHP (FPM)</li> <li>1 Nginx (Webserver)</li> <li>1 MySQL (Database)</li> </ul> <p>While this falls inline with Docker’s vision of one-container per responsibility, it is a hassle to have to maintain separate containers for both Nginx and PHP, with the main reason being that both separate services need access to your project’s source code in order to properly work.</p> <p>You can argue that PHP-FPM <em>depends</em> on a webserver to actually function and this responsibility can be considered as one. Thus, one container running both Nginx (or your webserver of choice) and PHP is desirable.</p> <h2 id="managing-multiple-services-under-docker">Managing Multiple Services Under Docker</h2> <p>Docker containers <em>can</em> run multiple services just fine. However, the daemon actively checks only a single main process which includes monitoring it for health (is this service still running?) and using it for stdout/stderr logging.</p> <p>The <a href="https://docs.docker.com/config/containers/multi-service_container/">official Docker documentation</a> recommends using either writing your own wrapper script, or using a process manager like <code class="language-plaintext highlighter-rouge">supervisord</code>.</p> <p>You could install Supervisord. It is a great process manager! However, why go that route when you can use a Docker-ready image to build from?</p> <p>Enter <a href="http://phusion.github.io/baseimage-docker/">baseimage-docker</a>.</p> <p>This Ubuntu 18.04-based image comes preinstalled and configured with nifty tools like <code class="language-plaintext highlighter-rouge">runit</code> for process management (Does not require crazy weird <code class="language-plaintext highlighter-rouge">init.d</code> config files!), <code class="language-plaintext highlighter-rouge">syslog-ng</code> for log management, and <code class="language-plaintext highlighter-rouge">cron</code> which is sorely-missing from most Docker images!</p> <p>I will not go into detail about <code class="language-plaintext highlighter-rouge">baseimage-docker</code> as their documentation is top-notch. Later you will be able to see what I created using this tool as an example.</p> <h2 id="setting-up-nginx">Setting up Nginx</h2> <p><a href="https://github.com/jtreminio/php-docker/blob/master/nginx/Dockerfile-7.2">The Nginx images extend my PHP images</a>. We already have a strong PHP-focused base to start from and can simply add Nginx to it.</p> <p><a href="https://github.com/jtreminio/php-docker/blob/3e1a6c355f9462dd676628016648882a17b613b2/nginx/files/nginx">The runit file is fairly simple</a>.</p> <p>In it we spin up Nginx as most folks do: <code class="language-plaintext highlighter-rouge">nginx -g "daemon off;"</code></p> <p>However, the <a href="https://launchpad.net/~ondrej/+archive/ubuntu/nginx">Nginx build I am using</a> comes with support for the handy Perl module. This allows us to pass environment variables to the Nginx config files. Normally Nginx has no support for this (which is a huge gaping hole, in my opinion) but using the Perl module you get a workable implementation.</p> <p>The one thing I have baked in to the Nginx images is passing in an Xdebug port.</p> <p>This works nicely with my <em>Developing at Full Speed with Xdebug</em> blog post.</p> <p>You can setup Nginx env var as follows:</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>perl_set <span class="nv">$phpfpm_xdebug_port</span> <span class="s1">'sub { return $ENV{"PHPFPM_XDEBUG_PORT"}; }'</span><span class="p">;</span>
+</pre></td></tr></tbody></table></code></pre></div></div> <p>The runit file then looks like this:</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="nv">PHPFPM_XDEBUG</span><span class="o">=</span><span class="k">${</span><span class="nv">PHPFPM_XDEBUG</span><span class="k">:-</span><span class="s2">""</span><span class="k">}</span>
+<span class="k">if</span> <span class="o">[</span> <span class="s2">"</span><span class="k">${</span><span class="nv">PHPFPM_XDEBUG</span><span class="p">,,</span><span class="k">}</span><span class="s2">"</span> <span class="o">=</span> <span class="s2">"on"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then
+    </span><span class="nv">PHPFPM_XDEBUG_PORT</span><span class="o">=</span>9999
+<span class="k">else
+    </span><span class="nv">PHPFPM_XDEBUG_PORT</span><span class="o">=</span>9000
+<span class="k">fi
+
+</span><span class="nb">exec </span>nginx <span class="nt">-g</span> <span class="s2">"daemon off; env PHPFPM_XDEBUG_PORT=</span><span class="k">${</span><span class="nv">PHPFPM_XDEBUG_PORT</span><span class="k">}</span><span class="s2">;"</span>
+</pre></td></tr></tbody></table></code></pre></div></div> <p>Everything hinges on the <code class="language-plaintext highlighter-rouge">PHPFPM_XDEBUG</code> env var. If it is set to <code class="language-plaintext highlighter-rouge">On</code> or <code class="language-plaintext highlighter-rouge">on</code> Nginx is told to use port <code class="language-plaintext highlighter-rouge">9999</code> for Xdebug requests, otherwise to use the standard <code class="language-plaintext highlighter-rouge">9000</code>.</p> <p>The final piece of the Nginx puzzle is the <a href="https://github.com/jtreminio/php-docker/blob/04ce87d1fe6784768761f872e33ee6e44c0a9f5c/nginx/files/vhost.conf">virtual host config</a>:</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre>map <span class="nv">$cookie_XDEBUG_SESSION</span> <span class="nv">$my_fastcgi_pass</span> <span class="o">{</span>
+    default 127.0.0.1:9000<span class="p">;</span>
+    xdebug  127.0.0.1:<span class="k">${</span><span class="nv">phpfpm_xdebug_port</span><span class="k">}</span><span class="p">;</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div> <p>If Nginx detects a cookie named <code class="language-plaintext highlighter-rouge">XDEBUG_SESSION</code> it uses <code class="language-plaintext highlighter-rouge">${phpfpm_xdebug_port}</code>, otherwise defaults to the standard <code class="language-plaintext highlighter-rouge">9000</code>.</p> <p>What happens when Xdebug support is <em>not</em> requested is that both cases would be interpreted as simply</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre>map <span class="nv">$cookie_XDEBUG_SESSION</span> <span class="nv">$my_fastcgi_pass</span> <span class="o">{</span>
+    default 127.0.0.1:9000<span class="p">;</span>
+    xdebug  127.0.0.1:9000<span class="p">;</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div> <p>This allows us to toggle Xdebug without having to actually make any file changes.</p> <p>Likewise, if Xdebug support is enabled (via the <code class="language-plaintext highlighter-rouge">PHPFPM_XDEBUG=On</code> env var) then it would be interpreted as</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre>map <span class="nv">$cookie_XDEBUG_SESSION</span> <span class="nv">$my_fastcgi_pass</span> <span class="o">{</span>
+    default 127.0.0.1:9000<span class="p">;</span>
+    xdebug  127.0.0.1:9999<span class="p">;</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div> <h2 id="setting-up-php-fpm">Setting up PHP-FPM</h2> <p>The <a href="https://github.com/jtreminio/php-docker/blob/04ce87d1fe6784768761f872e33ee6e44c0a9f5c/files/php-fpm">PHP-FPM runit init file is already created</a> at the <code class="language-plaintext highlighter-rouge">jtreminio/php:7.2</code> level. Nginx can immediately start working with this existing service and nothing else is required on your part. However, we want to also optionally add a second PHP-FPM instance with Xdebug enabled <em>but only when <code class="language-plaintext highlighter-rouge">PHPFPM_XDEBUG=On</code></em>!</p> <p>runit requires a bash file with <code class="language-plaintext highlighter-rouge">+x</code> flag set (making it executable). One route we could have taken was to simply mount a file volume via a <code class="language-plaintext highlighter-rouge">docker-compose.yml</code> file but unfortunately any files shared in this manner are not set as executable. This means we have to bake in the init file into the image itself. However, if we want to continue down the path of not requiring any file system changes and make everything configurable via env vars then we need to figure out a way to prevent runit from running a second PHP-FPM instance when Xdebug is not to be enabled.</p> <p><a href="https://github.com/jtreminio/php-docker/blob/875edc1b59b4cad83e48f457d599c709b1e932dc/apache/files/fpm-xdebug">The solution I implemented</a> does just that.</p> <p>If <code class="language-plaintext highlighter-rouge">PHPFPM_XDEBUG</code> is <em>not</em> set to <code class="language-plaintext highlighter-rouge">On|on</code> then a harmless, low-resource service is run:</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">exec tail</span> <span class="nt">-f</span> /var/log/fpm-xdebug-tail
+</pre></td></tr></tbody></table></code></pre></div></div> <p>This is because runit needs to run <em>something</em>, and simply exiting at this point would cause the daemon to try restarting the service over and over. There is no disable flag to tell runit, “Hey, don’t run this!”.</p> <p>Otherwise, if <code class="language-plaintext highlighter-rouge">PHPFPM_XDEBUG=On</code> then a second PHP-FPM service is run using</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="nb">exec</span> /usr/sbin/php-fpm <span class="se">\</span>
+    <span class="nt">-d</span> FPM.pid<span class="o">=</span><span class="s2">"/var/run/php-fpm/php-fpm-xdebug.pid"</span> <span class="se">\</span>
+    <span class="nt">-d</span> FPM.listen<span class="o">=</span><span class="s2">"127.0.0.1:9999"</span> <span class="se">\</span>
+    <span class="o">[</span>...]
+</pre></td></tr></tbody></table></code></pre></div></div> <p>We override the <code class="language-plaintext highlighter-rouge">pid</code> and <code class="language-plaintext highlighter-rouge">listen</code> directives to prevent any collisions with the non-Xdebug PHP-FPM instance.</p> <h2 id="bonus-setting-up-apache">Bonus: Setting up Apache</h2> <p>Since we are using PHP-FPM the webserver engine becomes much easier to switch out. As long as it can speak TCP it is ok, which means adding Apache support is fairly simple.</p> <p><a href="https://github.com/jtreminio/php-docker/blob/f8b499cb59882cc903cdf174f0b50bc37689ab7d/apache/Dockerfile-7.2">The Dockerfile for the Apache image</a> is very similar to the Nginx one.</p> <p>Likewise, <a href="https://github.com/jtreminio/php-docker/blob/f8b499cb59882cc903cdf174f0b50bc37689ab7d/apache/files/apache">the runit init file for Apache looks similar</a> and <a href="https://github.com/jtreminio/php-docker/blob/875edc1b59b4cad83e48f457d599c709b1e932dc/apache/files/fpm-xdebug">the runit init file for PHP-FPM is identical</a>.</p> <p>Apache has built-in support for env vars (looking at you, Nginx) so <a href="https://github.com/jtreminio/php-docker/blob/f8b499cb59882cc903cdf174f0b50bc37689ab7d/apache/files/vhost.conf">only the vhost config file needs changed</a>.</p> <p>Apache has no <code class="language-plaintext highlighter-rouge">map</code> directive, but does support <code class="language-plaintext highlighter-rouge">If/Else</code>:</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre>&lt;FilesMatch <span class="s2">"</span><span class="se">\.</span><span class="s2">php$"</span><span class="o">&gt;</span>
+    &lt;If <span class="s2">"%{HTTP_COOKIE} =~ /XDEBUG_SESSION/"</span><span class="o">&gt;</span>
+        SetHandler proxy:fcgi://127.0.0.1:<span class="k">${</span><span class="nv">PHPFPM_XDEBUG_PORT</span><span class="k">}</span>
+    &lt;/If&gt;
+    &lt;Else&gt;
+        SetHandler proxy:fcgi://127.0.0.1:9000
+    &lt;/Else&gt;
+&lt;/FilesMatch&gt;
+</pre></td></tr></tbody></table></code></pre></div></div> <p>The same idea from Nginx applies here, <code class="language-plaintext highlighter-rouge">$PHPFPM_XDEBUG_PORT</code> defaults to <code class="language-plaintext highlighter-rouge">9000</code> unless <code class="language-plaintext highlighter-rouge">PHPFPM_XDEBUG=On</code> then it defaults to <code class="language-plaintext highlighter-rouge">9999</code>.</p> <h2 id="try-it-out">Try It Out</h2> <p>You can try this out fairly quickly, but first some helpers.</p> <p><a href="https://www.jetbrains.com/phpstorm/marklets/">Grab the PhpStorm bookmarklets</a>. You do not need to use PhpStorm to use these, they simply create an <code class="language-plaintext highlighter-rouge">XDEBUG_SESSION</code> cookie in your browser. This is the cookie the webserver listens for. Again, if this cookie does not exist all traffic is routed to the non-Xdebug PHP-FPM instance, and vice-versa.</p> <p>Next, setup Traefik. You may remember Traefik from my <a href="/blog/traefik-on-docker-for-web-developers/">Traefik on Docker for Web Developers</a> post. It is an amazing tool that helps map domain names to containers.</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+</pre></td><td class="rouge-code"><pre><span class="nv">TRAEFIK</span><span class="o">=</span><span class="si">$(</span>docker container <span class="nb">ls</span> <span class="nt">--filter</span> <span class="nv">name</span><span class="o">=</span>traefik_proxy | <span class="nb">grep</span> <span class="nt">-c</span> traefik_proxy <span class="o">||</span> <span class="nb">true</span><span class="si">)</span>
+<span class="k">if</span> <span class="o">[</span> <span class="k">${</span><span class="nv">TRAEFIK</span><span class="k">}</span> <span class="nt">-eq</span> 0 <span class="o">]</span><span class="p">;</span> <span class="k">then
+    </span><span class="nv">NETWORK</span><span class="o">=</span><span class="si">$(</span>docker network <span class="nb">ls</span> <span class="nt">--filter</span> <span class="nv">name</span><span class="o">=</span>traefik_webgateway | <span class="nb">grep</span> <span class="nt">-c</span> traefik_webgateway <span class="o">||</span> <span class="nb">true</span><span class="si">)</span>
+    <span class="k">if</span> <span class="o">[</span> <span class="k">${</span><span class="nv">NETWORK</span><span class="k">}</span> <span class="nt">-eq</span> 0 <span class="o">]</span><span class="p">;</span> <span class="k">then
+        </span>docker network create <span class="nt">--driver</span> bridge traefik_webgateway
+    <span class="k">fi
+
+    </span>docker container run <span class="nt">-d</span> <span class="se">\</span>
+        <span class="nt">--name</span> traefik_proxy <span class="se">\</span>
+        <span class="nt">--network</span> traefik_webgateway <span class="se">\</span>
+        <span class="nt">--publish</span> 80:80 <span class="se">\</span>
+        <span class="nt">--publish</span> 8080:8080 <span class="se">\</span>
+        <span class="nt">--restart</span> always <span class="se">\</span>
+        <span class="nt">--volume</span> /var/run/docker.sock:/var/run/docker.sock <span class="se">\</span>
+        <span class="nt">--volume</span> /dev/null:/traefik.toml <span class="se">\</span>
+        traefik <span class="nt">--api</span> <span class="nt">--docker</span> <span class="nt">--docker</span>.domain<span class="o">=</span>docker.localhost <span class="nt">--logLevel</span><span class="o">=</span>DEBUG
+<span class="k">fi</span>
+</pre></td></tr></tbody></table></code></pre></div></div> <p>We setup Traefik via bash instead of a <code class="language-plaintext highlighter-rouge">docker-compose.yml</code> file so it is not tied to a specific project (the container name would have the parent directory prepended to it otherwise).</p> <p>Now you can run the PHP/Nginx instance using:</p> <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+</pre></td><td class="rouge-code"><pre><span class="na">version</span><span class="pi">:</span> <span class="s1">'</span><span class="s">3.2'</span>
+<span class="na">networks</span><span class="pi">:</span>
+  <span class="na">public</span><span class="pi">:</span>
+    <span class="na">external</span><span class="pi">:</span>
+      <span class="na">name</span><span class="pi">:</span> <span class="s">traefik_webgateway</span>
+<span class="na">services</span><span class="pi">:</span>
+  <span class="na">web</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">jtreminio/php-nginx:7.2</span>
+    <span class="na">labels</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">traefik.backend=php-nginx</span>
+      <span class="pi">-</span> <span class="s">traefik.docker.network=traefik_webgateway</span>
+      <span class="pi">-</span> <span class="s">traefik.frontend.rule=Host:php-nginx.localhost</span>
+      <span class="pi">-</span> <span class="s">traefik.port=8080</span>
+    <span class="na">networks</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">public</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">./:/var/www/</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">PHP.display_errors=On</span>
+      <span class="pi">-</span> <span class="s">PHP.error_reporting=-1</span>
+      <span class="pi">-</span> <span class="s">PHPFPM_XDEBUG=On</span>
+</pre></td></tr></tbody></table></code></pre></div></div> <p>Run <code class="language-plaintext highlighter-rouge">docker-compose up</code> and then open <a href="http://php-nginx.localhost">php-nginx.localhost</a> in Chrome (or another browser if you have dnsmasq installed).</p> <p>Create an <code class="language-plaintext highlighter-rouge">index.php</code> file that simply contains <code class="language-plaintext highlighter-rouge">&lt;?php phpinfo();</code> to test this out.</p> <p>If you want to try with Apache, use the following:</p> <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+</pre></td><td class="rouge-code"><pre><span class="na">version</span><span class="pi">:</span> <span class="s1">'</span><span class="s">3.2'</span>
+<span class="na">networks</span><span class="pi">:</span>
+  <span class="na">public</span><span class="pi">:</span>
+    <span class="na">external</span><span class="pi">:</span>
+      <span class="na">name</span><span class="pi">:</span> <span class="s">traefik_webgateway</span>
+<span class="na">services</span><span class="pi">:</span>
+  <span class="na">web</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">jtreminio/php-apache:7.2</span>
+    <span class="na">labels</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">traefik.backend=php-apache</span>
+      <span class="pi">-</span> <span class="s">traefik.docker.network=traefik_webgateway</span>
+      <span class="pi">-</span> <span class="s">traefik.frontend.rule=Host:php-apache.localhost</span>
+      <span class="pi">-</span> <span class="s">traefik.port=8080</span>
+    <span class="na">networks</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">public</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">./:/var/www/</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">PHP.display_errors=On</span>
+      <span class="pi">-</span> <span class="s">PHP.error_reporting=-1</span>
+      <span class="pi">-</span> <span class="s">PHPFPM_XDEBUG=On</span>
+</pre></td></tr></tbody></table></code></pre></div></div> <p>Run <code class="language-plaintext highlighter-rouge">docker-compose up</code> and then open <a href="http://php-apache.localhost">php-apache.localhost</a> in Chrome (or another browser if you have dnsmasq installed).</p> <p>You can try the Xdebug feature by either commenting out <code class="language-plaintext highlighter-rouge">PHPFPM_XDEBUG=On</code> or changing it to anything not <code class="language-plaintext highlighter-rouge">On|on</code>: <code class="language-plaintext highlighter-rouge">PHPFPM_XDEBUG=Off</code>.</p> <h2 id="wrapping-it-up">Wrapping It Up</h2> <p>This project is the end result of weeks/months testing different solutions, always poking and refactoring while trying to achieve a truly immutable image.</p> <p>Not to say that this project is <em>done</em>, but I believe it is on the right path to becoming something many developers and companies can build their Docker deployments on.</p> <p>Not needing to manage separate containers for PHP/Nginx|Apache, enabling or disabling Xdebug and many other modules, and configuring PHP with nothing more than simple environment variables reduces complexity and speeds up development time.</p> <p>I would love to hear your feedback on this and would be elated if you would drop me a line if you decide to implement my images into your workflow.</p> <p>Until next time, this is Señor PHP Developer Juan Treminio wishing you adios!</p> <hr class="invisible"> <ul class="pager"> <li class="previous"> <a href="/blog/php-modules-toggled-via-environment-variables/" data-toggle="tooltip" data-placement="top" title="PHP Modules Toggled via Environment Variables"> Previous &rarr;<br> <span>PHP Modules Toggled via Environment Variables</span> </a> </li> </ul> <hr class="invisible"> <div class="comment"> <script src="//utteranc.es/client.js" repo="jtreminio/jtreminio.github.io" issue-number="18" theme="photon-dark" crossorigin="anonymous" async></script> </div> </div> </div> </div> </article> <footer> <div class="container"> <div class="row"> <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"> <ul class="list-inline text-center footer-icons"> <li><a href="mailto:jtreminio@gmail.com"><i data-feather="mail"></i></a></li> <li> <a href="https://github.com/jtreminio" target="_blank"> <i data-feather="github"></i> </a> </li> <li> <a href="https://twitter.com/juantreminio" target="_blank"> <i data-feather="twitter"></i> </a> </li> <li> <a href="https://www.linkedin.com/in/jtreminio-1" target="_blank"> <i data-feather="linkedin"></i> </a> </li> </ul> </div> </div> </div> </footer> <link href="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" rel="stylesheet" type="text/css"/> <link href="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" rel="stylesheet" type="text/css"/> <script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js"></script> <script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js"></script> <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true"> <div class="pswp__bg"></div> <div class="pswp__scroll-wrap"> <div class="pswp__container"> <div class="pswp__item"></div> <div class="pswp__item"></div> <div class="pswp__item"></div> </div> <div class="pswp__ui pswp__ui--hidden"> <div class="pswp__top-bar"> <div class="pswp__counter"></div> <button class="pswp__button pswp__button--close" title="Close (Esc)"></button> <button class="pswp__button pswp__button--share" title="Share"></button> <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button> <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button> <div class="pswp__preloader"> <div class="pswp__preloader__icn"> <div class="pswp__preloader__cut"> <div class="pswp__preloader__donut"></div> </div> </div> </div> </div> <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"> <div class="pswp__share-tooltip"></div> </div> <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"> </button> <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"> </button> <div class="pswp__caption"> <div class="pswp__caption__center"></div> </div> </div> </div> </div> </body> <script src="/static/js/custom.js?1643041288"></script> </html>

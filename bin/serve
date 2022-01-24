@@ -6,4 +6,5 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 bundle exec jekyll serve \
   --source="${DIR}/../" \
+  --config "${DIR}/../_config.yml","${DIR}/../_config_dev.yml" \
   --port=8081

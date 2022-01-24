@@ -54,3 +54,5 @@ relative_links:
 jekyll-minifier:
   uglifier_args:
     harmony: true
+
+environment: prod

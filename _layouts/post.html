@@ -36,11 +36,17 @@ layout: default
 
         <hr class="invisible">
 
-        {% if site.disqus_username %}
         <div class="comment">
-          <div id="disqus_thread" class="disqus-thread"></div>
+          {% if site.environment != "dev" %}
+          <script src="//utteranc.es/client.js"
+                  repo="jtreminio/jtreminio.github.io"
+                  issue-number="{{ page.gh_comment_id }}"
+                  theme="github-light"
+                  crossorigin="anonymous"
+                  async>
+          {% endif %}
+          </script>
         </div>
-        {% endif %}
       </div>
     </div>
   </div>

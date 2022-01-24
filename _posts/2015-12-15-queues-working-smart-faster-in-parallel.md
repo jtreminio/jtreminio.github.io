@@ -6,7 +6,6 @@ title: Queues - Working Smarter, Faster and in Parallel
 description: Don't wait, queue today!
 slug: queues-working-smart-faster-in-parallel
 redirect_from:
-  - /blog/queues-working-smart-faster-in-parallel/
   - /2015/12/queues-working-smart-faster-in-parallel
   - /2015/12/queues-working-smart-faster-in-parallel/
 tags:

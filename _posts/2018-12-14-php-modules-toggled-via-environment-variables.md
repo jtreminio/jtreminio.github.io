@@ -5,8 +5,6 @@ date: 2018-12-14
 title: PHP Modules Toggled via Environment Variables
 description: Bringing Immense Flexibility to PHP Docker Containers
 slug: php-modules-toggled-via-environment-variables
-redirect_from:
-  - /blog/php-modules-toggled-via-environment-variables/
 tags:
   - docker
   - php

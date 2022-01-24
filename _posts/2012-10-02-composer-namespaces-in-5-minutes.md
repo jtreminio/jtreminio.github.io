@@ -6,7 +6,6 @@ title: Composer Namespaces in 5 Minutes
 description: The best thing in recent years
 slug: composer-namespaces-in-5-minutes
 redirect_from:
-  - /blog/composer-namespaces-in-5-minutes/
   - /2012/10/composer-namespaces-in-5-minutes
   - /2012/10/composer-namespaces-in-5-minutes/
 tags:

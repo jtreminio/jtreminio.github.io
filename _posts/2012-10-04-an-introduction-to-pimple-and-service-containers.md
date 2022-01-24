@@ -6,7 +6,6 @@ title: An introduction to Pimple and Service Containers
 description: Container and service locator
 slug: an-introduction-to-pimple-and-service-containers
 redirect_from:
-  - /blog/an-introduction-to-pimple-and-service-containers/
   - /2012/10/an-introduction-to-pimple-and-service-containers
   - /2012/10/an-introduction-to-pimple-and-service-containers/
 tags:

@@ -5,8 +5,6 @@ date: 2018-08-05
 title: Running Docker Containers as Current Host User
 description: Making local development less aggravating
 slug: running-docker-containers-as-current-host-user
-redirect_from:
-  - /blog/running-docker-containers-as-current-host-user/
 tags:
   - docker
 gh_comment_id: 14

@@ -6,7 +6,6 @@ title: "Setting Up an Ubuntu VM, Step by Step"
 description: Deprecated, use PuPHPet
 slug: setting-up-an-ubuntu-vm-step-by-step
 redirect_from:
-  - /blog/setting-up-an-ubuntu-vm-step-by-step/
   - /2012/04/setting-up-an-ubuntu-vm-step-by-step
   - /2012/04/setting-up-an-ubuntu-vm-step-by-step/
 tags:

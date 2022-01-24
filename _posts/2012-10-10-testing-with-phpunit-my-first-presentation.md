@@ -6,7 +6,6 @@ title: "Testing with PHPUnit: My First Presentation!"
 description: PHPUnit user group presentation
 slug: testing-with-phpunit-my-first-presentation
 redirect_from:
-  - /blog/testing-with-phpunit-my-first-presentation/
   - /2012/10/testing-with-phpunit-my-first-presentation
   - /2012/10/testing-with-phpunit-my-first-presentation/
 tags:

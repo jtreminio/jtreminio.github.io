@@ -6,7 +6,6 @@ title: Introduction to Vagrant/Puppet and introducing PuPHPet - A simple to use 
 description: Introduction to Vagrant and Puppet
 slug: introduction-to-vagrant-puppet-and-introducing-puphpet-a-simple-to-use-vagrant-puppet-gui-configurator
 redirect_from:
-  - /blog/introduction-to-vagrant-puppet-and-introducing-puphpet-a-simple-to-use-vagrant-puppet-gui-configurator/
   - /2013/05/introduction_to_vagrant_puppet_and_introducing_puphpet_a_simple_to_use_vagrant_puppet_gui_configurator
   - /2013/05/introduction_to_vagrant_puppet_and_introducing_puphpet_a_simple_to_use_vagrant_puppet_gui_configurator/
 tags:

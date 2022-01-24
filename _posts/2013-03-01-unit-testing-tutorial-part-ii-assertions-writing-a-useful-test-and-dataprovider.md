@@ -6,7 +6,6 @@ title: "Unit Testing Tutorial Part II: Assertions, Writing a Useful Test and @da
 description: PHP Unit introduction series
 slug: unit-testing-tutorial-part-ii-assertions-writing-a-useful-test-and-dataprovider
 redirect_from:
-  - /blog/unit-testing-tutorial-part-ii-assertions-writing-a-useful-test-and-dataprovider/
   - /2013/03/unit-testing-tutorial-part-2-assertions-writing-a-useful-test-and-dataprovider
   - /2013/03/unit-testing-tutorial-part-2-assertions-writing-a-useful-test-and-dataprovider/
   - /blog/unit-testing-tutorial-part-2-assertions-writing-a-useful-test-and-dataprovider

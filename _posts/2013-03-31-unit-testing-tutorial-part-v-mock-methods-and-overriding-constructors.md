@@ -6,7 +6,6 @@ title: "Unit Testing Tutorial Part V: Mock Methods and Overriding Constructors"
 description: PHP Unit introduction series
 slug: unit-testing-tutorial-part-v-mock-methods-and-overriding-constructors
 redirect_from:
-  - /blog/unit-testing-tutorial-part-v-mock-methods-and-overriding-constructors/
   - /2013/03/unit-testing-tutorial-part-5-mock-methods-and-overriding-constructors
   - /2013/03/unit-testing-tutorial-part-5-mock-methods-and-overriding-constructors/
   - /blog/unit-testing-tutorial-part-5-mock-methods-and-overriding-constructors

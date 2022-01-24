@@ -6,7 +6,6 @@ title: "Getting Started with Kohana 3, Part I – Initial Setup"
 description: A popular framework tutorial
 slug: getting-started-with-kohana-3-part-i
 redirect_from:
-  - /blog/getting-started-with-kohana-3-part-i/
   - /2012/03/getting-started-with-kohana-3-part-i
   - /2012/03/getting-started-with-kohana-3-part-i/
 tags:

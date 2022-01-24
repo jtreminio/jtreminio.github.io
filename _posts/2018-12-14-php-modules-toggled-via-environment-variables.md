@@ -12,7 +12,7 @@ gh_comment_id: 17
 ---
 
 In my previous post,
-[Docker PHP/PHP-FPM Configuration via Environment Variables](/blog/docker-php/php-fpm-configuration-via-environment-variables/)
+[Docker PHP/PHP-FPM Configuration via Environment Variables](2018-11-15-php-container-image-ini-environment-variables.md)
 I introduced my new PHP image that uses environment variables to configure its
 INI settings.
 

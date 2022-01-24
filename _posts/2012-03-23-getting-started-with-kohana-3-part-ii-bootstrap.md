@@ -5,7 +5,9 @@ date: 2012-03-23
 title: "Getting Started with Kohana 3, Part II – Bootstrap"
 description: A popular framework tutorial
 slug: getting-started-with-kohana-3-part-ii-bootstrap
-redirect_from: /2012/03/getting-started-with-kohana-3-part-ii-bootstrap
+redirect_from:
+  - /2012/03/getting-started-with-kohana-3-part-ii-bootstrap
+  - /2012/03/getting-started-with-kohana-3-part-ii-bootstrap/
 tags:
   - webdev
   - kohana
@@ -13,14 +15,18 @@ tags:
   - server
 ---
 
+{% blockquote warning %}
 > I am no longer using Kohana in any of my personal or professional
 > projects. I have moved to a better, more modular framework in Silex, which I will
 > be writing about shortly. This series has been permanently discontinued.
+{% endblockquote %}
 
+{% blockquote success %}
 > This is Part II of a multi-part series. Below are the links to other parts of this tutorial!
 > * [Getting Started with Kohana 3, Part I – Initial Setup](2012-03-14-getting-started-with-kohana-3-part-i.md)
 > * Getting Started with Kohana 3, Part II – Bootstrap
 > * [Getting Started with Kohana 3, Part III – Controller/MVVM/KOstache](2012-04-08-getting-started-with-kohana-3-part-iii-controller-mvvm-kostache.md)
+{% endblockquote %}
 
 In my
 [Getting Started with Kohana 3, Part I – Initial Setup](2012-03-14-getting-started-with-kohana-3-part-i.md),

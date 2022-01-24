@@ -127,6 +127,7 @@ drwxr-xr-x. 4 jtreminio jtreminio 4.0K Aug  4 20:09 vendor/
 -rw-r--r--. 1 jtreminio jtreminio 2.1K Aug  4 20:09 composer.lock
 ```
 
+{% blockquote info %}
 > In my system, my user `jtreminio` has user ID `1000` and group ID `1000`, so
 > the new line
 > 
@@ -135,6 +136,7 @@ drwxr-xr-x. 4 jtreminio jtreminio 4.0K Aug  4 20:09 vendor/
 > gets interpreted as
 > 
 > ```-u 1000:1000```
+{% endblockquote %}
 
 This does exactly what we want, but of course there is a catch: the container
 user is no longer root, or whatever the author decided to use. On Composer and
@@ -459,9 +461,11 @@ After we delete the user and group, we recreate it with the defined values.
 `1000` is my user and group ID, and now the container's `www-data` has the
 same.
 
+{% blockquote danger %}
 > Remember to use the `-l` flag with `useradd`! There is an amazingly fun issue
 > where a high UID value will generate huge log files and freeze your system!
 > [Click here for all the juicy details](https://github.com/moby/moby/issues/5419).
+{% endblockquote %}
 
 We also take the time to generate a home directory for our new user. This makes
 it much easier to have your container perform SSH actions using your host's SSH

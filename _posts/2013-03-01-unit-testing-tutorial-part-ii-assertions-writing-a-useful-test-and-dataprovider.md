@@ -7,7 +7,9 @@ description: PHP Unit introduction series
 slug: unit-testing-tutorial-part-ii-assertions-writing-a-useful-test-and-dataprovider
 redirect_from:
   - /2013/03/unit-testing-tutorial-part-2-assertions-writing-a-useful-test-and-dataprovider
+  - /2013/03/unit-testing-tutorial-part-2-assertions-writing-a-useful-test-and-dataprovider/
   - /blog/unit-testing-tutorial-part-2-assertions-writing-a-useful-test-and-dataprovider
+  - /blog/unit-testing-tutorial-part-2-assertions-writing-a-useful-test-and-dataprovider/
 tags:
   - webdev
   - tutorial
@@ -17,13 +19,15 @@ tags:
 gh_comment_id: 7
 ---
 
+{% blockquote success %}
 > This is Part II of a multi-part series. Below are the links to other parts of this
 > tutorial!
-> * [Unit Testing Tutorial Part I: Introduction to PHPUnit](/blog/unit-testing-tutorial-part-i-introduction-to-phpunit)
+> * [Unit Testing Tutorial Part I: Introduction to PHPUnit](2013-03-01-unit-testing-tutorial-part-i-introduction-to-phpunit.md)
 > * Unit Testing Tutorial Part II: Assertions, Writing a Useful Test and @dataProvider
-> * [Unit Testing Tutorial Part III: Testing Protected/Private Methods, Coverage Reports and CRAP](/blog/unit-testing-tutorial-part-iii-testing-protected-private-methods-coverage-reports-and-crap)
-> * [Unit Testing Tutorial Part IV: Mock Objects, Stub Methods and Dependency Injection](/blog/unit-testing-tutorial-part-iv-mock-objects-stub-methods-and-dependency-injection)
-> * [Unit Testing Tutorial Part V: Mock Methods and Overriding Constructors](/blog/unit-testing-tutorial-part-v-mock-methods-and-overriding-constructors)
+> * [Unit Testing Tutorial Part III: Testing Protected/Private Methods, Coverage Reports and CRAP](2013-03-03-unit-testing-tutorial-part-iii-testing-protected-private-methods-coverage-reports-and-crap.md)
+> * [Unit Testing Tutorial Part IV: Mock Objects, Stub Methods and Dependency Injection](2013-03-07-unit-testing-tutorial-part-iv-mock-objects-stub-methods-and-dependency-injection.md)
+> * [Unit Testing Tutorial Part V: Mock Methods and Overriding Constructors](2013-03-31-unit-testing-tutorial-part-v-mock-methods-and-overriding-constructors.md)
+{% endblockquote %}
 
 In the first part of this series, I walked you through initial installation and
 configuration of PHPUnit for a new project. I showed you some conventions that
@@ -178,7 +182,9 @@ class URLTest extends \PHPUnit_Framework_TestCase
 
 If you run PHPUnit right now, you should get the following:
 
-{% include img.html page=page image="01-failed-test.png" width="300px" %}
+{% image 300px %}
+![01-failed-test.png](/static/post/2013-03-01-unit-testing-tutorial-part-ii-assertions-writing-a-useful-test-and-dataprovider/01-failed-test.png)
+{% endimage %}
 
 ```bash
 FAILURES!
@@ -223,7 +229,9 @@ class URLTest extends \PHPUnit_Framework_TestCase
 
 Running PHPUnit now will produce the coveted green bar!
 
-{% include img.html page=page image="02-passing-test.png" width="300px" %}
+{% image 300px %}
+![02-passing-test.png](/static/post/2013-03-01-unit-testing-tutorial-part-ii-assertions-writing-a-useful-test-and-dataprovider/02-passing-test.png)
+{% endimage %}
 
 From here we can move on with creating the meat of our test.
 
@@ -324,7 +332,9 @@ class URLTest extends \PHPUnit_Framework_TestCase
 
 Running PHPUnit brings a smile to our faces:
 
-{% include img.html page=page image="03-useful-passing-test.png" width="300px" %}
+{% image 300px %}
+![03-useful-passing-test.png](/static/post/2013-03-01-unit-testing-tutorial-part-ii-assertions-writing-a-useful-test-and-dataprovider/03-useful-passing-test.png)
+{% endimage %}
 
 ### More scenarios
 
@@ -409,7 +419,9 @@ class URLTest extends \PHPUnit_Framework_TestCase
 }
 ```
 
-{% include img.html page=page image="04-duplicate-tests.png" width="300px" %}
+{% image 300px %}
+![04-duplicate-tests.png](/static/post/2013-03-01-unit-testing-tutorial-part-ii-assertions-writing-a-useful-test-and-dataprovider/04-duplicate-tests.png)
+{% endimage %}
 
 Our test suite passes!
 
@@ -595,7 +607,9 @@ class URLTest extends \PHPUnit_Framework_TestCase
 
 Now run your test suite:
 
-{% include img.html page=page image="05-dataprovider-result.png" width="300px" %}
+{% image 300px %}
+![05-dataprovider-result.png](/static/post/2013-03-01-unit-testing-tutorial-part-ii-assertions-writing-a-useful-test-and-dataprovider/05-dataprovider-result.png)
+{% endimage %}
 
 Huzzah!
 

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -e
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+bundle exec jekyll serve \
+  --source="${DIR}/../" \
+  --port=8081

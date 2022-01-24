@@ -1,238 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="description" content="Juan Treminio - Dallas based senior web developer">
-  <meta name="keywords" content="">
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="Unit Testing Tutorial Part IV: Mock Objects, Stub Methods and Dependency Injection - Juan Treminio - Senior Web Developer Blog">
-  
-  <meta property="og:type" content="article">
-  <meta property="og:description" content="
-  This is Part IV of a multi-part series. Below are the links to other parts of this
-tutorial!
-  
-    Unit Testing Tutorial Part I: Introduction to PHPUnit
-    Unit Testing Tutorial Part II: Asser...">
-      
-      
-  <meta property="article:tag" content="webdev">
-      
-  <meta property="article:tag" content="tutorial">
-      
-  <meta property="article:tag" content="phpunit">
-      
-  <meta property="article:tag" content="php">
-      
-  <meta property="article:tag" content="testing">
-      
-    
-  <meta property="og:url" content="https://jtreminio.com/blog/unit-testing-tutorial-part-iv-mock-objects-stub-methods-and-dependency-injection">
-  <meta property="og:site_name" content="Juan Treminio - Senior Web Developer Blog">
-
-  <title>Unit Testing Tutorial Part IV: Mock Objects, Stub Methods and Dependency Injection - Juan Treminio - Senior Web Developer Blog</title>
-
-  <!-- Favicon -->
-  <link rel="shortcut icon" type="image/png" href="/static/favicon/favicon.ico" />
-  <link rel="shortcut icon" type="image/png" href="/static/favicon/favicon-96x96.png" sizes="96x96" />
-  <link rel="shortcut icon" type="image/png" href="/static/favicon/favicon-32x32.png" sizes="32x32" />
-
-  <!-- Canonical URL -->
-  <link rel="canonical" href="https://jtreminio.com/blog/unit-testing-tutorial-part-iv-mock-objects-stub-methods-and-dependency-injection">
-
-  <!-- Bootstrap Core CSS -->
-  <link href="//cdn.jsdelivr.net/npm/bootstrap-no-fonts-no-js@3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-  <link href="//cdnjs.cloudflare.com/ajax/libs/startbootstrap-clean-blog/3.3.7/css/clean-blog.min.css" rel="stylesheet" type="text/css" />
-
-  <!-- Custom Fonts -->
-  <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
-  <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
-  <script src="//cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="/static/css/rouge.css" />
-  <link rel="stylesheet" href="/static/css/custom.css?1642983746" />
-  <link rel="stylesheet" href="/static/css/dark.css?1642983746" data-style="dark" />
-</head>
-
-<body>
-  <!-- Navigation -->
-<nav class="navbar navbar-default navbar-expand-md navbar-custom navbar-fixed-top is-fixed is-visible">
-  <div class="container-fluid">
-    <div class="navbar-header page-scroll">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar-collapse">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand hidden-xs hidden-sm" href="/">Juan Treminio - Senior Web Developer Blog</a>
-      <a class="navbar-brand visible-xs visible-sm" href="/">Juan Treminio - Developer Blog</a>
-    </div>
-
-    <div class="collapse navbar-collapse" id="main-navbar-collapse">
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="/">Blog</a></li>
-        
-          
-        
-          
-        <li><a href="/about">About</a></li>
-          
-        
-          
-        
-          
-        <li><a href="/hire-me">Hire Me</a></li>
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-        <li>
-          <a class="btn theme-toggle">
-            <span class="theme-dark"><i data-feather="moon"></i> Dark Theme</span>
-            <span class="theme-light"><i data-feather="sun"></i> Light Theme</span>
-          </a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-
-  <!-- Post Header -->
-<header class="intro-header">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <div class="post-heading">
-          <h1>Unit Testing Tutorial Part IV: Mock Objects, Stub Methods and Dependency Injection</h1>
-          <h2 class="subheading">PHP Unit introduction series</h2>
-          <span class="meta">Posted on Mar 07, 2013
-<br />
-<i class="feather icon-tag"></i>Tags
-
-<a href="/tags#webdev">webdev</a>,
-
-<a href="/tags#tutorial">tutorial</a>,
-
-<a href="/tags#phpunit">phpunit</a>,
-
-<a href="/tags#php">php</a>,
-
-<a href="/tags#testing">testing</a>
-
-</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</header>
-
-
-<!-- Post Content -->
-<article>
-  <div class="container">
-    <div class="row">
-      <div class="post col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <blockquote>
-  <p>This is Part IV of a multi-part series. Below are the links to other parts of this
-tutorial!</p>
-  <ul>
-    <li><a href="/blog/unit-testing-tutorial-part-i-introduction-to-phpunit">Unit Testing Tutorial Part I: Introduction to PHPUnit</a></li>
-    <li><a href="/blog/unit-testing-tutorial-part-ii-assertions-writing-a-useful-test-and-dataprovider">Unit Testing Tutorial Part II: Assertions, Writing a Useful Test and @dataProvider</a></li>
-    <li><a href="/blog/unit-testing-tutorial-part-iii-testing-protected-private-methods-coverage-reports-and-crap">Unit Testing Tutorial Part III: Testing Protected/Private Methods, Coverage Reports and CRAP</a></li>
-    <li>Unit Testing Tutorial Part IV: Mock Objects, Stub Methods and Dependency Injection</li>
-    <li><a href="/blog/unit-testing-tutorial-part-v-mock-methods-and-overriding-constructors">Unit Testing Tutorial Part V: Mock Methods and Overriding Constructors</a></li>
-  </ul>
-</blockquote>
-
-<p>In my previous articles, I have brought you up to speed with writing basic tests for
-basic methods. You are now able to use the <code class="language-plaintext highlighter-rouge">@dataProvider</code> annotation, generate
-coverage reports, and how to use a few select assertions.</p>
-
-<p>So far we have written tests for simple, straight-forward methods. Maybe a call to an
-internal method inside the same class, even an if block thrown in for good measure,
-but nothing at all complex.</p>
-
-<p>While this is great for learning, in the real world you will rarely come across
-something as simple as what you have encountered so far. What you will usually see are
-methods that instantiate other class objects, call methods within the same class, use
-statics, or have foreign object dependencies injected via parameters.</p>
-
-<h2 id="payment-class">PAYMENT CLASS</h2>
-
-<p>Today I will showcase more advanced testing concepts using code we are all familiar
-with and may have used in the past: the payment processor API. Specifically for
-Authorize.net, but just as easily could be any processor API.</p>
-
-<h3 id="grab-the-authorizenet-files">Grab the authorize.net files</h3>
-
-<p>First, update your <code class="language-plaintext highlighter-rouge">./composer.json</code> file with the following:</p>
-
-<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="utf-8"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"> <meta name="description" content="Juan Treminio - Dallas based senior web developer"> <meta name="keywords" content=""> <meta property="og:title" content="Unit Testing Tutorial Part IV: Mock Objects, Stub Methods and Dependency Injection - Juan Treminio - Senior Web Developer Blog"> <meta property="og:type" content="article"> <meta property="og:description" content=" This is Part IV of a multi-part series. Below are the links to other parts of this tutorial! Unit Testing Tutorial Part I: Introduction to PHPUnit Unit Testing Tutorial Part II: Asse..."> <meta property="article:tag" content="webdev"> <meta property="article:tag" content="tutorial"> <meta property="article:tag" content="phpunit"> <meta property="article:tag" content="php"> <meta property="article:tag" content="testing"> <meta property="og:url" content="https://jtreminio.com/blog/unit-testing-tutorial-part-iv-mock-objects-stub-methods-and-dependency-injection"> <meta property="og:site_name" content="Juan Treminio - Senior Web Developer Blog"> <title>Unit Testing Tutorial Part IV: Mock Objects, Stub Methods and Dependency Injection - Juan Treminio - Senior Web Developer Blog</title> <link rel="shortcut icon" type="image/png" href="/static/favicon/favicon.ico"/> <link rel="shortcut icon" type="image/png" href="/static/favicon/favicon-96x96.png" sizes="96x96"/> <link rel="shortcut icon" type="image/png" href="/static/favicon/favicon-32x32.png" sizes="32x32"/> <link rel="canonical" href="https://jtreminio.com/blog/unit-testing-tutorial-part-iv-mock-objects-stub-methods-and-dependency-injection"> <link href="//cdn.jsdelivr.net/npm/bootstrap-no-fonts-no-js@3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css"/> <link href="//cdnjs.cloudflare.com/ajax/libs/startbootstrap-clean-blog/3.3.7/css/clean-blog.min.css" rel="stylesheet" type="text/css"/> <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css"/> <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css"/> <script src="//cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script> <link rel="stylesheet" href="/static/css/rouge.scss"/> <link rel="stylesheet" href="/static/css/custom.scss?1642996622"/> <link rel="stylesheet" href="/static/css/dark.scss?1642996622" data-style="dark"/> </head> <body> <nav class="navbar navbar-default navbar-expand-md navbar-custom navbar-fixed-top is-fixed is-visible"> <div class="container-fluid"> <div class="navbar-header page-scroll"> <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar-collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button> <a class="navbar-brand hidden-xs hidden-sm" href="/">Juan Treminio - Senior Web Developer Blog</a> <a class="navbar-brand visible-xs visible-sm" href="/">Juan Treminio - Developer Blog</a> </div> <div class="collapse navbar-collapse" id="main-navbar-collapse"> <ul class="nav navbar-nav navbar-right"> <li><a href="/">Blog</a></li> <li><a href="/about">About</a></li> <li><a href="/hire-me">Hire Me</a></li> <li> <a class="btn theme-toggle"> <span class="theme-dark"><i data-feather="moon"></i> Dark Theme</span> <span class="theme-light"><i data-feather="sun"></i> Light Theme</span> </a> </li> </ul> </div> </div> </nav> <header class="intro-header"> <div class="container"> <div class="row"> <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"> <div class="post-heading"> <h1>Unit Testing Tutorial Part IV: Mock Objects, Stub Methods and Dependency Injection</h1> <h2 class="subheading">PHP Unit introduction series</h2> <span class="meta">Posted on Mar 07, 2013 <br/> <i class="feather icon-tag"></i>Tags <a href="/tags#webdev">webdev</a>, <a href="/tags#tutorial">tutorial</a>, <a href="/tags#phpunit">phpunit</a>, <a href="/tags#php">php</a>, <a href="/tags#testing">testing</a> </span> </div> </div> </div> </div> </header> <article> <div class="container"> <div class="row"> <div class="post col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"> <blockquote class="success"> <p>This is Part IV of a multi-part series. Below are the links to other parts of this tutorial!</p> <ul> <li><a href="/blog/unit-testing-tutorial-part-i-introduction-to-phpunit">Unit Testing Tutorial Part I: Introduction to PHPUnit</a></li> <li><a href="/blog/unit-testing-tutorial-part-ii-assertions-writing-a-useful-test-and-dataprovider">Unit Testing Tutorial Part II: Assertions, Writing a Useful Test and @dataProvider</a></li> <li><a href="/blog/unit-testing-tutorial-part-iii-testing-protected-private-methods-coverage-reports-and-crap">Unit Testing Tutorial Part III: Testing Protected/Private Methods, Coverage Reports and CRAP</a></li> <li>Unit Testing Tutorial Part IV: Mock Objects, Stub Methods and Dependency Injection</li> <li><a href="/blog/unit-testing-tutorial-part-v-mock-methods-and-overriding-constructors">Unit Testing Tutorial Part V: Mock Methods and Overriding Constructors</a></li> </ul> </blockquote> <p>In my previous articles, I have brought you up to speed with writing basic tests for basic methods. You are now able to use the <code class="language-plaintext highlighter-rouge">@dataProvider</code> annotation, generate coverage reports, and how to use a few select assertions.</p> <p>So far we have written tests for simple, straight-forward methods. Maybe a call to an internal method inside the same class, even an if block thrown in for good measure, but nothing at all complex.</p> <p>While this is great for learning, in the real world you will rarely come across something as simple as what you have encountered so far. What you will usually see are methods that instantiate other class objects, call methods within the same class, use statics, or have foreign object dependencies injected via parameters.</p> <h2 id="payment-class">PAYMENT CLASS</h2> <p>Today I will showcase more advanced testing concepts using code we are all familiar with and may have used in the past: the payment processor API. Specifically for Authorize.net, but just as easily could be any processor API.</p> <h3 id="grab-the-authorizenet-files">Grab the authorize.net files</h3> <p>First, update your <code class="language-plaintext highlighter-rouge">./composer.json</code> file with the following:</p> <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -258,18 +24,7 @@ Authorize.net, but just as easily could be any processor API.</p>
         </span><span class="p">}</span><span class="w">
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></pre></td></tr></tbody></table></code></pre></div></div>
-
-<p>We are simply adding in an unofficial Authorize.net entry to grab all the files.</p>
-
-<p>To install, run <code class="language-plaintext highlighter-rouge">./composer.phar update</code>.</p>
-
-<h3 id="payment-class-1">Payment class</h3>
-
-<p>Now create an empty file at <code class="language-plaintext highlighter-rouge">./phpUnitTutorial/Payment.php</code> and paste the following
-code:</p>
-
-<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</span></pre></td></tr></tbody></table></code></pre></div></div> <p>We are simply adding in an unofficial Authorize.net entry to grab all the files.</p> <p>To install, run <code class="language-plaintext highlighter-rouge">./composer.phar update</code>.</p> <h3 id="payment-class-1">Payment class</h3> <p>Now create an empty file at <code class="language-plaintext highlighter-rouge">./phpUnitTutorial/Payment.php</code> and paste the following code:</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -331,18 +86,7 @@ code:</p>
         <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">}</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<p>This code could have come right out of any number of projects around the world that
-implement eCommerce features. It is simple, to the point, and untestable! You will
-soon find out why.</p>
-
-<h3 id="test-skeleton">Test skeleton</h3>
-
-<p>Create a new file at <code class="language-plaintext highlighter-rouge">./phpUnitTutorial/Test/PaymentTest.php</code> and create the minimum
-required:</p>
-
-<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></pre></div></div> <p>This code could have come right out of any number of projects around the world that implement eCommerce features. It is simple, to the point, and untestable! You will soon find out why.</p> <h3 id="test-skeleton">Test skeleton</h3> <p>Create a new file at <code class="language-plaintext highlighter-rouge">./phpUnitTutorial/Test/PaymentTest.php</code> and create the minimum required:</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -362,34 +106,11 @@ required:</p>
 <span class="p">{</span>
     <span class="c1">//</span>
 <span class="p">}</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<p>Running our test suite shows a single failure:</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></pre></div></div> <p>Running our test suite shows a single failure:</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 </pre></td><td class="rouge-code"><pre>1) Warning
 No tests found in class "phpUnitTutorial\Test\PaymentTest".
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<p>We are good to go!</p>
-
-<h3 id="first-test">First test</h3>
-
-<p>Before writing the first test, think about what we need to actually test from the
-code given.</p>
-
-<p>The two most obvious outcomes are:</p>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">$response-&gt;approved</code> is <code class="language-plaintext highlighter-rouge">true</code>, which triggers the call to <code class="language-plaintext highlighter-rouge">::savePayment()</code>
-which returns <code class="language-plaintext highlighter-rouge">true</code>, and</li>
-  <li><code class="language-plaintext highlighter-rouge">$response-&gt;approved</code> is <code class="language-plaintext highlighter-rouge">false</code>, which then throws <code class="language-plaintext highlighter-rouge">\Exception()</code>.</li>
-</ul>
-
-<p>Create our first, empty test method:</p>
-
-<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></pre></div></div> <p>We are good to go!</p> <h3 id="first-test">First test</h3> <p>Before writing the first test, think about what we need to actually test from the code given.</p> <p>The two most obvious outcomes are:</p> <ul> <li><code class="language-plaintext highlighter-rouge">$response-&gt;approved</code> is <code class="language-plaintext highlighter-rouge">true</code>, which triggers the call to <code class="language-plaintext highlighter-rouge">::savePayment()</code> which returns <code class="language-plaintext highlighter-rouge">true</code>, and</li> <li><code class="language-plaintext highlighter-rouge">$response-&gt;approved</code> is <code class="language-plaintext highlighter-rouge">false</code>, which then throws <code class="language-plaintext highlighter-rouge">\Exception()</code>.</li> </ul> <p>Create our first, empty test method:</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -403,12 +124,7 @@ which returns <code class="language-plaintext highlighter-rouge">true</code>, an
 <span class="p">{</span>
     <span class="c1">//</span>
 <span class="p">}</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<p>We know that <code class="language-plaintext highlighter-rouge">::processPayment()</code> accepts an array, and from the code we can see it 
-uses the <code class="language-plaintext highlighter-rouge">amount</code>, <code class="language-plaintext highlighter-rouge">card_num</code> and <code class="language-plaintext highlighter-rouge">exp_date</code> keys, so set that up:</p>
-
-<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></pre></div></div> <p>We know that <code class="language-plaintext highlighter-rouge">::processPayment()</code> accepts an array, and from the code we can see it uses the <code class="language-plaintext highlighter-rouge">amount</code>, <code class="language-plaintext highlighter-rouge">card_num</code> and <code class="language-plaintext highlighter-rouge">exp_date</code> keys, so set that up:</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -424,14 +140,7 @@ uses the <code class="language-plaintext highlighter-rouge">amount</code>, <code
     <span class="s1">'card_num'</span> <span class="o">=&gt;</span> <span class="s1">'4111-1111-1111-1111'</span><span class="p">,</span>
     <span class="s1">'exp_date'</span> <span class="o">=&gt;</span> <span class="s1">'03/2013'</span><span class="p">,</span>
 <span class="p">);</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<p>We basically recreated what a normal payment would look like.</p>
-
-<p>Now that we have the required parameter and its keys set up, instantiate the object, 
-pass in the array and set our expected result - a return value of <code class="language-plaintext highlighter-rouge">true</code>:</p>
-
-<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></pre></div></div> <p>We basically recreated what a normal payment would look like.</p> <p>Now that we have the required parameter and its keys set up, instantiate the object, pass in the array and set our expected result - a return value of <code class="language-plaintext highlighter-rouge">true</code>:</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -475,61 +184,7 @@ pass in the array and set our expected result - a return value of <code class="l
         <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">assertTrue</span><span class="p">(</span><span class="nv">$result</span><span class="p">);</span>
     <span class="p">}</span>
 <span class="p">}</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<div class="text-center">
-  <figure class="img-thumbnail">
-    <a href="
-/static/post/2013-03-07-unit-testing-tutorial-part-iv-mock-objects-stub-methods-and-dependency-injection/01-failed-by-outside-dependency.png
-">
-      <img style="max-width: 100%; height: auto;" src="
-/static/post/2013-03-07-unit-testing-tutorial-part-iv-mock-objects-stub-methods-and-dependency-injection/01-failed-by-outside-dependency.png
-" width="300px" />
-      <figcaption><small>01-failed-by-outside-dependency.png</small></figcaption>
-    </a>
-  </figure>
-</div>
-
-<h3 id="explosions">Explosions!</h3>
-
-<p>Our test suite blew up. What exactly happened?</p>
-
-<p>Authorize.net responded to our test by saying “The merchant login ID or password is
-invalid or the account is inactive.”. Oops!</p>
-
-<p>Maybe we should get valid Authorize.net credentials and plug them in to our test!</p>
-
-<p>While that would certainly solve the issue, another quickly takes its place:</p>
-
-<p>If you dive into the <code class="language-plaintext highlighter-rouge">\AuthorizeNetAIM</code> class, you will notice the complexity quickly
-grows - the methods call other methods, which call even more. Eventually there is
-even a cURL call that is what actually contacts Authorize.net’s servers.</p>
-
-<p>What happens if the Authorize.net servers are unavailable when you are writing and/or
-running your tests?</p>
-
-<p>Should we allow our tests to fail and throw a red bar because Authorize.net may not be
-down? Or because our internet is down?</p>
-
-<p>Why are we even worrying about what happens in this foreign class? We don’t want to
-depend on an outside source that is out of our control! There must be a better way…</p>
-
-<h2 id="enter-the-mock">ENTER THE MOCK</h2>
-
-<p>PHPUnit comes with a very powerful feature to help us handle outside dependencies. It
-basically involves replacing the actual object with a fake, or ‘mock’, object that we
-fully control, removing all dependencies on outside systems or code that we really
-have no need to test.</p>
-
-<p>In the <code class="language-plaintext highlighter-rouge">\AuthorizeNetAIM</code> class we know that the method <code class="language-plaintext highlighter-rouge">::authorizeAndCapture()</code>
-brings some serious problems to our testing code - in that it pings an outside server
-that we neither have control over nor desire to control.</p>
-
-<p>There is still a minor issue, however: how do we actually get out mocked object into
-the code we are testing? The code that instantiates the Authorize.net object is pretty
-concrete and leaves no room for interpretation, right?</p>
-
-<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></pre></div></div> <div class="text-center"> <figure class="img-thumbnail"> <a href="/static/post/2013-03-07-unit-testing-tutorial-part-iv-mock-objects-stub-methods-and-dependency-injection/01-failed-by-outside-dependency.png"> <img style="max-width: 100%; height: auto;" src="/static/post/2013-03-07-unit-testing-tutorial-part-iv-mock-objects-stub-methods-and-dependency-injection/01-failed-by-outside-dependency.png" width="300px"/> <figcaption> <small>01-failed-by-outside-dependency.png</small> </figcaption> </a> </figure> </div> <h3 id="explosions">Explosions!</h3> <p>Our test suite blew up. What exactly happened?</p> <p>Authorize.net responded to our test by saying “The merchant login ID or password is invalid or the account is inactive.”. Oops!</p> <p>Maybe we should get valid Authorize.net credentials and plug them in to our test!</p> <p>While that would certainly solve the issue, another quickly takes its place:</p> <p>If you dive into the <code class="language-plaintext highlighter-rouge">\AuthorizeNetAIM</code> class, you will notice the complexity quickly grows - the methods call other methods, which call even more. Eventually there is even a cURL call that is what actually contacts Authorize.net’s servers.</p> <p>What happens if the Authorize.net servers are unavailable when you are writing and/or running your tests?</p> <p>Should we allow our tests to fail and throw a red bar because Authorize.net may not be down? Or because our internet is down?</p> <p>Why are we even worrying about what happens in this foreign class? We don’t want to depend on an outside source that is out of our control! There must be a better way…</p> <h2 id="enter-the-mock">ENTER THE MOCK</h2> <p>PHPUnit comes with a very powerful feature to help us handle outside dependencies. It basically involves replacing the actual object with a fake, or ‘mock’, object that we fully control, removing all dependencies on outside systems or code that we really have no need to test.</p> <p>In the <code class="language-plaintext highlighter-rouge">\AuthorizeNetAIM</code> class we know that the method <code class="language-plaintext highlighter-rouge">::authorizeAndCapture()</code> brings some serious problems to our testing code - in that it pings an outside server that we neither have control over nor desire to control.</p> <p>There is still a minor issue, however: how do we actually get out mocked object into the code we are testing? The code that instantiates the Authorize.net object is pretty concrete and leaves no room for interpretation, right?</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -537,18 +192,7 @@ concrete and leaves no room for interpretation, right?</p>
 <span class="c1">// ...</span>
 
 <span class="nv">$transaction</span> <span class="o">=</span> <span class="k">new</span> <span class="err">\</span><span class="nf">AuthorizeNetAIM</span><span class="p">(</span><span class="k">self</span><span class="o">::</span><span class="no">API_ID</span><span class="p">,</span> <span class="k">self</span><span class="o">::</span><span class="no">TRANS_KEY</span><span class="p">);</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<h2 id="depending-on-dependency-injection">DEPENDING ON DEPENDENCY INJECTION</h2>
-
-<p>There is this concept called dependency injection. It is a fancy name for something
-that is ultimately a very simple concept to understand.</p>
-
-<p>Instead of using the <code class="language-plaintext highlighter-rouge">new</code> keyword in your methods, pass in the object in parameters.</p>
-
-<p>So this:</p>
-
-<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></pre></div></div> <h2 id="depending-on-dependency-injection">DEPENDING ON DEPENDENCY INJECTION</h2> <p>There is this concept called dependency injection. It is a fancy name for something that is ultimately a very simple concept to understand.</p> <p>Instead of using the <code class="language-plaintext highlighter-rouge">new</code> keyword in your methods, pass in the object in parameters.</p> <p>So this:</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -584,11 +228,7 @@ that is ultimately a very simple concept to understand.</p>
 
     <span class="k">throw</span> <span class="k">new</span> <span class="err">\</span><span class="nf">Exception</span><span class="p">(</span><span class="nv">$response</span><span class="o">-&gt;</span><span class="n">error_message</span><span class="p">);</span>
 <span class="p">}</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<p>becomes this:</p>
-
-<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></pre></div></div> <p>becomes this:</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -622,20 +262,7 @@ that is ultimately a very simple concept to understand.</p>
 
     <span class="k">throw</span> <span class="k">new</span> <span class="err">\</span><span class="nf">Exception</span><span class="p">(</span><span class="nv">$response</span><span class="o">-&gt;</span><span class="n">error_message</span><span class="p">);</span>
 <span class="p">}</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<p>You are moving the responsibility of object creation out of the <code class="language-plaintext highlighter-rouge">Payment</code> class and
-into whatever class calls it. If you want more information on dependency injection,
-<a href="http://fabien.potencier.org/article/11/what-is-dependency-injection">click here for an article that explains it in much more detail than I ever could</a>.</p>
-
-<p>The concept is simple, the benefits are many.</p>
-
-<h3 id="but-why-dependency-injection">But why dependency injection?</h3>
-
-<p>We want to replace a dependency in your code with a fake (mock) object. How exactly
-do you do that if your code is very explicit on the object it is creating?</p>
-
-<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></pre></div></div> <p>You are moving the responsibility of object creation out of the <code class="language-plaintext highlighter-rouge">Payment</code> class and into whatever class calls it. If you want more information on dependency injection, <a href="http://fabien.potencier.org/article/11/what-is-dependency-injection">click here for an article that explains it in much more detail than I ever could</a>.</p> <p>The concept is simple, the benefits are many.</p> <h3 id="but-why-dependency-injection">But why dependency injection?</h3> <p>We want to replace a dependency in your code with a fake (mock) object. How exactly do you do that if your code is very explicit on the object it is creating?</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -643,69 +270,7 @@ do you do that if your code is very explicit on the object it is creating?</p>
 <span class="c1">// ...</span>
 
 <span class="nv">$transaction</span> <span class="o">=</span> <span class="k">new</span> <span class="err">\</span><span class="nf">AuthorizeNetAIM</span><span class="p">(</span><span class="k">self</span><span class="o">::</span><span class="no">API_ID</span><span class="p">,</span> <span class="k">self</span><span class="o">::</span><span class="no">TRANS_KEY</span><span class="p">);</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<p>Short answer: You can’t.</p>
-
-<p>Long answer: You can, but the “solution” is horrible and should be avoided at all
-costs: <a href="http://php.net/manual/en/book.runkit.php">runkit</a>.</p>
-
-<p>Runkit allows you to replace code during runtime, which at first glance sounds like
-what you want, right? Replace an actual object in your code with a fake object?</p>
-
-<p>The process is called <a href="http://en.wikipedia.org/wiki/Monkey_patch">monkey patching</a>,
-and for
-<a href="http://www.littlehart.net/atthekeyboard/2012/07/13/monkey-patching-is-for-closers/">a fairly good rundown of why it is a bad idea, click here</a>.</p>
-
-<p>Referencing a blog post that references me? Circlejerk complete!</p>
-
-<p>So, again, we’re back to “You can’t.”.</p>
-
-<p>The other way to replace that dependency is to provide the method with a
-pre-instantiated object in its parameters.</p>
-
-<p>Actually, there’s a third way: service container. I won’t be going over a container
-today, but will speak about the benefits it brings to code quality and testing in the
-near future. For a quick rundown on what a service container is,
-<a href="http://jtreminio.com/2012/10/an-introduction-to-pimple-and-service-containers">just click here</a>!</p>
-
-<p>Instead of the impossible-to-replace object instantiation shown above, passing in
-the dependency with <code class="language-plaintext highlighter-rouge">public function processPayment(\AuthorizeNetAIM $transaction,
-array $paymentDetails)</code> means you can now pass in an object that will pass an <code class="language-plaintext highlighter-rouge">is_a()</code>
-check.</p>
-
-<p>What exactly are the requirements of <code class="language-plaintext highlighter-rouge">is_a()</code>?</p>
-
-<blockquote>
-  <p>is_a — Checks if the object is of this class or has this class as one of its parents</p>
-</blockquote>
-
-<p>Any class that extends <code class="language-plaintext highlighter-rouge">\AuthorizeNetAIM</code> will pass an <code class="language-plaintext highlighter-rouge">is_a()</code> check. That part is
-pretty easy. So, how would we pass an object that passes this check? It would need to
-pass certain requirements:</p>
-
-<ul>
-  <li>Has all the methods your code is expecting, and</li>
-  <li>Any methods that cause problems in your code (like <code class="language-plaintext highlighter-rouge">authorizeAndCapture()</code>) should
-be changed to make them safe for your tests.</li>
-</ul>
-
-<p>Well, that sounds like simply extending the <code class="language-plaintext highlighter-rouge">\AuthorizeNetAIM</code> class would do the
-trick, right? Simply create a new class, say, <code class="language-plaintext highlighter-rouge">\AuthorizeNetAIMFake</code>, which overwrites
-all the methods and simply returns some expected value to remove any and all surprises.</p>
-
-<p>That is actually not a bad idea, and in fact can easily work well for smaller
-codebases… but what happens when you have 5 classes you need to override like this?
-10? 50? You can easily go over several hundred classes needing to be overridden. Do
-you really want to create, and maintain, several hundred files that do nothing more
-than extend another class and override all its methods? There must be a better way!</p>
-
-<h2 id="phpunits-mock-helper">PHPUnit’s Mock Helper</h2>
-
-<p>Taking into account the changes made to our code, our test would then look something
-like this:</p>
-
-<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></pre></div></div> <p>Short answer: You can’t.</p> <p>Long answer: You can, but the “solution” is horrible and should be avoided at all costs: <a href="http://php.net/manual/en/book.runkit.php">runkit</a>.</p> <p>Runkit allows you to replace code during runtime, which at first glance sounds like what you want, right? Replace an actual object in your code with a fake object?</p> <p>The process is called <a href="http://en.wikipedia.org/wiki/Monkey_patch">monkey patching</a>, and for <a href="http://www.littlehart.net/atthekeyboard/2012/07/13/monkey-patching-is-for-closers/">a fairly good rundown of why it is a bad idea, click here</a>.</p> <p>Referencing a blog post that references me? Circlejerk complete!</p> <p>So, again, we’re back to “You can’t.”.</p> <p>The other way to replace that dependency is to provide the method with a pre-instantiated object in its parameters.</p> <p>Actually, there’s a third way: service container. I won’t be going over a container today, but will speak about the benefits it brings to code quality and testing in the near future. For a quick rundown on what a service container is, <a href="/blog/an-introduction-to-pimple-and-service-containers">just click here</a>!</p> <p>Instead of the impossible-to-replace object instantiation shown above, passing in the dependency with <code class="language-plaintext highlighter-rouge">public function processPayment(\AuthorizeNetAIM $transaction, array $paymentDetails)</code> means you can now pass in an object that will pass an <code class="language-plaintext highlighter-rouge">is_a()</code> check.</p> <p>What exactly are the requirements of <code class="language-plaintext highlighter-rouge">is_a()</code>?</p> <blockquote class="info"> <p><code class="language-plaintext highlighter-rouge">is_a</code> — Checks if the object is of this class or has this class as one of its parents</p> </blockquote> <p>Any class that extends <code class="language-plaintext highlighter-rouge">\AuthorizeNetAIM</code> will pass an <code class="language-plaintext highlighter-rouge">is_a()</code> check. That part is pretty easy. So, how would we pass an object that passes this check? It would need to pass certain requirements:</p> <ul> <li>Has all the methods your code is expecting, and</li> <li>Any methods that cause problems in your code (like <code class="language-plaintext highlighter-rouge">authorizeAndCapture()</code>) should be changed to make them safe for your tests.</li> </ul> <p>Well, that sounds like simply extending the <code class="language-plaintext highlighter-rouge">\AuthorizeNetAIM</code> class would do the trick, right? Simply create a new class, say, <code class="language-plaintext highlighter-rouge">\AuthorizeNetAIMFake</code>, which overwrites all the methods and simply returns some expected value to remove any and all surprises.</p> <p>That is actually not a bad idea, and in fact can easily work well for smaller codebases… but what happens when you have 5 classes you need to override like this? 10? 50? You can easily go over several hundred classes needing to be overridden. Do you really want to create, and maintain, several hundred files that do nothing more than extend another class and override all its methods? There must be a better way!</p> <h2 id="phpunits-mock-helper">PHPUnit’s Mock Helper</h2> <p>Taking into account the changes made to our code, our test would then look something like this:</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -755,22 +320,7 @@ like this:</p>
         <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">assertTrue</span><span class="p">(</span><span class="nv">$result</span><span class="p">);</span>
     <span class="p">}</span>
 <span class="p">}</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<p>The problem with this code is that you are still dependent on the <code class="language-plaintext highlighter-rouge">\AuthorizeNetAIM</code>
-class and all the code within its methods. We also don’t want to create a blank class
-file to do this, for the reasons listed above. What to do?</p>
-
-<h3 id="phpunit-to-the-rescue">PHPUnit to the rescue!</h3>
-
-<p>One of the most powerful tools available to you is the <code class="language-plaintext highlighter-rouge">getMock()</code> method - it allows
-you to create a new class that passes our two major requirements above, all on the fly.
-You do not need to create separate files for each class, you do not have to worry about
-maintaining a steadily-growing file structure.</p>
-
-<p>To use it, you simply call it and pass in a few parameters, most of them optional.</p>
-
-<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></pre></div></div> <p>The problem with this code is that you are still dependent on the <code class="language-plaintext highlighter-rouge">\AuthorizeNetAIM</code> class and all the code within its methods. We also don’t want to create a blank class file to do this, for the reasons listed above. What to do?</p> <h3 id="phpunit-to-the-rescue">PHPUnit to the rescue!</h3> <p>One of the most powerful tools available to you is the <code class="language-plaintext highlighter-rouge">getMock()</code> method - it allows you to create a new class that passes our two major requirements above, all on the fly. You do not need to create separate files for each class, you do not have to worry about maintaining a steadily-growing file structure.</p> <p>To use it, you simply call it and pass in a few parameters, most of them optional.</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -778,17 +328,7 @@ maintaining a steadily-growing file structure.</p>
 <span class="c1">// ...</span>
 
 <span class="nv">$authorizeNet</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">getMock</span><span class="p">(</span><span class="s1">'\AuthorizeNetAIM'</span><span class="p">,</span> <span class="k">array</span><span class="p">(),</span> <span class="k">array</span><span class="p">(</span><span class="nv">$payment</span><span class="o">::</span><span class="no">API_ID</span><span class="p">,</span> <span class="nv">$payment</span><span class="o">::</span><span class="no">TRANS_KEY</span><span class="p">));</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<h3 id="wait-whats-that-second-parameter">Wait, what’s that second parameter?</h3>
-
-<p>Just by looking at this code, you can tell the first parameter is the class name and
-the third parameter is an array containing the constructor parameters. What’s that
-<code class="language-plaintext highlighter-rouge">array()</code>, though?</p>
-
-<p>Turns out <code class="language-plaintext highlighter-rouge">getMock()</code> is kind of … ugly and unwieldy:</p>
-
-<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></pre></div></div> <h3 id="wait-whats-that-second-parameter">Wait, what’s that second parameter?</h3> <p>Just by looking at this code, you can tell the first parameter is the class name and the third parameter is an array containing the constructor parameters. What’s that <code class="language-plaintext highlighter-rouge">array()</code>, though?</p> <p>Turns out <code class="language-plaintext highlighter-rouge">getMock()</code> is kind of … ugly and unwieldy:</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -796,21 +336,7 @@ the third parameter is an array containing the constructor parameters. What’s 
 <span class="c1">// ...</span>
 
 <span class="k">public</span> <span class="k">function</span> <span class="n">getMock</span><span class="p">(</span><span class="nv">$originalClassName</span><span class="p">,</span> <span class="nv">$methods</span> <span class="o">=</span> <span class="k">array</span><span class="p">(),</span> <span class="kt">array</span> <span class="nv">$arguments</span> <span class="o">=</span> <span class="k">array</span><span class="p">(),</span> <span class="nv">$mockClassName</span> <span class="o">=</span> <span class="s1">''</span><span class="p">,</span> <span class="nv">$callOriginalConstructor</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> <span class="nv">$callOriginalClone</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> <span class="nv">$callAutoload</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">,</span> <span class="nv">$cloneArguments</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<p>This is ugly. There are 8 parameters, most of them optional, for this single method.
-Do you really want to have a window open all the time when you are writing tests? Of
-course not - what will happen is you will stop writing tests because this sucks.</p>
-
-<h3 id="getmockbuilder">getMockBuilder()</h3>
-
-<p>A few versions ago PHPUnit introduced a handy helper: <code class="language-plaintext highlighter-rouge">getMockBuilder()</code>. It is little
-more than a wrapper around the <code class="language-plaintext highlighter-rouge">getMock()</code> method above, but it provides a much more
-human-readable format of chained methods, making creating mocked objects a breeze.</p>
-
-<p>Here is our <code class="language-plaintext highlighter-rouge">$authorizeNet</code> with <code class="language-plaintext highlighter-rouge">getMockBuilder()</code>:</p>
-
-<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></pre></div></div> <p>This is ugly. There are 8 parameters, most of them optional, for this single method. Do you really want to have a window open all the time when you are writing tests? Of course not - what will happen is you will stop writing tests because this sucks.</p> <h3 id="getmockbuilder">getMockBuilder()</h3> <p>A few versions ago PHPUnit introduced a handy helper: <code class="language-plaintext highlighter-rouge">getMockBuilder()</code>. It is little more than a wrapper around the <code class="language-plaintext highlighter-rouge">getMock()</code> method above, but it provides a much more human-readable format of chained methods, making creating mocked objects a breeze.</p> <p>Here is our <code class="language-plaintext highlighter-rouge">$authorizeNet</code> with <code class="language-plaintext highlighter-rouge">getMockBuilder()</code>:</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -822,21 +348,7 @@ human-readable format of chained methods, making creating mocked objects a breez
 <span class="nv">$authorizeNet</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">getMockBuilder</span><span class="p">(</span><span class="s1">'\AuthorizeNetAIM'</span><span class="p">)</span>
     <span class="o">-&gt;</span><span class="nf">setConstructorArgs</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="nv">$payment</span><span class="o">::</span><span class="no">API_ID</span><span class="p">,</span> <span class="nv">$payment</span><span class="o">::</span><span class="no">TRANS_KEY</span><span class="p">))</span>
     <span class="o">-&gt;</span><span class="nf">getMock</span><span class="p">();</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<p>Thanks to the method names you immediately know what they are for and you can
-completely skip the optional methods.</p>
-
-<p>In fact, the only requirements are <code class="language-plaintext highlighter-rouge">getMockBuilder()</code> and <code class="language-plaintext highlighter-rouge">getMock()</code>.</p>
-
-<h2 id="examining-a-mocked-object">EXAMINING A MOCKED OBJECT</h2>
-
-<p><code class="language-plaintext highlighter-rouge">getMockBuilder()</code> returns a mock object, which is simply an object that has behavior
-similar to the original object.</p>
-
-<p>In fact, if you dump the mock you can see it is very similar to the original:</p>
-
-<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></pre></div></div> <p>Thanks to the method names you immediately know what they are for and you can completely skip the optional methods.</p> <p>In fact, the only requirements are <code class="language-plaintext highlighter-rouge">getMockBuilder()</code> and <code class="language-plaintext highlighter-rouge">getMock()</code>.</p> <h2 id="examining-a-mocked-object">EXAMINING A MOCKED OBJECT</h2> <p><code class="language-plaintext highlighter-rouge">getMockBuilder()</code> returns a mock object, which is simply an object that has behavior similar to the original object.</p> <p>In fact, if you dump the mock you can see it is very similar to the original:</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -852,11 +364,7 @@ similar to the original object.</p>
     <span class="o">-&gt;</span><span class="nf">getMock</span><span class="p">();</span>
 
 <span class="nb">var_dump</span><span class="p">(</span><span class="nv">$authorizeNet</span><span class="p">);</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<p>Which prints:</p>
-
-<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></pre></div></div> <p>Which prints:</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -1026,11 +534,7 @@ similar to the original object.</p>
     <span class="k">protected</span> <span class="nv">$_sandbox</span>         <span class="o">=&gt;</span> <span class="nf">bool</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
     <span class="k">protected</span> <span class="nv">$_log_file</span>        <span class="o">=&gt;</span> <span class="nf">bool</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span>
 <span class="p">}</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<p>It also matches the methods of the original,</p>
-
-<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></pre></div></div> <p>It also matches the methods of the original,</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -1038,11 +542,7 @@ similar to the original object.</p>
 <span class="c1">// ...</span>
 
 <span class="nb">print_r</span><span class="p">(</span><span class="nb">get_class_methods</span><span class="p">(</span><span class="nv">$authorizeNet</span><span class="p">));</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<p>Which prints:</p>
-
-<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></pre></div></div> <p>Which prints:</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -1094,14 +594,7 @@ similar to the original object.</p>
 <span class="p">[</span><span class="mi">23</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="n">__phpunit_verify</span>
 <span class="p">[</span><span class="mi">24</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="n">__phpunit_cleanup</span>
 <span class="p">[</span><span class="mi">25</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="n">__construct</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<p>For all intents and purposes, the mock created using <code class="language-plaintext highlighter-rouge">getMockBuilder()</code> is a real,
-working method… with one exception!</p>
-
-<p>Try dumping the output of any method call:</p>
-
-<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></pre></div></div> <p>For all intents and purposes, the mock created using <code class="language-plaintext highlighter-rouge">getMockBuilder()</code> is a real, working method… with one exception!</p> <p>Try dumping the output of any method call:</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -1109,24 +602,7 @@ working method… with one exception!</p>
 <span class="c1">// ...</span>
 
 <span class="nb">var_dump</span><span class="p">(</span><span class="nv">$authorizeNet</span><span class="o">-&gt;</span><span class="nf">authorizeAndCapture</span><span class="p">());</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<p>The result you will get is <code class="language-plaintext highlighter-rouge">NULL</code>.</p>
-
-<p>If you try more methods, the result will <em>always</em> be <code class="language-plaintext highlighter-rouge">NULL</code>. Your mocked object’s
-methods all return <code class="language-plaintext highlighter-rouge">NULL</code>.</p>
-
-<p>These methods are considered stubs!</p>
-
-<h2 id="stub-methods">STUB METHODS</h2>
-
-<p>A stub method is a method that mimics the origin method in two ways - same name and
-same parameters accepted. What makes a stub method special, however, is that all the
-code within it has been erased.</p>
-
-<p>Here’s the original method from the <code class="language-plaintext highlighter-rouge">\AuthorizeNetAIM</code> class:</p>
-
-<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></pre></div></div> <p>The result you will get is <code class="language-plaintext highlighter-rouge">NULL</code>.</p> <p>If you try more methods, the result will <em>always</em> be <code class="language-plaintext highlighter-rouge">NULL</code>. Your mocked object’s methods all return <code class="language-plaintext highlighter-rouge">NULL</code>.</p> <p>These methods are considered stubs!</p> <h2 id="stub-methods">STUB METHODS</h2> <p>A stub method is a method that mimics the origin method in two ways - same name and same parameters accepted. What makes a stub method special, however, is that all the code within it has been erased.</p> <p>Here’s the original method from the <code class="language-plaintext highlighter-rouge">\AuthorizeNetAIM</code> class:</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -1148,11 +624,7 @@ code within it has been erased.</p>
     <span class="nv">$this</span><span class="o">-&gt;</span><span class="n">type</span> <span class="o">=</span> <span class="s2">"AUTH_CAPTURE"</span><span class="p">;</span>
     <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">_sendRequest</span><span class="p">();</span>
 <span class="p">}</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<p>For now we can consider the stub method to be like this:</p>
-
-<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></pre></div></div> <p>For now we can consider the stub method to be like this:</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -1166,29 +638,7 @@ code within it has been erased.</p>
 <span class="p">{</span>
     <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
 <span class="p">}</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<p>All other methods in your mock object are also stubs, and they also return <code class="language-plaintext highlighter-rouge">NULL</code>.</p>
-
-<p>What is great about this is that the <code class="language-plaintext highlighter-rouge">authorizeAndCapture()</code> method is no longer
-sending a request to the Authorize.net servers. Instead, it is returning a known
-value (<code class="language-plaintext highlighter-rouge">NULL</code>) every single time it is called.</p>
-
-<p>Here is the kicker, though: <strong>You can now override the value returned by a stub
-method from within your test.</strong></p>
-
-<p>This means that you define the value return by your stub in your test, and when you
-run your test your code will think the value returned is normal, and act accordingly
-to your wishes.</p>
-
-<p>A returned value can be anything - <code class="language-plaintext highlighter-rouge">null</code>, a string, an array, integers, other
-objects and even other mocked objects.</p>
-
-<p>We will get into that in more detail in an upcoming chapter, however.</p>
-
-<p>For now, take a look at your test code so far:</p>
-
-<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></pre></div></div> <p>All other methods in your mock object are also stubs, and they also return <code class="language-plaintext highlighter-rouge">NULL</code>.</p> <p>What is great about this is that the <code class="language-plaintext highlighter-rouge">authorizeAndCapture()</code> method is no longer sending a request to the Authorize.net servers. Instead, it is returning a known value (<code class="language-plaintext highlighter-rouge">NULL</code>) every single time it is called.</p> <p>Here is the kicker, though: <strong>You can now override the value returned by a stub method from within your test.</strong></p> <p>This means that you define the value return by your stub in your test, and when you run your test your code will think the value returned is normal, and act accordingly to your wishes.</p> <p>A returned value can be anything - <code class="language-plaintext highlighter-rouge">null</code>, a string, an array, integers, other objects and even other mocked objects.</p> <p>We will get into that in more detail in an upcoming chapter, however.</p> <p>For now, take a look at your test code so far:</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -1242,11 +692,7 @@ objects and even other mocked objects.</p>
         <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">assertTrue</span><span class="p">(</span><span class="nv">$result</span><span class="p">);</span>
     <span class="p">}</span>
 <span class="p">}</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<p>If you run your test now, you will get:</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></pre></div></div> <p>If you run your test now, you will get:</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -1266,25 +712,7 @@ Trying to get property of non-object
 
 FAILURES!
 Tests: 11, Assertions: 10, Errors: 1.
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<p><code class="language-plaintext highlighter-rouge">Payment.php:18</code> corresponds with <code class="language-plaintext highlighter-rouge">if ($response-&gt;approved) {</code>. <code class="language-plaintext highlighter-rouge">$response</code> was
-instantiated with <code class="language-plaintext highlighter-rouge">$response = $transaction-&gt;authorizeAndCapture();</code>. Using the
-knowledge you just gained above, you know this is because all stub methods return
-<code class="language-plaintext highlighter-rouge">NULL</code> unless otherwise overridden.</p>
-
-<p>What is happened is that <code class="language-plaintext highlighter-rouge">$response</code> is <code class="language-plaintext highlighter-rouge">NULL</code>, but then we attempt to call <code class="language-plaintext highlighter-rouge">approved</code>
-from the object, which does not exist, thus the error.</p>
-
-<p>We know we have to override the return value of <code class="language-plaintext highlighter-rouge">authorizeAndCapture()</code>, and
-thankfully it is fairly simple!</p>
-
-<h2 id="overriding-stub-method-return-values">OVERRIDING STUB METHOD RETURN VALUES</h2>
-
-<p>To override the return value of a stub, you have to be introduced to 5 new PHPUnit
-methods:</p>
-
-<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></pre></div></div> <p><code class="language-plaintext highlighter-rouge">Payment.php:18</code> corresponds with <code class="language-plaintext highlighter-rouge">if ($response-&gt;approved) {</code>. <code class="language-plaintext highlighter-rouge">$response</code> was instantiated with <code class="language-plaintext highlighter-rouge">$response = $transaction-&gt;authorizeAndCapture();</code>. Using the knowledge you just gained above, you know this is because all stub methods return <code class="language-plaintext highlighter-rouge">NULL</code> unless otherwise overridden.</p> <p>What is happened is that <code class="language-plaintext highlighter-rouge">$response</code> is <code class="language-plaintext highlighter-rouge">NULL</code>, but then we attempt to call <code class="language-plaintext highlighter-rouge">approved</code> from the object, which does not exist, thus the error.</p> <p>We know we have to override the return value of <code class="language-plaintext highlighter-rouge">authorizeAndCapture()</code>, and thankfully it is fairly simple!</p> <h2 id="overriding-stub-method-return-values">OVERRIDING STUB METHOD RETURN VALUES</h2> <p>To override the return value of a stub, you have to be introduced to 5 new PHPUnit methods:</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -1296,37 +724,7 @@ methods:</p>
 <span class="nv">$authorizeNet</span><span class="o">-&gt;</span><span class="nf">expects</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">once</span><span class="p">())</span>
     <span class="o">-&gt;</span><span class="nf">method</span><span class="p">(</span><span class="s1">'authorizeAndCapture'</span><span class="p">)</span>
     <span class="o">-&gt;</span><span class="nf">will</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">returnValue</span><span class="p">(</span><span class="s1">'RETURN VALUE HERE!'</span><span class="p">));</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<p>Walk through the logic with me.</p>
-
-<p>We are stating that the <code class="language-plaintext highlighter-rouge">$authorizeNet</code> object expects to call one time the method
-<code class="language-plaintext highlighter-rouge">authorizeAndCapture()</code>, and it will return the value <code class="language-plaintext highlighter-rouge">RETURN VALUE HERE!</code>.</p>
-
-<p>You start this process off by calling <code class="language-plaintext highlighter-rouge">expects()</code>, which accepts a single parameter:
-the number of times we are expecting the method to be called in our code. There are
-multiple options for the number method, include <code class="language-plaintext highlighter-rouge">once()</code>, <code class="language-plaintext highlighter-rouge">any()</code>, <code class="language-plaintext highlighter-rouge">never()</code> and a
-few more. The names are self-explanatory.</p>
-
-<p>If we state that the method is expecting to be called one time, and it ends up never
-being called, or called more than once, our test will fail.</p>
-
-<p>If we state it should never be called, but it is, the test will fail.</p>
-
-<p><code class="language-plaintext highlighter-rouge">any()</code> is a cheat that says, “I don’t care if it is ever called, but if it is, here
-is the expected return.”.</p>
-
-<p><code class="language-plaintext highlighter-rouge">method()</code> accepts the name of the method to override. In our case, it would correspond
-with the call <code class="language-plaintext highlighter-rouge">$response = $transaction-&gt;authorizeAndCapture();</code> in our code.</p>
-
-<p>Then we have <code class="language-plaintext highlighter-rouge">will()</code> which is simply wraps the important <code class="language-plaintext highlighter-rouge">returnValue()</code> where you
-actually define what value is returned. In this case, it is <code class="language-plaintext highlighter-rouge">RETURN VALUE HERE!</code>.</p>
-
-<p>Running our test now will still fail, because <code class="language-plaintext highlighter-rouge">authorizeAndCapture()</code> is returning a
-string, when our code is expecting an object with an <code class="language-plaintext highlighter-rouge">approved</code> and <code class="language-plaintext highlighter-rouge">transaction_id</code>
-key. A simple shortcut for these types of objects is to use <code class="language-plaintext highlighter-rouge">\stdClass()</code>:</p>
-
-<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></pre></div></div> <p>Walk through the logic with me.</p> <p>We are stating that the <code class="language-plaintext highlighter-rouge">$authorizeNet</code> object expects to call one time the method <code class="language-plaintext highlighter-rouge">authorizeAndCapture()</code>, and it will return the value <code class="language-plaintext highlighter-rouge">RETURN VALUE HERE!</code>.</p> <p>You start this process off by calling <code class="language-plaintext highlighter-rouge">expects()</code>, which accepts a single parameter: the number of times we are expecting the method to be called in our code. There are multiple options for the number method, include <code class="language-plaintext highlighter-rouge">once()</code>, <code class="language-plaintext highlighter-rouge">any()</code>, <code class="language-plaintext highlighter-rouge">never()</code> and a few more. The names are self-explanatory.</p> <p>If we state that the method is expecting to be called one time, and it ends up never being called, or called more than once, our test will fail.</p> <p>If we state it should never be called, but it is, the test will fail.</p> <p><code class="language-plaintext highlighter-rouge">any()</code> is a cheat that says, “I don’t care if it is ever called, but if it is, here is the expected return.”.</p> <p><code class="language-plaintext highlighter-rouge">method()</code> accepts the name of the method to override. In our case, it would correspond with the call <code class="language-plaintext highlighter-rouge">$response = $transaction-&gt;authorizeAndCapture();</code> in our code.</p> <p>Then we have <code class="language-plaintext highlighter-rouge">will()</code> which is simply wraps the important <code class="language-plaintext highlighter-rouge">returnValue()</code> where you actually define what value is returned. In this case, it is <code class="language-plaintext highlighter-rouge">RETURN VALUE HERE!</code>.</p> <p>Running our test now will still fail, because <code class="language-plaintext highlighter-rouge">authorizeAndCapture()</code> is returning a string, when our code is expecting an object with an <code class="language-plaintext highlighter-rouge">approved</code> and <code class="language-plaintext highlighter-rouge">transaction_id</code> key. A simple shortcut for these types of objects is to use <code class="language-plaintext highlighter-rouge">\stdClass()</code>:</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -1338,11 +736,7 @@ key. A simple shortcut for these types of objects is to use <code class="languag
 <span class="nv">$response</span> <span class="o">=</span> <span class="k">new</span> <span class="err">\</span><span class="nf">stdClass</span><span class="p">();</span>
 <span class="nv">$response</span><span class="o">-&gt;</span><span class="n">approved</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
 <span class="nv">$response</span><span class="o">-&gt;</span><span class="n">transaction_id</span> <span class="o">=</span> <span class="mi">123</span><span class="p">;</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<p>Now you can pass that into the <code class="language-plaintext highlighter-rouge">returnValue()</code> method. Here is our completed test:</p>
-
-<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td></tr></tbody></table></code></pre></div></div> <p>Now you can pass that into the <code class="language-plaintext highlighter-rouge">returnValue()</code> method. Here is our completed test:</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -1412,142 +806,4 @@ key. A simple shortcut for these types of objects is to use <code class="languag
         <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">assertTrue</span><span class="p">(</span><span class="nv">$result</span><span class="p">);</span>
     <span class="p">}</span>
 <span class="p">}</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<p>Running it results in rainbows and unicorns: <code class="language-plaintext highlighter-rouge">OK (11 tests, 12 assertions)</code>.</p>
-
-<h2 id="wrap-it-up">WRAP IT UP</h2>
-
-<p>There is still much more work to be done. Simply looking at our code we know that we
-need to cover the scenario where <code class="language-plaintext highlighter-rouge">$response-&gt;approved</code> is <code class="language-plaintext highlighter-rouge">false</code>, and then how to
-handle the <code class="language-plaintext highlighter-rouge">throw new \Exception($response-&gt;error_message);</code> line.</p>
-
-<p>However, you have now learned of the concept of mocked objects, stubbed methods, and
-why dependency injection is such a useful tool for testing.</p>
-
-<p>Next up I will introduce mocked methods (similar but slightly different from mocked
-objects and stubbed methods!), catching exceptions and writing tests for ever more
-complex code.</p>
-
-<p>Until next time, this is Señor PHP Developer Juan Treminio wishing you adios!</p>
-
-
-        <hr class="invisible">
-
-        <ul class="pager">
-          
-          <li class="previous">
-            <a href="/blog/unit-testing-tutorial-part-iii-testing-protected-private-methods-coverage-reports-and-crap" data-toggle="tooltip"
-               data-placement="top" title="Unit Testing Tutorial Part III: Testing Protected/Private Methods, Coverage Reports and CRAP">
-              Previous &rarr;<br>
-              <span>Unit Testing Tutorial Part III: Testing Protected/Private Methods, Coverage Reports and CRAP</span>
-            </a>
-          </li>
-          
-          
-          <li class="next">
-            <a href="/blog/unit-testing-tutorial-part-v-mock-methods-and-overriding-constructors" data-toggle="tooltip"
-               data-placement="top" title="Unit Testing Tutorial Part V: Mock Methods and Overriding Constructors">
-              &larr; Next<br>
-              <span>Unit Testing Tutorial Part V: Mock Methods and Overriding Constructors</span>
-            </a>
-          </li>
-          
-        </ul>
-
-        <hr class="invisible">
-
-        
-      </div>
-    </div>
-  </div>
-</article>
-
-  <!-- Footer -->
-<footer>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <ul class="list-inline text-center footer-icons">
-          <li><a href="mailto:jtreminio@gmail.com"><i data-feather="mail"></i></a></li>
-          
-          <li>
-            <a href="https://github.com/jtreminio" target="_blank">
-              <i data-feather="github"></i>
-            </a>
-          </li>
-          
-          <li>
-            <a href="https://twitter.com/juantreminio" target="_blank">
-              <i data-feather="twitter"></i>
-            </a>
-          </li>
-          
-          <li>
-            <a href="https://www.linkedin.com/in/jtreminio-1" target="_blank">
-              <i data-feather="linkedin"></i>
-            </a>
-          </li>
-          
-        </ul>
-      </div>
-    </div>
-  </div>
-</footer>
-
-  <link href="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" rel="stylesheet" type="text/css" />
-<link href="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" rel="stylesheet" type="text/css" />
-<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js"></script>
-
-<!-- Root element of PhotoSwipe. Must have class pswp. -->
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-  <!-- Background of PhotoSwipe.
-       It's a separate element, as animating opacity is faster than rgba(). -->
-  <div class="pswp__bg"></div>
-  <!-- Slides wrapper with overflow:hidden. -->
-  <div class="pswp__scroll-wrap">
-    <!-- Container that holds slides.
-      PhotoSwipe keeps only 3 of them in DOM to save memory.
-      Don't modify these 3 pswp__item elements, data is added later on. -->
-    <div class="pswp__container">
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-    </div>
-    <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
-    <div class="pswp__ui pswp__ui--hidden">
-      <div class="pswp__top-bar">
-        <!--  Controls are self-explanatory. Order can be changed. -->
-        <div class="pswp__counter"></div>
-        <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-        <button class="pswp__button pswp__button--share" title="Share"></button>
-        <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-        <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-        <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
-        <!-- element will get class pswp__preloader--active when preloader is running -->
-        <div class="pswp__preloader">
-          <div class="pswp__preloader__icn">
-            <div class="pswp__preloader__cut">
-              <div class="pswp__preloader__donut"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-        <div class="pswp__share-tooltip"></div>
-      </div>
-      <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-      </button>
-      <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-      </button>
-      <div class="pswp__caption">
-        <div class="pswp__caption__center"></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-</body>
-<script src="/static/js/custom.js?1642983746"></script>
-</html>
+</pre></td></tr></tbody></table></code></pre></div></div> <p>Running it results in rainbows and unicorns: <code class="language-plaintext highlighter-rouge">OK (11 tests, 12 assertions)</code>.</p> <h2 id="wrap-it-up">WRAP IT UP</h2> <p>There is still much more work to be done. Simply looking at our code we know that we need to cover the scenario where <code class="language-plaintext highlighter-rouge">$response-&gt;approved</code> is <code class="language-plaintext highlighter-rouge">false</code>, and then how to handle the <code class="language-plaintext highlighter-rouge">throw new \Exception($response-&gt;error_message);</code> line.</p> <p>However, you have now learned of the concept of mocked objects, stubbed methods, and why dependency injection is such a useful tool for testing.</p> <p>Next up I will introduce mocked methods (similar but slightly different from mocked objects and stubbed methods!), catching exceptions and writing tests for ever more complex code.</p> <p>Until next time, this is Señor PHP Developer Juan Treminio wishing you adios!</p> <hr class="invisible"> <ul class="pager"> <li class="previous"> <a href="/blog/unit-testing-tutorial-part-iii-testing-protected-private-methods-coverage-reports-and-crap" data-toggle="tooltip" data-placement="top" title="Unit Testing Tutorial Part III: Testing Protected/Private Methods, Coverage Reports and CRAP"> Previous &rarr;<br> <span>Unit Testing Tutorial Part III: Testing Protected/Private Methods, Coverage Reports and CRAP</span> </a> </li> <li class="next"> <a href="/blog/unit-testing-tutorial-part-v-mock-methods-and-overriding-constructors" data-toggle="tooltip" data-placement="top" title="Unit Testing Tutorial Part V: Mock Methods and Overriding Constructors"> &larr; Next<br> <span>Unit Testing Tutorial Part V: Mock Methods and Overriding Constructors</span> </a> </li> </ul> <hr class="invisible"> </div> </div> </div> </article> <footer> <div class="container"> <div class="row"> <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"> <ul class="list-inline text-center footer-icons"> <li><a href="mailto:jtreminio@gmail.com"><i data-feather="mail"></i></a></li> <li> <a href="https://github.com/jtreminio" target="_blank"> <i data-feather="github"></i> </a> </li> <li> <a href="https://twitter.com/juantreminio" target="_blank"> <i data-feather="twitter"></i> </a> </li> <li> <a href="https://www.linkedin.com/in/jtreminio-1" target="_blank"> <i data-feather="linkedin"></i> </a> </li> </ul> </div> </div> </div> </footer> <link href="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" rel="stylesheet" type="text/css"/> <link href="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" rel="stylesheet" type="text/css"/> <script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js"></script> <script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js"></script> <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true"> <div class="pswp__bg"></div> <div class="pswp__scroll-wrap"> <div class="pswp__container"> <div class="pswp__item"></div> <div class="pswp__item"></div> <div class="pswp__item"></div> </div> <div class="pswp__ui pswp__ui--hidden"> <div class="pswp__top-bar"> <div class="pswp__counter"></div> <button class="pswp__button pswp__button--close" title="Close (Esc)"></button> <button class="pswp__button pswp__button--share" title="Share"></button> <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button> <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button> <div class="pswp__preloader"> <div class="pswp__preloader__icn"> <div class="pswp__preloader__cut"> <div class="pswp__preloader__donut"></div> </div> </div> </div> </div> <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"> <div class="pswp__share-tooltip"></div> </div> <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"> </button> <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"> </button> <div class="pswp__caption"> <div class="pswp__caption__center"></div> </div> </div> </div> </div> </body> <script src="/static/js/custom.js?1642996622"></script> </html>

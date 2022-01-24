@@ -5,7 +5,9 @@ date: 2012-10-04
 title: An introduction to Pimple and Service Containers
 description: Container and service locator
 slug: an-introduction-to-pimple-and-service-containers
-redirect_from: /2012/10/an-introduction-to-pimple-and-service-containers
+redirect_from:
+  - /2012/10/an-introduction-to-pimple-and-service-containers
+  - /2012/10/an-introduction-to-pimple-and-service-containers/
 tags:
   - webdev
   - tutorial
@@ -45,7 +47,9 @@ $container = array();
 $container['dateTime'] = new DateTime();
 ```
 
-{% include img.html page=page image="1.png" width="300px" %}
+{% image 300px %}
+![1.png](/static/post/2012-10-04-an-introduction-to-pimple-and-service-containers/1.png)
+{% endimage %}
 
 Here you can see that the `dateTime` key in the `$container` array holds an
 instantiated `DateTime` object.
@@ -63,7 +67,9 @@ $date = $container['dateTime'];
 $formatted = $date->format('Y-m-d H:i:s');
 ```
 
-{% include img.html page=page image="2.png" width="300px" %}
+{% image 300px %}
+![2.png](/static/post/2012-10-04-an-introduction-to-pimple-and-service-containers/2.png)
+{% endimage %}
 
 Let’s define several more!
 
@@ -79,7 +85,9 @@ $container['dateTimeFour'] = new DateTime();
 $container['dateTimeFive'] = new DateTime();
 ```
 
-{% include img.html page=page image="3.png" width="300px" %}
+{% image 300px %}
+![3.png](/static/post/2012-10-04-an-introduction-to-pimple-and-service-containers/3.png)
+{% endimage %}
 
 Notice something? By simple defining the keys you’re actually instantiating the
 objects and putting them in memory. For something as simple as `DateTime` that’s not
@@ -121,7 +129,9 @@ $container['dateTimeFive'] = function() {
 $date = $container['dateTimeOne'];
 ```
 
-{% include img.html page=page image="7.png" width="300px" %}
+{% image 300px %}
+![7.png](/static/post/2012-10-04-an-introduction-to-pimple-and-service-containers/7.png)
+{% endimage %}
 
 Oops. Looks like `$date` is just a `Closure` and not the `DateTime` object we were
 expecting! If you try to use `$date` as a `DateTime` object here you’ll get some
@@ -159,7 +169,9 @@ $container['dateTimeFive'] = function() {
 };
 ```
 
-{% include img.html page=page image="4.png" width="300px" %}
+{% image 300px %}
+![4.png](/static/post/2012-10-04-an-introduction-to-pimple-and-service-containers/4.png)
+{% endimage %}
 
 You now have the same keys defined, but each key does not automatically instantiate
 the object within it, it just holds a closure. Using it is just as simple as before:
@@ -194,7 +206,9 @@ $date = $container['dateTimeOne'];
 $formatted = $date->format('Y-m-d H:i:s');
 ```
 
-{% include img.html page=page image="5.png" width="300px" %}
+{% image 300px %}
+![5.png](/static/post/2012-10-04-an-introduction-to-pimple-and-service-containers/5.png)
+{% endimage %}
 
 You still have 5 closures, but can now instantiate an object on demand – just as if
 you were using the `new` keyword – and you no longer have 5 `DateTime` objects just

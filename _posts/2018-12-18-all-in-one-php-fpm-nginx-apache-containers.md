@@ -14,20 +14,20 @@ gh_comment_id: 18
 ---
 
 In a previous post,
-[Docker PHP/PHP-FPM Configuration via Environment Variables](/blog/docker-php/php-fpm-configuration-via-environment-variables/),
+[Docker PHP/PHP-FPM Configuration via Environment Variables](2018-11-15-php-container-image-ini-environment-variables.md),
 I described how to use environment variables to configure PHP FPM and CLI. With
 my method you can override one of over 650 PHP INI settings. More INI settings
 are but a PR away! 
 
 In a more recent post,
-[PHP Modules Toggled via Environment Variables](/blog/php-modules-toggled-via-environment-variables/)
+[PHP Modules Toggled via Environment Variables](2018-12-14-php-modules-toggled-via-environment-variables.md)
 I extended this concept to include modules. You can now easily (and quickly!)
 enable over 20 common modules, including GD, Imagick, Mongodb, and more! The
 images I built come with over 30 modules installed, with a small selection
 enabled by default, and the rest toggable by simple environment variables. 
 
 With these two concepts combined my other post,
-[Developing at Full Speed with Xdebug](/blog/developing-at-full-speed-with-xdebug/)
+[Developing at Full Speed with Xdebug](2018-07-23-developing-at-full-speed-with-xdebug.md)
 becomes that much more powerful, because now you can easily enable Xdebug via a
 very simple env var flag. A truly delay-free debug-ready development
 environment has never been easier to maintain.
@@ -237,7 +237,7 @@ listens for. Again, if this cookie does not exist all traffic is routed to the
 non-Xdebug PHP-FPM instance, and vice-versa.
 
 Next, setup Traefik. You may remember Traefik from my
-[Traefik on Docker for Web Developers](/blog/traefik-on-docker-for-web-developers/)
+[Traefik on Docker for Web Developers](2018-07-31-traefik-on-docker-for-web-developers.md)
 post. It is an amazing tool that helps map domain names to containers.
 
 ```bash

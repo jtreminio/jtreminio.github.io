@@ -1,7 +1,13 @@
+---
+---
+
+// start content
+
 .intro-header .site-heading,
 .intro-header .post-heading,
 .intro-header .page-heading {
   color: #000;
+  padding-bottom: 0;
 }
 
 .navbar-custom .navbar-brand {
@@ -11,12 +17,6 @@
 .intro-header {
   margin-top: 30px;
   margin-bottom: 0;
-}
-
-.intro-header .site-heading,
-.intro-header .post-heading,
-.intro-header .page-heading {
-  padding-bottom: 0;
 }
 
 @media only screen and (min-width: 768px) {
@@ -183,28 +183,28 @@ article div.post li a {
 
 }
 
-.notices.yellow {
-  border-left: 10px solid #f0ad4e;
-  background: #fcf8f2;
-  color: #df8a13;
+blockquote.success {
+  border-left-color: rgba(92, 184, 92, 0.9);
 }
 
-.notices.red {
-  border-left: 10px solid #d9534f;
-  background: #fdf7f7;
-  color: #b52b27;
+blockquote.info {
+  border-left-color: rgba(91, 192, 222, 0.9);
 }
 
-.notices.blue {
-  border-left: 10px solid #5bc0de;
-  background: #f4f8fa;
-  color: #28a1c5;
+blockquote.warning {
+  border-left-color: rgba(240, 173, 78, 0.9);
 }
 
-.notices.green {
-  border-left: 10px solid #5cb85c;
-  background: #f1f9f1;
-  color: #3d8b3d;
+blockquote.danger {
+  border-left-color: rgba(217, 83, 79, 0.9);
+}
+
+div.post > blockquote:first-child {
+  margin-top: 50px;
+}
+
+div.post > blockquote p {
+  margin-top: 0;
 }
 
 section#comments > h2 {
@@ -246,48 +246,3 @@ div.highlighter-rouge {
   border-radius: 4px;
   margin: 30px 0;
 }
-
-div.post > blockquote:first-child {
-  margin-top: 50px;
-}
-
-div.post > blockquote:first-child p:first-child {
-  margin-top: 0;
-}
-
-div.post > table {
-  width: 100%;
-  max-width: 100%;
-  margin-bottom: 20px;
-}
-
-div.post > table > tbody > tr:nth-of-type(odd) {
-  background-color: #f9f9f9;
-}
-
-div.post > table > thead > tr > th,
-div.post > table > tbody > tr > th,
-div.post > table > tfoot > tr > th,
-div.post > table > thead > tr > td,
-div.post > table > tbody > tr > td,
-div.post > table > tfoot > tr > td {
-  padding: 8px;
-  line-height: 1.4em;
-  vertical-align: top;
-  border-top: 1px solid #ddd;
-}
-
-div.post > table > thead > tr > th {
-  vertical-align: bottom;
-  border-bottom: 2px solid #ddd;
-}
-
-div.post > table > caption + thead > tr:first-child > th,
-div.post > table > colgroup + thead > tr:first-child > th,
-div.post > table > thead:first-child > tr:first-child > th,
-div.post > table > caption + thead > tr:first-child > td,
-div.post > table > colgroup + thead > tr:first-child > td,
-div.post > table > thead:first-child > tr:first-child > td {
-  border-top: 0;
-}
-

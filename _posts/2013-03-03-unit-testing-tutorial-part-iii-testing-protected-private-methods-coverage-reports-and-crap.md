@@ -7,7 +7,9 @@ description: PHP Unit introduction series
 slug: unit-testing-tutorial-part-iii-testing-protected-private-methods-coverage-reports-and-crap
 redirect_from:
   - /2013/03/unit-testing-tutorial-part-3-testing-protected-private-methods-coverage-reports-and-crap
+  - /2013/03/unit-testing-tutorial-part-3-testing-protected-private-methods-coverage-reports-and-crap/
   - /blog/unit-testing-tutorial-part-3-testing-protected-private-methods-coverage-reports-and-crap
+  - /blog/unit-testing-tutorial-part-3-testing-protected-private-methods-coverage-reports-and-crap/
 tags:
   - webdev
   - tutorial
@@ -17,13 +19,15 @@ tags:
 gh_comment_id: 8
 ---
 
+{% blockquote success %}
 > This is Part III of a multi-part series. Below are the links to other parts of
 > this tutorial!
-> * [Unit Testing Tutorial Part I: Introduction to PHPUnit](/blog/unit-testing-tutorial-part-i-introduction-to-phpunit)
-> * [Unit Testing Tutorial Part II: Assertions, Writing a Useful Test and @dataProvider](/blog/unit-testing-tutorial-part-ii-assertions-writing-a-useful-test-and-dataprovider)
+> * [Unit Testing Tutorial Part I: Introduction to PHPUnit](2013-03-01-unit-testing-tutorial-part-i-introduction-to-phpunit.md)
+> * [Unit Testing Tutorial Part II: Assertions, Writing a Useful Test and @dataProvider](2013-03-01-unit-testing-tutorial-part-ii-assertions-writing-a-useful-test-and-dataprovider.md)
 > * Unit Testing Tutorial Part III: Testing Protected/Private Methods, Coverage Reports and CRAP
-> * [Unit Testing Tutorial Part IV: Mock Objects, Stub Methods and Dependency Injection](/blog/unit-testing-tutorial-part-iv-mock-objects-stub-methods-and-dependency-injection)
-> * [Unit Testing Tutorial Part V: Mock Methods and Overriding Constructors](/blog/unit-testing-tutorial-part-v-mock-methods-and-overriding-constructors)
+> * [Unit Testing Tutorial Part IV: Mock Objects, Stub Methods and Dependency Injection](2013-03-07-unit-testing-tutorial-part-iv-mock-objects-stub-methods-and-dependency-injection.md)
+> * [Unit Testing Tutorial Part V: Mock Methods and Overriding Constructors](2013-03-31-unit-testing-tutorial-part-v-mock-methods-and-overriding-constructors.md)
+{% endblockquote %}
 
 A common question I keep hearing repeated is, "How much do I test?".
 
@@ -58,10 +62,12 @@ I will explain the process!
 
 Create a new file at `./phpUnitTutorial/User.php` and paste the following:
 
+{% blockquote danger %}
 > Let me be very clear: the `User` class is *not* a good class. Using `md5()` for
 > passwords should be avoided at all costs! In fact, it is a pretty bad class
 > overall. That said, it provides a very simple and easy to grasp example of what I
 > am teaching.
+{% endblockquote %}
 
 ```php
 <?php
@@ -395,12 +401,16 @@ destination to have the files generated. I usually use a folder `coverage`:
 ./vendor/bin/phpunit --coverage-html coverage
 ```
 
-{% include img.html page=page image="01-coverage-report.png" width="300px" %}
+{% image 300px %}
+![01-coverage-report.png](/static/post/2013-03-03-unit-testing-tutorial-part-iii-testing-protected-private-methods-coverage-reports-and-crap/01-coverage-report.png)
+{% endimage %}
 
 If you look at your filesystem now, you will see that a `coverage` folder has been
 created and filled with HTML files. Open the `index.html` file and you will see:
 
-{% include img.html page=page image="02-coverage-report-dashboard.png" width="300px" %}
+{% image 300px %}
+![02-coverage-report-dashboard.png](/static/post/2013-03-03-unit-testing-tutorial-part-iii-testing-protected-private-methods-coverage-reports-and-crap/02-coverage-report-dashboard.png)
+{% endimage %}
 
 [message info]If you are using an older PHPUnit version, it may look slightly different as the CSS was changed in a recent update![/message]
 
@@ -419,14 +429,18 @@ a coverage report for it.
 
 Click into `URL.php` in the coverage report, and you will see:
 
-{% include img.html page=page image="03-url.php-coverage-report.png" width="300px" %}
+{% image 300px %}
+![03-url.php-coverage-report.png](/static/post/2013-03-03-unit-testing-tutorial-part-iii-testing-protected-private-methods-coverage-reports-and-crap/03-url.php-coverage-report.png)
+{% endimage %}
 
 Looking at the legend at the bottom of the page tells you that green is executed
 code, red is not executed, and yellow is dead code. In this particular example,
 all the lines with code are green. If you hover over one of the lines, a small
 info box will popup and show you which tests cover this particular line:
 
-{% include img.html page=page image="04-line-covered-by.png" width="300px" %}
+{% image 300px %}
+![04-line-covered-by.png](/static/post/2013-03-03-unit-testing-tutorial-part-iii-testing-protected-private-methods-coverage-reports-and-crap/04-line-covered-by.png)
+{% endimage %}
 
 This code is really straightforward, so it may not have the impact to make you
 go, "Cool!", but it gives you a taste of what is to come.
@@ -435,7 +449,9 @@ go, "Cool!", but it gives you a taste of what is to come.
 
 Go back a page and click into `User.php`:
 
-{% include img.html page=page image="05-uncovered-line.png" width="300px" %}
+{% image 300px %}
+![05-uncovered-line.png](/static/post/2013-03-03-unit-testing-tutorial-part-iii-testing-protected-private-methods-coverage-reports-and-crap/05-uncovered-line.png)
+{% endimage %}
 
 Looking at this report, you can immediately tell that something is red.
 
@@ -507,7 +523,9 @@ Re-run your coverage report, reload the page, and you should now see that red li
 has turned to green. If you hover over it, it will tell you this new test now covers
 it.
 
-{% include img.html page=page image="06-user.php-coverage-report.png" width="300px" %}
+{% image 300px %}
+![06-user.php-coverage-report.png](/static/post/2013-03-03-unit-testing-tutorial-part-iii-testing-protected-private-methods-coverage-reports-and-crap/06-user.php-coverage-report.png)
+{% endimage %}
 
 ### PAY ATTENTION TO YOUR CRAP
 

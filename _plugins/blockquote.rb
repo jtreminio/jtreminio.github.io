@@ -1,5 +1,5 @@
 module Jekyll
-  class NoticeBlock < Liquid::Block
+  class BlockQuoteBlock < Liquid::Block
     def initialize(tag_name, input, tokens)
       super
       @input = input
@@ -14,7 +14,10 @@ module Jekyll
       type = input_split[0].strip.downcase
 
       output = converter.convert(text)
-      "<div class=\"notices #{type}\">#{output}</div>"
+      return output.gsub(
+        "<blockquote>",
+        "<blockquote class=\"#{type}\">"
+      )
     end
 
     def split_params(params)
@@ -23,4 +26,4 @@ module Jekyll
   end
 end
 
-Liquid::Template.register_tag('notice', Jekyll::NoticeBlock)
+Liquid::Template.register_tag('blockquote', Jekyll::BlockQuoteBlock)

@@ -5,15 +5,19 @@ date: 2012-04-22 13:00:00
 title: "Setting Up an Ubuntu VM, Step by Step"
 description: Deprecated, use PuPHPet
 slug: setting-up-an-ubuntu-vm-step-by-step
-redirect_from: /2012/04/setting-up-an-ubuntu-vm-step-by-step
+redirect_from:
+  - /2012/04/setting-up-an-ubuntu-vm-step-by-step
+  - /2012/04/setting-up-an-ubuntu-vm-step-by-step/
 tags:
   - tutorial
   - server
   - vm
 ---
 
+{% blockquote warning %}
 > This tutorial has been replaced by
 > [Setting Up a Debian VM, Step by Step](2012-07-04-setting-up-a-debian-vm-step-by-step.md).
+{% endblockquote %}
 
 [Recently on r/php](http://www.reddit.com/r/PHP/comments/s8bwt/what_is_your_php_development_environment_like/)
 there was a thread asking users about their development environments. The usual
@@ -79,33 +83,45 @@ We’ll using this OS for a couple of reasons:
 
 [Download Ubuntu Server ISO to your computer](http://www.ubuntu.com/start-download?distro=server&bits=32&release=11.10).
 
+{% blockquote danger %}
 > The VM we will end up building and running is *not* secure and should
 > not be used in a production environment. You should only set this up as a virtual
 > machine on your local desktop!
+{% endblockquote %}
 
 ## Install the VM
 
 Open Virtualbox and hit the New button.
 
-{% include img.html page=page image="step1.png" width="300px" %}
+{% image 300px %}
+![step1.png](/static/post/2012-04-22-setting-up-an-ubuntu-vm-step-by-step/step1.png)
+{% endimage %}
 
 At the Create New Virtual Machine screen, name your VM “Ubuntu VM” and hit Next
 
-{% include img.html page=page image="step2.png" width="300px" %}
+{% image 300px %}
+![step2.png](/static/post/2012-04-22-setting-up-an-ubuntu-vm-step-by-step/step2.png)
+{% endimage %}
 
 Give your VM 1GB of RAM. If your computer has less than 6GB of RAM, you should
 probably lower it down to 512MB.
 
-{% include img.html page=page image="step3.png" width="300px" %}
+{% image 300px %}
+![step3.png](/static/post/2012-04-22-setting-up-an-ubuntu-vm-step-by-step/step3.png)
+{% endimage %}
 
 Click next until you reach the Virtual desk storage details page, and select
 “Fixed size”
 
-{% include img.html page=page image="step4.png" width="300px" %}
+{% image 300px %}
+![step4.png](/static/post/2012-04-22-setting-up-an-ubuntu-vm-step-by-step/step4.png)
+{% endimage %}
 
 Give it 20 GB of space
 
-{% include img.html page=page image="step5.png" width="300px" %}
+{% image 300px %}
+![step5.png](/static/post/2012-04-22-setting-up-an-ubuntu-vm-step-by-step/step5.png)
+{% endimage %}
 
 Virtualbox will now create the initial VM image file which may take a minute or two.
 When it is finished, close the process by hitting the “Create” button.
@@ -113,12 +129,16 @@ When it is finished, close the process by hitting the “Create” button.
 Right now you have your VM set up, but haven’t installed the actual operating system
 on it. To do so, simply double click on the Ubuntu VM line and click “next”.
 
-{% include img.html page=page image="step6.png" width="300px" %}
+{% image 300px %}
+![step6.png](/static/post/2012-04-22-setting-up-an-ubuntu-vm-step-by-step/step6.png)
+{% endimage %}
 
 Click the folder icon and search for your Ubuntu Server iso file, clicking next
 until the VM boots up and you’re presented with the Ubuntu language selection screen.
 
-{% include img.html page=page image="step7.png" width="300px" %}
+{% image 300px %}
+![step7.png](/static/post/2012-04-22-setting-up-an-ubuntu-vm-step-by-step/step7.png)
+{% endimage %}
 
 The Ubuntu installation is very straight-forward, but there are a few pages I’d like
 to highlight as being important.
@@ -127,26 +147,36 @@ At the hostname screen, choose what you would like to name your server. This nam
 will be used later on to access the server via SSH and when setting up a network
 folder on your host machine (the desktop you use).
 
-{% include img.html page=page image="step8.png" width="300px" %}
+{% image 300px %}
+![step8.png](/static/post/2012-04-22-setting-up-an-ubuntu-vm-step-by-step/step8.png)
+{% endimage %}
 
 Continue on, making sure to hit choose the defaults for most settings, until you get
 to the “Partition disks” page, where you simply select Yes with your arrow keys, and
 hit enter
 
-{% include img.html page=page image="step9.png" width="300px" %}
+{% image 300px %}
+![step9.png](/static/post/2012-04-22-setting-up-an-ubuntu-vm-step-by-step/step9.png)
+{% endimage %}
 
 You’ll soon get another confirmation screen, follow the same steps
 
-{% include img.html page=page image="step10.png" width="300px" %}
+{% image 300px %}
+![step10.png](/static/post/2012-04-22-setting-up-an-ubuntu-vm-step-by-step/step10.png)
+{% endimage %}
 
 Make sure you disable automatic updates
 
-{% include img.html page=page image="step11.png" width="300px" %}
+{% image 300px %}
+![step11.png](/static/post/2012-04-22-setting-up-an-ubuntu-vm-step-by-step/step11.png)
+{% endimage %}
 
 And on the next page, select “OpenSSH Server”, “Mail server”, and “Samba file server”
 using the spacebar.
 
-{% include img.html page=page image="step12.png" width="300px" %}
+{% image 300px %}
+![step12.png](/static/post/2012-04-22-setting-up-an-ubuntu-vm-step-by-step/step12.png)
+{% endimage %}
 
 Continue choosing the defaults until installation is complete and your VM reboots.
 
@@ -182,12 +212,16 @@ Now shutdown the VM
 
 At the main VirtualBox screen, hit the settings button
 
-{% include img.html page=page image="step13.png" width="300px" %}
+{% image 300px %}
+![step13.png](/static/post/2012-04-22-setting-up-an-ubuntu-vm-step-by-step/step13.png)
+{% endimage %}
 
 Select Network from the list on the left, choose Adapter 2 from the tabs, check
 “Enable Network Adapter” and choose “Host-only Adapter” from the dropdown, then hit OK
 
-{% include img.html page=page image="step14.png" width="300px" %}
+{% image 300px %}
+![step14.png](/static/post/2012-04-22-setting-up-an-ubuntu-vm-step-by-step/step14.png)
+{% endimage %}
 
 What we’ve done in this section is set up your VM to use a static IP address. This
 is a good idea because it allows us to always access our VM using a single IP
@@ -207,7 +241,9 @@ VM and quickly revert back to it in case you ever screw it up.
 Setting one up is extremely simple, just select the Snapshots icon in the mainscreen
 and CTRL + SHIFT + S to create a new Snapshot.
 
-{% include img.html page=page image="step15.png" width="300px" %}
+{% image 300px %}
+![step15.png](/static/post/2012-04-22-setting-up-an-ubuntu-vm-step-by-step/step15.png)
+{% endimage %}
 
 If you ever need to, simply come back to this screen and restore that snapshot.
 
@@ -268,7 +304,9 @@ ServerName localhost
 You’ll now have the Apache server up and running! Just point your browser to
 [ubuntu-vm](http://ubuntu-vm) and behold the magic!
 
-{% include img.html page=page image="step16.png" width="300px" %}
+{% image 300px %}
+![step16.png](/static/post/2012-04-22-setting-up-an-ubuntu-vm-step-by-step/step16.png)
+{% endimage %}
 
 Let’s enable Apache’s ModRewrite module now:
 
@@ -307,8 +345,10 @@ Your system can now download MySQL 5.5!
 On the screens asking for a MySQL password, leave it blank and hit enter. Since
 this is only for a local server there’s no point in setting up a password.
 
+{% blockquote danger %}
 > Do NOT use a blank password in production environments! That’s just
 > stupid.
+{% endblockquote %}
 
 ## Setting up MySQL
 

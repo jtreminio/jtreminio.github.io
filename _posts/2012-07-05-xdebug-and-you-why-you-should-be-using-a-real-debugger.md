@@ -5,7 +5,9 @@ date: 2012-07-05
 title: "Xdebug and You: Why You Should be Using a Real Debugger"
 description: Step by step instructions
 slug: xdebug-and-you-why-you-should-be-using-a-real-debugger
-redirect_from: /2012/07/xdebug-and-you-why-you-should-be-using-a-real-debugger
+redirect_from:
+  - /2012/07/xdebug-and-you-why-you-should-be-using-a-real-debugger
+  - /2012/07/xdebug-and-you-why-you-should-be-using-a-real-debugger/
 tags:
   - webdev
   - tutorial
@@ -105,8 +107,10 @@ xdebug.var_display_max_depth=20
 xdebug.show_exception_trace=0
 ```
 
+{% blockquote info %}
 > If you're using PHP 5.3, `zend_extension` should be
 > `/usr/local/lib/php/extensions/no-debug-non-zts-20090626/xdebug.so`
+{% endblockquote %}
 
 Restart Apache and call `phpinfo()`. Search for `xdebug` and you should find it.
 
@@ -129,7 +133,9 @@ Clicking the “Generate” button will create 7 links below the form. You shoul
 these links into your browser’s bookmark bar. I like to save mine inside a folder
 for easy access:
 
-{% include img.html page=page image="bookmarklets.png" width="300px" %}
+{% image 300px %}
+![bookmarklets.png](/static/post/2012-07-05-xdebug-and-you-why-you-should-be-using-a-real-debugger/bookmarklets.png)
+{% endimage %}
 
 Whenever you want to initiate a debugging session simply click the “Start debugger”
 bookmarklet, and “Stop debugger” to end the session. Extremely easy, and no need to
@@ -153,17 +159,23 @@ Open a project and go to the Settings. Click on PHP and then Debug on the left s
 The settings should default to the following image, but if not make sure to update
 them:
 
-{% include img.html page=page image="phpstorm.php_.debug_.png" width="300px" %}
+{% image 300px %}
+![phpstorm.php_.debug_.png](/static/post/2012-07-05-xdebug-and-you-why-you-should-be-using-a-real-debugger/phpstorm.php_.debug_.png)
+{% endimage %}
 
 PhpStorm is now ready for an initial Xdebug session. Some more configuration is
 required in the next steps, but we can at least connect to Xdebug now. Click the
 “Start Listen PHP Debug Connections” button:
 
-{% include img.html page=page image="phpstorm.startListen.png" width="300px" %}
+{% image 300px %}
+![phpstorm.startListen.png](/static/post/2012-07-05-xdebug-and-you-why-you-should-be-using-a-real-debugger/phpstorm.startListen.png)
+{% endimage %}
 
 Click the whitespace next to a line of code that contains PHP to set a breakpoint:
 
-{% include img.html page=page image="phpstorm.breakpoint.png" width="300px" %}
+{% image 300px %}
+![phpstorm.breakpoint.png](/static/post/2012-07-05-xdebug-and-you-why-you-should-be-using-a-real-debugger/phpstorm.breakpoint.png)
+{% endimage %}
 
 Go to the page in your browser that corresponds to the file where you set your
 breakpoint. It does not have to be the exact file, as long as the page you’re loading
@@ -188,13 +200,17 @@ A window titled “Incoming Connection From Xdebug” will pop up, asking if you
 to accept or ignore the connection. Clicking Accept will save the preference so you
 will not be asked in the future.
 
-{% include img.html page=page image="phpstorm.incoming.connection.png" width="300px" %}
+{% image 300px %}
+![phpstorm.incoming.connection.png](/static/post/2012-07-05-xdebug-and-you-why-you-should-be-using-a-real-debugger/phpstorm.incoming.connection.png)
+{% endimage %}
 
 ## Points of Interest
 
 There’s a few interesting spots to point out when a breakpoint is met:
 
-{% include img.html page=page image="phpstorm.debug_.overview.png" width="300px" %}
+{% image 300px %}
+![phpstorm.debug_.overview.png](/static/post/2012-07-05-xdebug-and-you-why-you-should-be-using-a-real-debugger/phpstorm.debug_.overview.png)
+{% endimage %}
 
 1. **Resume Program (F9)** — Clicking on this green arrow allows script execution to
   proceed to next breakpoint if you have any more, or to end of script as it normally
@@ -224,12 +240,16 @@ Below is an example of what some WordPress variables contain at this breakpoint.
 have not developed WordPress for several years so having an immediate snapshot of
 what is available to use is a great boon.
 
-{% include img.html page=page image="phpstorm.variable.details.png" width="300px" %}
+{% image 300px %}
+![phpstorm.variable.details.png](/static/post/2012-07-05-xdebug-and-you-why-you-should-be-using-a-real-debugger/phpstorm.variable.details.png)
+{% endimage %}
 
 WordPress loves its arrays, but Xdebug is not limited to only that. Below is an
 example of Kohana Framework variables:
 
-{% include img.html page=page image="phpstorm.variable.details2.png" width="300px" %}
+{% image 300px %}
+![phpstorm.variable.details2.png](/static/post/2012-07-05-xdebug-and-you-why-you-should-be-using-a-real-debugger/phpstorm.variable.details2.png)
+{% endimage %}
 
 ## Setting up Server Directories
 
@@ -251,7 +271,9 @@ installation is located at `Z:\wordpress`, but on the VM it resides in
 `/webroot/wordpress/`, so I simply need to enter where each subdirectory is located,
 like this image:
 
-{% include img.html page=page image="phpstorm.php_.servers.png" width="300px" %}
+{% image 300px %}
+![phpstorm.php_.servers.png](/static/post/2012-07-05-xdebug-and-you-why-you-should-be-using-a-real-debugger/phpstorm.php_.servers.png)
+{% endimage %}
 
 This may not be necessary for all setups, and I’ve really only had to do this when
 symlinks are involved, but it’s always nice to have this knowledge to save you the

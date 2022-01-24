@@ -7,7 +7,9 @@ description: PHP Unit introduction series
 slug: unit-testing-tutorial-part-v-mock-methods-and-overriding-constructors
 redirect_from:
   - /2013/03/unit-testing-tutorial-part-5-mock-methods-and-overriding-constructors
+  - /2013/03/unit-testing-tutorial-part-5-mock-methods-and-overriding-constructors/
   - /blog/unit-testing-tutorial-part-5-mock-methods-and-overriding-constructors
+  - /blog/unit-testing-tutorial-part-5-mock-methods-and-overriding-constructors/
 tags:
   - webdev
   - tutorial
@@ -17,13 +19,15 @@ tags:
 gh_comment_id: 10
 ---
 
+{% blockquote success %}
 > This is Part V of a multi-part series. Below are the links to other parts of this
 > tutorial!
-> * [Unit Testing Tutorial Part I: Introduction to PHPUnit](/blog/unit-testing-tutorial-part-i-introduction-to-phpunit)
-> * [Unit Testing Tutorial Part II: Assertions, Writing a Useful Test and @dataProvider](/blog/unit-testing-tutorial-part-ii-assertions-writing-a-useful-test-and-dataprovider)
-> * [Unit Testing Tutorial Part III: Testing Protected/Private Methods, Coverage Reports and CRAP](/blog/unit-testing-tutorial-part-iii-testing-protected-private-methods-coverage-reports-and-crap)
-> * [Unit Testing Tutorial Part IV: Mock Objects, Stub Methods and Dependency Injection](/blog/unit-testing-tutorial-part-iv-mock-objects-stub-methods-and-dependency-injection)
+> * [Unit Testing Tutorial Part I: Introduction to PHPUnit](2013-03-01-unit-testing-tutorial-part-i-introduction-to-phpunit.md)
+> * [Unit Testing Tutorial Part II: Assertions, Writing a Useful Test and @dataProvider](2013-03-01-unit-testing-tutorial-part-ii-assertions-writing-a-useful-test-and-dataprovider.md)
+> * [Unit Testing Tutorial Part III: Testing Protected/Private Methods, Coverage Reports and CRAP](2013-03-03-unit-testing-tutorial-part-iii-testing-protected-private-methods-coverage-reports-and-crap.md)
+> * [Unit Testing Tutorial Part IV: Mock Objects, Stub Methods and Dependency Injection](2013-03-07-unit-testing-tutorial-part-iv-mock-objects-stub-methods-and-dependency-injection.md)
 > * Unit Testing Tutorial Part V: Mock Methods and Overriding Constructors
+{% endblockquote %}
 
 Previously in my PHPUnit tutorial series, you learned about the very powerful
 concept of mock objects and stub methods. This concept is central to successful unit
@@ -36,7 +40,7 @@ so you can get your green. I hope to make clear what I mean by the end of this t
 
 ## INTRODUCING MOCK METHODS
 
-[In my previous tutorial](/blog/unit-testing-tutorial-part-4-mock-objects-stub-methods-dependency-injection)
+[In my previous tutorial](2013-03-07-unit-testing-tutorial-part-iv-mock-objects-stub-methods-and-dependency-injection.md)
 you learned all about mock objects and stub methods. There is another very similar
 concept you must also know about: mock methods.
 
@@ -394,7 +398,9 @@ internet. Then I run the test using
 `$ ./vendor/bin/phpunit phpUnitTutorial/Test/NaughtyConstructorTest.php`. After a 
 rather long, boring wait I finally get the results: Failure.
 
-{% include img.html page=page image="01-internet-dependency.png" width="300px" %}
+{% image 300px %}
+![01-internet-dependency.png](/static/post/2013-03-31-unit-testing-tutorial-part-v-mock-methods-and-overriding-constructors/01-internet-dependency.png)
+{% endimage %}
 
 You did not expect another result, did you?
 
@@ -464,7 +470,9 @@ return `null`. That is not what we want!
 
 Run your test again and... Failure!
 
-{% include img.html page=page image="02-removed-constructor-assignments.png" width="300px" %}
+{% image 300px %}
+![02-removed-constructor-assignments.png](/static/post/2013-03-31-unit-testing-tutorial-part-v-mock-methods-and-overriding-constructors/02-removed-constructor-assignments.png)
+{% endimage %}
 
 Well of course it is failing - `getMetaTags();` tries to use `$this->html` which is
 empty because we disabled the constructor!
@@ -576,6 +584,6 @@ In the next part of this series I will introduce the concept of using a containe
 your tests, and how you can easily dominate a big ball of legacy mud with containers!
 
 In the meantime, you may want to brush up on containers themselves with my article,
-[An introduction to Pimple and Service Containers](/blog/an-introduction-to-pimple-and-service-containers).
+[An introduction to Pimple and Service Containers](2012-10-04-an-introduction-to-pimple-and-service-containers.md).
 
 Until next time, this is Señor PHP Developer Juan Treminio wishing you adios!

@@ -5,7 +5,9 @@ date: 2015-10-31
 title: Firefox Input Email Validation
 description: Long-standing bug
 slug: firefox-input-email-validation
-redirect_from: /2015/10/firefox-email-validation
+redirect_from:
+  - /2015/10/firefox-email-validation
+  - /2015/10/firefox-email-validation/
 tags:
   - html
 ---

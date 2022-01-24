@@ -7,7 +7,9 @@ description: PHP Unit introduction series
 slug: unit-testing-tutorial-part-i-introduction-to-phpunit
 redirect_from:
   - /2013/03/unit-testing-tutorial-introduction-to-phpunit
+  - /2013/03/unit-testing-tutorial-introduction-to-phpunit/
   - /blog/unit-testing-tutorial-part-1-introduction-to-phpunit
+  - /blog/unit-testing-tutorial-part-1-introduction-to-phpunit/
 tags:
   - webdev
   - tutorial
@@ -17,13 +19,15 @@ tags:
 gh_comment_id: 6
 ---
 
+{% blockquote success %}
 > This is Part I of a multi-part series. Below are the links to other
 > parts of this tutorial!
 > * Unit Testing Tutorial Part I: Introduction to PHPUnit
-> * [Unit Testing Tutorial Part II: Assertions, Writing a Useful Test and @dataProvider](/blog/unit-testing-tutorial-part-ii-assertions-writing-a-useful-test-and-dataprovider)
-> * [Unit Testing Tutorial Part III: Testing Protected/Private Methods, Coverage Reports and CRAP](/blog/unit-testing-tutorial-part-iii-testing-protected-private-methods-coverage-reports-and-crap)
-> * [Unit Testing Tutorial Part IV: Mock Objects, Stub Methods and Dependency Injection](/blog/unit-testing-tutorial-part-iv-mock-objects-stub-methods-and-dependency-injection)
-> * [Unit Testing Tutorial Part V: Mock Methods and Overriding Constructors](/blog/unit-testing-tutorial-part-v-mock-methods-and-overriding-constructors)
+> * [Unit Testing Tutorial Part II: Assertions, Writing a Useful Test and @dataProvider](2013-03-01-unit-testing-tutorial-part-ii-assertions-writing-a-useful-test-and-dataprovider.md)
+> * [Unit Testing Tutorial Part III: Testing Protected/Private Methods, Coverage Reports and CRAP](2013-03-03-unit-testing-tutorial-part-iii-testing-protected-private-methods-coverage-reports-and-crap.md)
+> * [Unit Testing Tutorial Part IV: Mock Objects, Stub Methods and Dependency Injection](2013-03-07-unit-testing-tutorial-part-iv-mock-objects-stub-methods-and-dependency-injection.md)
+> * [Unit Testing Tutorial Part V: Mock Methods and Overriding Constructors](2013-03-31-unit-testing-tutorial-part-v-mock-methods-and-overriding-constructors.md)
+{% endblockquote %}
 
 For months now I have been telling myself I would create an in-depth, multi-part
 series of articles that would take a developer from being a complete newbie at
@@ -57,7 +61,7 @@ This series will assume you have a proper development environment set up. I high
 recommend using a VM that mimics a server environment instead of having your server
 running alongside your daily OS. If you do not have a proper environment set up then
 I recommend you read through my
-[Setting Up a Debian VM, Step by Step](/blog/setting-up-a-debian-vm-step-by-step)
+[Setting Up a Debian VM, Step by Step](2012-07-04-setting-up-a-debian-vm-step-by-step.md)
 guide to get you up and running painlessly.
 
 We are also going to use the command line to run ... commands. If you are used to a
@@ -71,7 +75,7 @@ with it.
 
 If you do not know what Composer is or how to use it then you should read my
 previous article,
-[Composer Namespaces in 5 Minutes](/blog/composer-namespaces-in-5-minutes).
+[Composer Namespaces in 5 Minutes](2012-10-02-composer-namespaces-in-5-minutes.md).
 It introduces you to Composer in general and how it utilizes PSR-0 for autoloading.
 
 All it takes to install PHPUnit is a single line in your composer.json file:
@@ -85,7 +89,7 @@ All it takes to install PHPUnit is a single line in your composer.json file:
 ```
 
 You should also install XDebug. If you are not using using Xdebug then head over to
-[Xdebug and You: Why You Should be Using a Real Debugger](/blog/xdebug-and-you-why-you-should-be-using-a-real-debugger)
+[Xdebug and You: Why You Should be Using a Real Debugger](2012-07-05-xdebug-and-you-why-you-should-be-using-a-real-debugger.md)
 and stop being a caveman. It is a much better alternative to trashing your codebase
 with `echo` and `print_r` and `var_dump` and it is also required to utilize PHPUnit's
 awesome code coverage report tools!
@@ -102,7 +106,9 @@ for Composer's autoloader and load it.
 To run PHPUnit, you simply do `$ ./vendor/bin/phpunit`. This will print all options
 available to you.
 
-{% include img.html page=page image="phpunit-options.png" width="300px" %}
+{% image 300px %}
+![phpunit-options.png](/static/post/2013-03-01-unit-testing-tutorial-part-i-introduction-to-phpunit/phpunit-options.png)
+{% endimage %}
 
 ## STRUCTURING THE PROJECT
 
@@ -295,7 +301,9 @@ From project root, run PHPUnit: `$ vendor/bin/phpunit`
 
 You should see the coveted green bar:
 
-{% include img.html page=page image="successful-test.png" width="300px" %}
+{% image 300px %}
+![successful-test.png](/static/post/2013-03-01-unit-testing-tutorial-part-i-introduction-to-phpunit/successful-test.png)
+{% endimage %}
 
 You ran a single test file, `1 test`, with a single assertion `1 assertion`.
 

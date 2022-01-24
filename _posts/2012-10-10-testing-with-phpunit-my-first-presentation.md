@@ -5,7 +5,9 @@ date: 2012-10-10
 title: "Testing with PHPUnit: My First Presentation!"
 description: PHPUnit user group presentation
 slug: testing-with-phpunit-my-first-presentation
-redirect_from: /2012/10/testing-with-phpunit-my-first-presentation
+redirect_from:
+  - /2012/10/testing-with-phpunit-my-first-presentation
+  - /2012/10/testing-with-phpunit-my-first-presentation/
 tags:
   - webdev
   - phpunit
@@ -27,8 +29,8 @@ and have you writing tests out the wazoo in no time!
 
 In the meantime, here is my Powerpoint presentation from last night:
 
-[Unit Tests: Using PHPUnit to Test Your Code](../static/post/2012-10-10-testing-with-phpunit-my-first-presentation/phpunit.presentation.pptx)
-and [PDF version](../static/post/2012-10-10-testing-with-phpunit-my-first-presentation/phpunit.presentation.pdf).
+[Unit Tests: Using PHPUnit to Test Your Code](/static/post/2012-10-10-testing-with-phpunit-my-first-presentation/phpunit.presentation.pptx)
+and [PDF version](/static/post/2012-10-10-testing-with-phpunit-my-first-presentation/phpunit.presentation.pdf).
 
 Of course a big part of this presentation was me actually talking and pointing to
 things.

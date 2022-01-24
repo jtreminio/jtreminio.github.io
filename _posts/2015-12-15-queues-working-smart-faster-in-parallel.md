@@ -5,7 +5,9 @@ date: 2015-12-15
 title: Queues - Working Smarter, Faster and in Parallel
 description: Don't wait, queue today!
 slug: queues-working-smart-faster-in-parallel
-redirect_from: /2015/12/queues-working-smart-faster-in-parallel
+redirect_from:
+  - /2015/12/queues-working-smart-faster-in-parallel
+  - /2015/12/queues-working-smart-faster-in-parallel/
 tags:
   - webdev
   - tutorial
@@ -20,7 +22,9 @@ Imagine you have an image gallery application. A user can upload one or more
 images and the app will automatically create small thumbnails of the images
 for a gallery list page.
 
-{% include img.html page=page image="gallery-list-view.jpg" width="300px" %}
+{% image 300px %}
+![gallery-list-view.jpg](/static/post/2015-12-15-queues-working-smart-faster-in-parallel/gallery-list-view.jpg)
+{% endimage %}
 
 If a user uploads one or two images, they probably will not have long to wait
 for the app to finish processing thumbnails. If you have a very beefy server,
@@ -32,7 +36,9 @@ of images?
 
 You are probably familiar with being able to upload more than one file at a time:
 
-{% include img.html page=page image="multi-file-select.png" width="300px" %}
+{% image 300px %}
+![multi-file-select.png](/static/post/2015-12-15-queues-working-smart-faster-in-parallel/multi-file-select.png)
+{% endimage %}
 
 Your browser can easily handle uploading as many files as you want. It can
 either upload files one by one (working on a single file and waiting until it
@@ -51,7 +57,9 @@ processing outside of the user's browser request.
 
 Here is what the process normally looks like, without a queue system:
 
-{% include img.html page=page image="typical-workflow.png" width="300px" %}
+{% image 300px %}
+![typical-workflow.png](/static/post/2015-12-15-queues-working-smart-faster-in-parallel/typical-workflow.png)
+{% endimage %}
 
 There are alot of different things that can happen while a user is sitting at their
 desk, waiting for your app to finish processing the images. The user could get
@@ -66,7 +74,9 @@ to using your app after waiting however long it took.
 
 So, what does a workflow with a queue look like? Simple:
 
-{% include img.html page=page image="queue-workflow.png" width="300px" %}
+{% image 300px %}
+![queue-workflow.png](/static/post/2015-12-15-queues-working-smart-faster-in-parallel/queue-workflow.png)
+{% endimage %}
 
 In this diagram you can see that we have three workers, each assigned to a
 different task: image, video and email.
@@ -102,7 +112,9 @@ You can even have workers add new jobs to other workers' queues!
 
 That sort of process is not much different from the previous one:
 
-{% include img.html page=page image="queue-workflow-advanced.png" width="300px" %}
+{% image 300px %}
+![queue-workflow-advanced.png](/static/post/2015-12-15-queues-working-smart-faster-in-parallel/queue-workflow-advanced.png)
+{% endimage %}
 
 As soon as the image worker is finished with a job, it adds a job to the email
 worker's queue. The email worker generates an email and sends it off to the user,

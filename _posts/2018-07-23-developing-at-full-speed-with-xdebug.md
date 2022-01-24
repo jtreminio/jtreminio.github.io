@@ -34,7 +34,7 @@ mode, _without_ Xdebug installed. If Xdebug is activated response times of 1,200
 most devoted Xdebug fan.
 
 Before switching to Fedora I tried everything I could to minimize Xdebug's impact on performance.
-[I have been using Xdebug for several years](/blog/xdebug-and-you-why-you-should-be-using-a-real-debugger)
+[I have been using Xdebug for several years](2012-07-05-xdebug-and-you-why-you-should-be-using-a-real-debugger.md)
 and while I always felt the benefits of Xdebug far out-weighed the extra slowness, I knew there had to be a
 better way.
 

@@ -34,13 +34,9 @@ plugins:
   - jekyll-paginate
   - jekyll-redirect-from
   - jekyll-relative-links
+  - jekyll-minifier
 
-whitelist:
-  - jekyll-paginate
-  - jekyll-redirect-from
-  - jekyll-relative-links
-
-  # Markdown settings
+# Markdown settings
 markdown: kramdown
 kramdown:
   input: GFM
@@ -51,6 +47,13 @@ kramdown:
       line_numbers: true
       start_line: 1
 
+sass:
+  style: compressed
+
 relative_links:
   enabled:     true
   collections: true
+
+jekyll-minifier:
+  uglifier_args:
+    harmony: true

@@ -7,7 +7,9 @@ description: PHP Unit introduction series
 slug: unit-testing-tutorial-part-iv-mock-objects-stub-methods-and-dependency-injection
 redirect_from:
   - /2013/03/unit-testing-tutorial-part-4-mock-objects-stub-methods-dependency-injection
+  - /2013/03/unit-testing-tutorial-part-4-mock-objects-stub-methods-dependency-injection/
   - /blog/unit-testing-tutorial-part-4-mock-objects-stub-methods-and-dependency-injection
+  - /blog/unit-testing-tutorial-part-4-mock-objects-stub-methods-and-dependency-injection/
 tags:
   - webdev
   - tutorial
@@ -17,13 +19,15 @@ tags:
 gh_comment_id: 9
 ---
 
+{% blockquote success %}
 > This is Part IV of a multi-part series. Below are the links to other parts of this
 > tutorial!
-> * [Unit Testing Tutorial Part I: Introduction to PHPUnit](/blog/unit-testing-tutorial-part-i-introduction-to-phpunit)
-> * [Unit Testing Tutorial Part II: Assertions, Writing a Useful Test and @dataProvider](/blog/unit-testing-tutorial-part-ii-assertions-writing-a-useful-test-and-dataprovider)
-> * [Unit Testing Tutorial Part III: Testing Protected/Private Methods, Coverage Reports and CRAP](/blog/unit-testing-tutorial-part-iii-testing-protected-private-methods-coverage-reports-and-crap)
+> * [Unit Testing Tutorial Part I: Introduction to PHPUnit](2013-03-01-unit-testing-tutorial-part-i-introduction-to-phpunit.md)
+> * [Unit Testing Tutorial Part II: Assertions, Writing a Useful Test and @dataProvider](2013-03-01-unit-testing-tutorial-part-ii-assertions-writing-a-useful-test-and-dataprovider.md)
+> * [Unit Testing Tutorial Part III: Testing Protected/Private Methods, Coverage Reports and CRAP](2013-03-03-unit-testing-tutorial-part-iii-testing-protected-private-methods-coverage-reports-and-crap.md)
 > * Unit Testing Tutorial Part IV: Mock Objects, Stub Methods and Dependency Injection
-> * [Unit Testing Tutorial Part V: Mock Methods and Overriding Constructors](/blog/unit-testing-tutorial-part-v-mock-methods-and-overriding-constructors)
+> * [Unit Testing Tutorial Part V: Mock Methods and Overriding Constructors](2013-03-31-unit-testing-tutorial-part-v-mock-methods-and-overriding-constructors.md)
+{% endblockquote %}
 
 In my previous articles, I have brought you up to speed with writing basic tests for
 basic methods. You are now able to use the `@dataProvider` annotation, generate
@@ -205,7 +209,9 @@ class PaymentTest extends \PHPUnit_Framework_TestCase
 }
 ```
 
-{% include img.html page=page image="01-failed-by-outside-dependency.png" width="300px" %}
+{% image 300px %}
+![01-failed-by-outside-dependency.png](/static/post/2013-03-07-unit-testing-tutorial-part-iv-mock-objects-stub-methods-and-dependency-injection/01-failed-by-outside-dependency.png)
+{% endimage %}
 
 ### Explosions!
 
@@ -345,7 +351,7 @@ pre-instantiated object in its parameters.
 Actually, there's a third way: service container. I won't be going over a container
 today, but will speak about the benefits it brings to code quality and testing in the
 near future. For a quick rundown on what a service container is,
-[just click here](http://jtreminio.com/2012/10/an-introduction-to-pimple-and-service-containers)!
+[just click here](2012-10-04-an-introduction-to-pimple-and-service-containers.md)!
 
 Instead of the impossible-to-replace object instantiation shown above, passing in
 the dependency with `public function processPayment(\AuthorizeNetAIM $transaction,
@@ -354,7 +360,10 @@ check.
 
 What exactly are the requirements of `is_a()`?
 
-> is_a — Checks if the object is of this class or has this class as one of its parents
+{% blockquote info %}
+> `is_a` — Checks if the object is of this class or has this class as one of
+> its parents
+{% endblockquote %}
 
 Any class that extends `\AuthorizeNetAIM` will pass an `is_a()` check. That part is
 pretty easy. So, how would we pass an object that passes this check? It would need to

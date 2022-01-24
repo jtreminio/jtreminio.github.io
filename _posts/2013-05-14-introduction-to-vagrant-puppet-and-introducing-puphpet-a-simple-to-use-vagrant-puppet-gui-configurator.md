@@ -5,7 +5,9 @@ date: 2013-05-14
 title: Introduction to Vagrant/Puppet and introducing PuPHPet - A simple to use Vagrant/Puppet GUI Configurator!
 description: Introduction to Vagrant and Puppet
 slug: introduction-to-vagrant-puppet-and-introducing-puphpet-a-simple-to-use-vagrant-puppet-gui-configurator
-redirect_from: /2013/05/introduction_to_vagrant_puppet_and_introducing_puphpet_a_simple_to_use_vagrant_puppet_gui_configurator
+redirect_from:
+  - /2013/05/introduction_to_vagrant_puppet_and_introducing_puphpet_a_simple_to_use_vagrant_puppet_gui_configurator
+  - /2013/05/introduction_to_vagrant_puppet_and_introducing_puphpet_a_simple_to_use_vagrant_puppet_gui_configurator/
 tags:
   - vagrant
   - puppet
@@ -23,7 +25,7 @@ That is a mouthful, so let me explain the what, why and how!
 
 [Vagrant](http://vagrantup.com) is for managing VMs. If you previously read
 my length tutorial,
-[Setting Up a Debian VM, Step by Step](/blog/setting-up-a-debian-vm-step-by-step),
+[Setting Up a Debian VM, Step by Step](2012-07-04-setting-up-a-debian-vm-step-by-step.md),
 you know how tiresome and error-prone setting up a virtual machine can be.
 
 Errors suck!
@@ -61,8 +63,10 @@ Google will keep you occupied for hours on the subject!
 
 From the Puppet website,
 
+{% blockquote info %}
 > Puppet uses its own configuration language, which was designed to be accessible
-to sysadmins.
+> to sysadmins.
+{% endblockquote %}
 
 [Here you can see an example of Puppet's configuration language](https://github.com/jtreminio/vagrant-puppet-lamp/blob/master/manifests/default.pp).
 

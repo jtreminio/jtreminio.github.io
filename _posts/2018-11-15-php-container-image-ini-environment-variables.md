@@ -6,6 +6,7 @@ title: Docker PHP/PHP-FPM Configuration via Environment Variables
 description: PHP Docker Container Image with Full Environment Variable INI Configuration
 slug: docker-php-php-fpm-configuration-via-environment-variables
 redirect_from:
+  - /blog/docker-php-php-fpm-configuration-via-environment-variables/
   - /blog/docker-php/php-fpm-configuration-via-environment-variables/
   - /blog/docker-php/php-fpm-configuration-via-environment-variables
 tags:

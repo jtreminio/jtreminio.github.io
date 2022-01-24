@@ -6,6 +6,7 @@ title: "Getting Started with Kohana 3, Part III – Controller/MVVM/KOstache"
 description: A popular framework tutorial
 slug: getting-started-with-kohana-3-part-iii-controller-mvvm-kostache
 redirect_from:
+  - /blog/getting-started-with-kohana-3-part-iii-controller-mvvm-kostache/
   - /2012/04/getting-started-with-kohana-3-part-iii-controller-mvvm-kostache
   - /2012/04/getting-started-with-kohana-3-part-iii-controller-mvvm-kostache/
 tags:

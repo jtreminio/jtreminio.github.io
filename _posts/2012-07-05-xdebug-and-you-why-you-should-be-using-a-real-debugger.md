@@ -6,6 +6,7 @@ title: "Xdebug and You: Why You Should be Using a Real Debugger"
 description: Step by step instructions
 slug: xdebug-and-you-why-you-should-be-using-a-real-debugger
 redirect_from:
+  - /blog/xdebug-and-you-why-you-should-be-using-a-real-debugger/
   - /2012/07/xdebug-and-you-why-you-should-be-using-a-real-debugger
   - /2012/07/xdebug-and-you-why-you-should-be-using-a-real-debugger/
 tags:

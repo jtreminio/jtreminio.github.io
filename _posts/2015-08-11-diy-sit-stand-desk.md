@@ -6,6 +6,7 @@ title: DIY Sit/Stand Desk
 description: My attempt at not sitting for 12 hours a day
 slug: diy-sit-stand-desk
 redirect_from:
+  - /blog/diy-sit-stand-desk/
   - /2015/08/diy-sit-stand-desk
   - /2015/08/diy-sit-stand-desk/
 tags:

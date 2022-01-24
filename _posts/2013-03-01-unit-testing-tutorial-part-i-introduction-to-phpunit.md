@@ -6,6 +6,7 @@ title: "Unit Testing Tutorial Part I: Introduction to PHPUnit"
 description: PHP Unit introduction series
 slug: unit-testing-tutorial-part-i-introduction-to-phpunit
 redirect_from:
+  - /blog/unit-testing-tutorial-part-i-introduction-to-phpunit/
   - /2013/03/unit-testing-tutorial-introduction-to-phpunit
   - /2013/03/unit-testing-tutorial-introduction-to-phpunit/
   - /blog/unit-testing-tutorial-part-1-introduction-to-phpunit

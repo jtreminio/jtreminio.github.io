@@ -5,6 +5,8 @@ date: 2018-07-23
 title: Developing at Full Speed with Xdebug
 description: You won't believe this incredible hack!
 slug: developing-at-full-speed-with-xdebug
+redirect_from:
+  - /blog/developing-at-full-speed-with-xdebug/
 tags:
   - webdev
   - server

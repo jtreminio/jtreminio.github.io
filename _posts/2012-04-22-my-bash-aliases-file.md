@@ -5,6 +5,7 @@ date: 2012-04-22 12:00:00
 title: "My .bash_aliases file"
 slug: my-bash-aliases-file
 redirect_from:
+  - /blog/my-bash-aliases-file/
   - /2012/04/my-bash-aliases-file
   - /2012/04/my-bash-aliases-file/
 tags:

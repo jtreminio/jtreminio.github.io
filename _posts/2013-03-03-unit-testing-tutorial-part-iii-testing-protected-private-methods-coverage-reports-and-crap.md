@@ -6,6 +6,7 @@ title: "Unit Testing Tutorial Part III: Testing Protected/Private Methods, Cover
 description: PHP Unit introduction series
 slug: unit-testing-tutorial-part-iii-testing-protected-private-methods-coverage-reports-and-crap
 redirect_from:
+  - /blog/unit-testing-tutorial-part-iii-testing-protected-private-methods-coverage-reports-and-crap/
   - /2013/03/unit-testing-tutorial-part-3-testing-protected-private-methods-coverage-reports-and-crap
   - /2013/03/unit-testing-tutorial-part-3-testing-protected-private-methods-coverage-reports-and-crap/
   - /blog/unit-testing-tutorial-part-3-testing-protected-private-methods-coverage-reports-and-crap

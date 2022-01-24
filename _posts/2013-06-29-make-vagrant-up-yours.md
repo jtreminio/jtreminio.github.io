@@ -6,6 +6,7 @@ title: Make $ vagrant up yours
 description: My conference virtualization presentation
 slug: make-vagrant-up-yours
 redirect_from:
+  - /blog/make-vagrant-up-yours/
   - /2013/06/make_vagrant_up_yours
   - /2013/06/make_vagrant_up_yours/
 tags:

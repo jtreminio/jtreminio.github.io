@@ -6,6 +6,7 @@ title: "Getting Started with Kohana 3, Part II – Bootstrap"
 description: A popular framework tutorial
 slug: getting-started-with-kohana-3-part-ii-bootstrap
 redirect_from:
+  - /blog/getting-started-with-kohana-3-part-ii-bootstrap/
   - /2012/03/getting-started-with-kohana-3-part-ii-bootstrap
   - /2012/03/getting-started-with-kohana-3-part-ii-bootstrap/
 tags:

@@ -6,6 +6,7 @@ title: "Unit Testing Tutorial Part IV: Mock Objects, Stub Methods and Dependency
 description: PHP Unit introduction series
 slug: unit-testing-tutorial-part-iv-mock-objects-stub-methods-and-dependency-injection
 redirect_from:
+  - /blog/unit-testing-tutorial-part-iv-mock-objects-stub-methods-and-dependency-injection/
   - /2013/03/unit-testing-tutorial-part-4-mock-objects-stub-methods-dependency-injection
   - /2013/03/unit-testing-tutorial-part-4-mock-objects-stub-methods-dependency-injection/
   - /blog/unit-testing-tutorial-part-4-mock-objects-stub-methods-and-dependency-injection

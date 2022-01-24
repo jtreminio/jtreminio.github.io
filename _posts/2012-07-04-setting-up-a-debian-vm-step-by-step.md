@@ -6,6 +6,7 @@ title: "Setting Up a Debian VM, Step by Step"
 description: Deprecated, use PuPHPet
 slug: setting-up-a-debian-vm-step-by-step
 redirect_from:
+  - /blog/setting-up-a-debian-vm-step-by-step/
   - /2012/07/setting-up-a-debian-vm-step-by-step
   - /2012/07/setting-up-a-debian-vm-step-by-step/
 tags:

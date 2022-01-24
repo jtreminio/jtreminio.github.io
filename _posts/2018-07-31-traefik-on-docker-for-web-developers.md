@@ -6,6 +6,7 @@ title: Traefik on Docker for Web Developers
 description: With bonus Let's Encrypt SSL!
 slug: traefik-on-docker-for-web-developers
 redirect_from:
+  - /blog/traefik-on-docker-for-web-developers/
   - /blog/automatic-lets-encrypt-with-traefik-and-docker
   - /blog/automatic-lets-encrypt-with-traefik-and-docker/
 tags:

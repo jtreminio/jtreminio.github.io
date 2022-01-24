@@ -204,4 +204,16 @@ const loadPhotoswipe = () => {
   addAnchors();
   toggleNavbarMobile();
   loadPhotoswipe();
+
+  addEventListener('message', event => {
+    if (event.origin !== 'https://utteranc.es') {
+      return;
+    }
+    const message = {
+      type: 'set-theme',
+      theme: 'github-dark'
+    };
+    const utterances = document.querySelector('iframe').contentWindow; // try event.source instead
+    utterances.postMessage(message, 'https://utteranc.es');
+  });
 })();

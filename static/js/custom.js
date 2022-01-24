@@ -36,39 +36,44 @@ const cookie = {
 /**
  * switch between light and dark theme
  */
-const themeToggle = (cookie) => {
+const themeToggle = cookie => {
   document.querySelector("a.theme-toggle").addEventListener("click", e => {
     e.preventDefault();
 
-    const dark = document.querySelector('[data-style="dark"]');
+    const dark = document.querySelector('[data-dark-style]');
 
     if (dark.disabled) {
       cookie.set("lighttheme", 0, 30);
-      utterancesThemeToggle("photon-dark");
+      setDataTheme("dark");
+      utterancesThemeToggle();
       dark.disabled = false;
 
       return;
     }
 
     cookie.set("lighttheme", 1, 30);
-    utterancesThemeToggle("github-light");
+    setDataTheme("light");
+    utterancesThemeToggle();
     dark.disabled = true;
   });
 };
 
-const utterancesThemeToggle = theme => {
-  // wait for utterances to load and send it's first message.
-  addEventListener('message', event => {
-    if (event.origin !== 'https://utteranc.es') {
-      return;
-    }
+const setDataTheme = value => {
+  document.documentElement.setAttribute("data-theme", value);
+};
+
+const utterancesThemeToggle = () => {
+  if (document.querySelector(".utterances-frame")) {
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark'
+      ? 'photon-dark'
+      : 'github-light'
     const message = {
       type: 'set-theme',
-      theme: theme,
+      theme: theme
     };
-    const utterances = document.querySelector('iframe').contentWindow;
-    utterances.postMessage(message, 'https://utteranc.es');
-  });
+    const iframe = document.querySelector('.utterances-frame');
+    iframe.contentWindow.postMessage(message, 'https://utteranc.es');
+  }
 };
 
 /**
@@ -188,7 +193,10 @@ const loadPhotoswipe = () => {
    * set theme CSS
    */
   if (cookie.get("lighttheme") === "1") {
-    document.querySelector('[data-style="dark"]').disabled = true;
+    document.querySelector('[data-dark-style]').disabled = true;
+    setDataTheme("light");
+  } else {
+    setDataTheme("dark");
   }
 
   themeToggle(cookie);

@@ -21,6 +21,7 @@ tags:
 {:class="warning"}
 
 > This is Part I of a multi-part series. Below are the links to other parts of this tutorial!
+>
 > * Getting Started with Kohana 3, Part I – Initial Setup
 > * [Getting Started with Kohana 3, Part II – Bootstrap](2012-03-23-getting-started-with-kohana-3-part-ii-bootstrap.md)
 > * [Getting Started with Kohana 3, Part III – Controller/MVVM/KOstache](2012-04-08-getting-started-with-kohana-3-part-iii-controller-mvvm-kostache.md)

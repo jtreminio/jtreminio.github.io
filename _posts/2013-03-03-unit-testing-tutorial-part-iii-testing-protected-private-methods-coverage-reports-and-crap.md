@@ -400,16 +400,18 @@ destination to have the files generated. I usually use a folder `coverage`:
 ./vendor/bin/phpunit --coverage-html coverage
 ```
 
-{% image 300px %}
-![01-coverage-report.png](/static/post/2013-03-03-unit-testing-tutorial-part-iii-testing-protected-private-methods-coverage-reports-and-crap/01-coverage-report.png)
-{% endimage %}
+| ![01-coverage-report.png](/static/post/2013-03-03-unit-testing-tutorial-part-iii-testing-protected-private-methods-coverage-reports-and-crap/01-coverage-report.png) |
+|:--:|
+| 01-coverage-report.png |
+{:class="table img-link"}
 
 If you look at your filesystem now, you will see that a `coverage` folder has been
 created and filled with HTML files. Open the `index.html` file and you will see:
 
-{% image 300px %}
-![02-coverage-report-dashboard.png](/static/post/2013-03-03-unit-testing-tutorial-part-iii-testing-protected-private-methods-coverage-reports-and-crap/02-coverage-report-dashboard.png)
-{% endimage %}
+| ![02-coverage-report-dashboard.png](/static/post/2013-03-03-unit-testing-tutorial-part-iii-testing-protected-private-methods-coverage-reports-and-crap/02-coverage-report-dashboard.png) |
+|:--:|
+| 02-coverage-report-dashboard.png |
+{:class="table img-link"}
 
 [message info]If you are using an older PHPUnit version, it may look slightly different as the CSS was changed in a recent update![/message]
 
@@ -428,18 +430,20 @@ a coverage report for it.
 
 Click into `URL.php` in the coverage report, and you will see:
 
-{% image 300px %}
-![03-url.php-coverage-report.png](/static/post/2013-03-03-unit-testing-tutorial-part-iii-testing-protected-private-methods-coverage-reports-and-crap/03-url.php-coverage-report.png)
-{% endimage %}
+| ![03-url.php-coverage-report.png](/static/post/2013-03-03-unit-testing-tutorial-part-iii-testing-protected-private-methods-coverage-reports-and-crap/03-url.php-coverage-report.png) |
+|:--:|
+| 03-url.php-coverage-report.png |
+{:class="table img-link"}
 
 Looking at the legend at the bottom of the page tells you that green is executed
 code, red is not executed, and yellow is dead code. In this particular example,
 all the lines with code are green. If you hover over one of the lines, a small
 info box will popup and show you which tests cover this particular line:
 
-{% image 300px %}
-![04-line-covered-by.png](/static/post/2013-03-03-unit-testing-tutorial-part-iii-testing-protected-private-methods-coverage-reports-and-crap/04-line-covered-by.png)
-{% endimage %}
+| ![04-line-covered-by.png](/static/post/2013-03-03-unit-testing-tutorial-part-iii-testing-protected-private-methods-coverage-reports-and-crap/04-line-covered-by.png) |
+|:--:|
+| 04-line-covered-by.png |
+{:class="table img-link"}
 
 This code is really straightforward, so it may not have the impact to make you
 go, "Cool!", but it gives you a taste of what is to come.
@@ -448,9 +452,10 @@ go, "Cool!", but it gives you a taste of what is to come.
 
 Go back a page and click into `User.php`:
 
-{% image 300px %}
-![05-uncovered-line.png](/static/post/2013-03-03-unit-testing-tutorial-part-iii-testing-protected-private-methods-coverage-reports-and-crap/05-uncovered-line.png)
-{% endimage %}
+| ![05-uncovered-line.png](/static/post/2013-03-03-unit-testing-tutorial-part-iii-testing-protected-private-methods-coverage-reports-and-crap/05-uncovered-line.png) |
+|:--:|
+| 05-uncovered-line.png |
+{:class="table img-link"}
 
 Looking at this report, you can immediately tell that something is red.
 
@@ -522,9 +527,10 @@ Re-run your coverage report, reload the page, and you should now see that red li
 has turned to green. If you hover over it, it will tell you this new test now covers
 it.
 
-{% image 300px %}
-![06-user.php-coverage-report.png](/static/post/2013-03-03-unit-testing-tutorial-part-iii-testing-protected-private-methods-coverage-reports-and-crap/06-user.php-coverage-report.png)
-{% endimage %}
+| ![06-user.php-coverage-report.png](/static/post/2013-03-03-unit-testing-tutorial-part-iii-testing-protected-private-methods-coverage-reports-and-crap/06-user.php-coverage-report.png) |
+|:--:|
+| 06-user.php-coverage-report.png |
+{:class="table img-link"}
 
 ### PAY ATTENTION TO YOUR CRAP
 

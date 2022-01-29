@@ -73,35 +73,40 @@ latest netinst ISO. It should match `debian-#.#.#-amd64-i386-netinst.iso`.
 
 Open Virtualbox and hit the New button.
 
-{% image 300px %}
-![step1.png](/static/post/2012-07-04-setting-up-a-debian-vm-step-by-step/step1.png)
-{% endimage %}
+| ![step1.png](/static/post/2012-07-04-setting-up-a-debian-vm-step-by-step/step1.png) |
+|:--:|
+| step1.png |
+{:class="table img-link"}
 
 At the Create New Virtual Machine screen, name your VM “Debian VM” and hit Next
 
-{% image 300px %}
-![step2.png](/static/post/2012-07-04-setting-up-a-debian-vm-step-by-step/step2.png)
-{% endimage %}
+| ![step2.png](/static/post/2012-07-04-setting-up-a-debian-vm-step-by-step/step2.png) |
+|:--:|
+| step2.png |
+{:class="table img-link"}
 
 Give your VM 1GB of RAM. If your computer has less than 6GB of RAM, you should
 probably lower it down to 512MB.
 
-{% image 300px %}
-![step3.png](/static/post/2012-07-04-setting-up-a-debian-vm-step-by-step/step3.png)
-{% endimage %}
+| ![step3.png](/static/post/2012-07-04-setting-up-a-debian-vm-step-by-step/step3.png) |
+|:--:|
+| step3.png |
+{:class="table img-link"}
 
 Click next until you reach the Virtual desk storage details page, and select
 “Fixed size”
 
-{% image 300px %}
-![step4.png](/static/post/2012-07-04-setting-up-a-debian-vm-step-by-step/step4.png)
-{% endimage %}
+| ![step4.png](/static/post/2012-07-04-setting-up-a-debian-vm-step-by-step/step4.png) |
+|:--:|
+| step4.png |
+{:class="table img-link"}
 
 Give it 8 GB of space
 
-{% image 300px %}
-![step5.png](/static/post/2012-07-04-setting-up-a-debian-vm-step-by-step/step5.png)
-{% endimage %}
+| ![step5.png](/static/post/2012-07-04-setting-up-a-debian-vm-step-by-step/step5.png) |
+|:--:|
+| step5.png |
+{:class="table img-link"}
 
 Virtualbox will now create the initial VM image file which may take a minute or two.
 When it is finished, close the process by hitting the “Create” button.
@@ -112,68 +117,77 @@ on it. To do so, simply double click on the Debian VM line and click “next”.
 Click the folder icon and search for your Debian iso file, clicking next until the
 VM boots up.
 
-{% image 300px %}
-![step6.png](/static/post/2012-07-04-setting-up-a-debian-vm-step-by-step/step6.png)
-{% endimage %}
+| ![step6.png](/static/post/2012-07-04-setting-up-a-debian-vm-step-by-step/step6.png) |
+|:--:|
+| step6.png |
+{:class="table img-link"}
 
 The Debian installation is very straight-forward, but there are a few pages I’d like
 to highlight as being important.
 
 Choose the 64 bit install option
 
-{% image 300px %}
-![step7.png](/static/post/2012-07-04-setting-up-a-debian-vm-step-by-step/step7.png)
-{% endimage %}
+| ![step7.png](/static/post/2012-07-04-setting-up-a-debian-vm-step-by-step/step7.png) |
+|:--:|
+| step7.png |
+{:class="table img-link"}
 
 At the hostname screen, choose what you would like to name your server. This name will
 be used later on to access the server via SSH and when setting up a network folder on
 your host machine (the desktop you use).
 
-{% image 300px %}
-![step8.png](/static/post/2012-07-04-setting-up-a-debian-vm-step-by-step/step8.png)
-{% endimage %}
+| ![step8.png](/static/post/2012-07-04-setting-up-a-debian-vm-step-by-step/step8.png) |
+|:--:|
+| step8.png |
+{:class="table img-link"}
 
 The Domain name field can be left blank, unless you require something different on
 your network
 
-{% image 300px %}
-![step9.png](/static/post/2012-07-04-setting-up-a-debian-vm-step-by-step/step9.png)
-{% endimage %}
+| ![step9.png](/static/post/2012-07-04-setting-up-a-debian-vm-step-by-step/step9.png) |
+|:--:|
+| step9.png |
+{:class="table img-link"}
 
 Continue on, making sure to hit choose the defaults for most settings until you get
 to the “Partition disks” page where you should choose “Guided – use entire disk and
 set up LVM”
 
-{% image 300px %}
-![step10.png](/static/post/2012-07-04-setting-up-a-debian-vm-step-by-step/step10.png)
-{% endimage %}
+| ![step10.png](/static/post/2012-07-04-setting-up-a-debian-vm-step-by-step/step10.png) |
+|:--:|
+| step10.png |
+{:class="table img-link"}
 
 For easier VM management, place all files in a single partition
 
-{% image 300px %}
-![step11.png](/static/post/2012-07-04-setting-up-a-debian-vm-step-by-step/step11.png)
-{% endimage %}
+| ![step11.png](/static/post/2012-07-04-setting-up-a-debian-vm-step-by-step/step11.png) |
+|:--:|
+| step11.png |
+{:class="table img-link"}
 
 Confirm changes
 
-{% image 300px %}
-![step12.png](/static/post/2012-07-04-setting-up-a-debian-vm-step-by-step/step12.png)
-{% endimage %}
+| ![step12.png](/static/post/2012-07-04-setting-up-a-debian-vm-step-by-step/step12.png) |
+|:--:|
+| step12.png |
+{:class="table img-link"}
 
 Finish creating partitions
 
-{% image 300px %}
-![step13.png](/static/post/2012-07-04-setting-up-a-debian-vm-step-by-step/step13.png)
-{% endimage %}
+| ![step13.png](/static/post/2012-07-04-setting-up-a-debian-vm-step-by-step/step13.png) |
+|:--:|
+| step13.png |
+{:class="table img-link"}
 
 There’s another confirmation page, just continue on.
 
 At the software selection screen, choose Mail server, SSH server and Standard system
 utilities
 
-{% image 300px %}
-![step15.png](/static/post/2012-07-04-setting-up-a-debian-vm-step-by-step/step15.png)
-{% endimage %}
+| ![step15.png](/static/post/2012-07-04-setting-up-a-debian-vm-step-by-step/step15.png) |
+|:--:|
+| step15.png |
+{:class="table img-link"}
 
 Continue choosing the defaults until installation is complete and your VM reboots.
 
@@ -234,9 +248,10 @@ At the main VirtualBox screen, hit the settings button. then select Network from
 list on the left, choose Adapter 2 from the tabs, check “Enable Network Adapter” and
 choose “Host-only Adapter” from the dropdown, then hit OK
 
-{% image 300px %}
-![step16.png](/static/post/2012-07-04-setting-up-a-debian-vm-step-by-step/step16.png)
-{% endimage %}
+| ![step16.png](/static/post/2012-07-04-setting-up-a-debian-vm-step-by-step/step16.png) |
+|:--:|
+| step16.png |
+{:class="table img-link"}
 
 What we’ve done in this section is set up your VM to use a static IP address. This is
 a good idea because it allows us to always access our VM using a single IP
@@ -307,9 +322,10 @@ ServerName localhost
 You’ll now have the Apache server up and running! Just point your browser to
 [http://debian-vm](http://debian-vm) and behold the magic!
 
-{% image 300px %}
-![step17.png](/static/post/2012-07-04-setting-up-a-debian-vm-step-by-step/step17.png)
-{% endimage %}
+| ![step17.png](/static/post/2012-07-04-setting-up-a-debian-vm-step-by-step/step17.png) |
+|:--:|
+| step17.png |
+{:class="table img-link"}
 
 Let’s enable Apache’s `ModRewrite` module now:
 

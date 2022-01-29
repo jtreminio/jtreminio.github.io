@@ -182,9 +182,10 @@ class URLTest extends \PHPUnit_Framework_TestCase
 
 If you run PHPUnit right now, you should get the following:
 
-{% image 300px %}
-![01-failed-test.png](/static/post/2013-03-01-unit-testing-tutorial-part-ii-assertions-writing-a-useful-test-and-dataprovider/01-failed-test.png)
-{% endimage %}
+| ![01-failed-test.png](/static/post/2013-03-01-unit-testing-tutorial-part-ii-assertions-writing-a-useful-test-and-dataprovider/01-failed-test.png) |
+|:--:|
+| 01-failed-test.png |
+{:class="table img-link"}
 
 ```bash
 FAILURES!
@@ -229,9 +230,10 @@ class URLTest extends \PHPUnit_Framework_TestCase
 
 Running PHPUnit now will produce the coveted green bar!
 
-{% image 300px %}
-![02-passing-test.png](/static/post/2013-03-01-unit-testing-tutorial-part-ii-assertions-writing-a-useful-test-and-dataprovider/02-passing-test.png)
-{% endimage %}
+| ![02-passing-test.png](/static/post/2013-03-01-unit-testing-tutorial-part-ii-assertions-writing-a-useful-test-and-dataprovider/02-passing-test.png) |
+|:--:|
+| 02-passing-test.png |
+{:class="table img-link"}
 
 From here we can move on with creating the meat of our test.
 
@@ -332,9 +334,10 @@ class URLTest extends \PHPUnit_Framework_TestCase
 
 Running PHPUnit brings a smile to our faces:
 
-{% image 300px %}
-![03-useful-passing-test.png](/static/post/2013-03-01-unit-testing-tutorial-part-ii-assertions-writing-a-useful-test-and-dataprovider/03-useful-passing-test.png)
-{% endimage %}
+| ![03-useful-passing-test.png](/static/post/2013-03-01-unit-testing-tutorial-part-ii-assertions-writing-a-useful-test-and-dataprovider/03-useful-passing-test.png) |
+|:--:|
+| 03-useful-passing-test.png |
+{:class="table img-link"}
 
 ### More scenarios
 
@@ -419,9 +422,10 @@ class URLTest extends \PHPUnit_Framework_TestCase
 }
 ```
 
-{% image 300px %}
-![04-duplicate-tests.png](/static/post/2013-03-01-unit-testing-tutorial-part-ii-assertions-writing-a-useful-test-and-dataprovider/04-duplicate-tests.png)
-{% endimage %}
+| ![04-duplicate-tests.png](/static/post/2013-03-01-unit-testing-tutorial-part-ii-assertions-writing-a-useful-test-and-dataprovider/04-duplicate-tests.png) |
+|:--:|
+| 04-duplicate-tests.png |
+{:class="table img-link"}
 
 Our test suite passes!
 
@@ -607,9 +611,10 @@ class URLTest extends \PHPUnit_Framework_TestCase
 
 Now run your test suite:
 
-{% image 300px %}
-![05-dataprovider-result.png](/static/post/2013-03-01-unit-testing-tutorial-part-ii-assertions-writing-a-useful-test-and-dataprovider/05-dataprovider-result.png)
-{% endimage %}
+| ![05-dataprovider-result.png](/static/post/2013-03-01-unit-testing-tutorial-part-ii-assertions-writing-a-useful-test-and-dataprovider/05-dataprovider-result.png) |
+|:--:|
+| 05-dataprovider-result.png |
+{:class="table img-link"}
 
 Huzzah!
 

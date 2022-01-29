@@ -31,9 +31,10 @@ Items required:
 This is how my desk looked before. It's a fairly nice, flat desk. I have two
 27" Nixeus monitors, keyboard and mouse.
 
-{% image 300px %}
-![02.jpg](/static/post/2015-08-11-diy-sit-stand-desk/02.jpg)
-{% endimage %}
+| ![02.jpg](/static/post/2015-08-11-diy-sit-stand-desk/02.jpg) |
+|:--:|
+| 02.jpg |
+{:class="table img-link"}
 
 Nothing extremely fancy, but it is mostly comfortable to work with for extended
 periods of time. At least, it was until my body starting complaining.
@@ -53,9 +54,10 @@ turned left or two and also has an elbow in the middle to further compress
 it. Right now it is turned behind the left monitor, out of the way when I am
 sitting down.
 
-{% image 300px %}
-![03.jpg](/static/post/2015-08-11-diy-sit-stand-desk/03.jpg)
-{% endimage %}
+| ![03.jpg](/static/post/2015-08-11-diy-sit-stand-desk/03.jpg) |
+|:--:|
+| 03.jpg |
+{:class="table img-link"}
 
 This is what the arms look like behind the desk. The two monitor mounts are
 fully articulating. They can go up, down, around. The range of motion on them
@@ -76,18 +78,20 @@ tray.
 
 ## Standing
 
-{% image 300px %}
-![04.jpg](/static/post/2015-08-11-diy-sit-stand-desk/04.jpg)
-{% endimage %}
+| ![04.jpg](/static/post/2015-08-11-diy-sit-stand-desk/04.jpg) |
+|:--:|
+| 04.jpg |
+{:class="table img-link"}
 
 Here you can see both monitor arms extended to their full height. I did this
 with a single finger! There are some minor adjustments once they are at your
 desired height, namely to remove the gap between the two bevels, but it is
 quite easy to do.
 
-{% image 300px %}
-![05.jpg](/static/post/2015-08-11-diy-sit-stand-desk/05.jpg)
-{% endimage %}
+| ![05.jpg](/static/post/2015-08-11-diy-sit-stand-desk/05.jpg) |
+|:--:|
+| 05.jpg |
+{:class="table img-link"}
 
 I have also extended the keyboard arm. I will show detail on it in a second.
 
@@ -95,9 +99,10 @@ This is what the arms look like when fully extended. They do not go further
 than this. You can see there is maybe 1" left in the monitor poles that I can
 use to further raise the monitors a little higher.
 
-{% image 300px %}
-![06.jpg](/static/post/2015-08-11-diy-sit-stand-desk/06.jpg)
-{% endimage %}
+| ![06.jpg](/static/post/2015-08-11-diy-sit-stand-desk/06.jpg) |
+|:--:|
+| 06.jpg |
+{:class="table img-link"}
 
 This is the Mount Factory arm, extended. It also has the Ergotron Quick Release
 LCD Bracket attached to it. The arm itself is VESA compatible - remember they
@@ -109,18 +114,20 @@ Ignore the slight scratches on it. I tried to force it on in the incorrect
 manner when I first purchased it. If I had read the very simple instructions
 it would still be in great shape.
 
-{% image 300px %}
-![07.jpg](/static/post/2015-08-11-diy-sit-stand-desk/07.jpg)
-{% endimage %}
+| ![07.jpg](/static/post/2015-08-11-diy-sit-stand-desk/07.jpg) |
+|:--:|
+| 07.jpg |
+{:class="table img-link"}
 
 This is the keyboard/mouse tray. It is a simple wooden tray I bought from Home
 Depot for $5. It is a little hard to see (shitty cellphone camera) but on the
 left (bottom) side I glued a small wooden strip to prevent items from falling
 off the tray.
 
-{% image 300px %}
-![08.jpg](/static/post/2015-08-11-diy-sit-stand-desk/08.jpg)
-{% endimage %}
+| ![08.jpg](/static/post/2015-08-11-diy-sit-stand-desk/08.jpg) |
+|:--:|
+| 08.jpg |
+{:class="table img-link"}
 
 This is the back of the keyboard tray. The quick release bracket is the black
 item. The big gray plate is the Monoprice adapter. I did it this way because
@@ -132,16 +139,18 @@ corner of my office when I am sitting down. When I want to stand up, I simply
 slide it on to the keyboard arm. To release it I press down on the small tab
 and slide the tray off.
 
-{% image 300px %}
-![09.jpg](/static/post/2015-08-11-diy-sit-stand-desk/09.jpg)
-{% endimage %}
+| ![09.jpg](/static/post/2015-08-11-diy-sit-stand-desk/09.jpg) |
+|:--:|
+| 09.jpg |
+{:class="table img-link"}
 
 This is my desk in standing mode. The monitor arms are extended, the keyboard
 tray is attached and I have placed my keyboard and mouse on it.
 
-{% image 300px %}
-![10.jpg](/static/post/2015-08-11-diy-sit-stand-desk/10.jpg)
-{% endimage %}
+| ![10.jpg](/static/post/2015-08-11-diy-sit-stand-desk/10.jpg) |
+|:--:|
+| 10.jpg |
+{:class="table img-link"}
 
 From behind you can see how high the monitors and keyboard are raised.
 For reference, I am 6'0" and everything is at a fairly comfortable level for
@@ -192,8 +201,9 @@ DIY job.
 
 Next up, I will explain how I built my Hackintosh desktop:
 
-{% image 300px %}
-![11.png](/static/post/2015-08-11-diy-sit-stand-desk/11.png)
-{% endimage %}
+| ![11.png](/static/post/2015-08-11-diy-sit-stand-desk/11.png) |
+|:--:|
+| 11.png |
+{:class="table img-link"}
 
 Until next time, this is Señor PHP Developer Juan Treminio wishing you adios!

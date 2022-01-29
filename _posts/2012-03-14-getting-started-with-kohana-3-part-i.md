@@ -175,9 +175,10 @@ step but I think Mac OS X does.
 
 ## Test it out
 
-{% image 300px %}
-![kohana.install.png](/static/post/2012-03-14-getting-started-with-kohana-3-part-i/kohana.install.png)
-{% endimage %}
+| ![kohana.install.png](/static/post/2012-03-14-getting-started-with-kohana-3-part-i/kohana.install.png) |
+|:--:|
+| kohana.install.png |
+{:class="table img-link"}
 
 Restart Apache and go to [kohana-tutorial.dev](http://kohana-tutorial.dev). If
 all’s gone well, you should be present with the Kohana Installation page. What is

@@ -398,9 +398,10 @@ internet. Then I run the test using
 `$ ./vendor/bin/phpunit phpUnitTutorial/Test/NaughtyConstructorTest.php`. After a 
 rather long, boring wait I finally get the results: Failure.
 
-{% image 300px %}
-![01-internet-dependency.png](/static/post/2013-03-31-unit-testing-tutorial-part-v-mock-methods-and-overriding-constructors/01-internet-dependency.png)
-{% endimage %}
+| ![01-internet-dependency.png](/static/post/2013-03-31-unit-testing-tutorial-part-v-mock-methods-and-overriding-constructors/01-internet-dependency.png) |
+|:--:|
+| 01-internet-dependency.png |
+{:class="table img-link"}
 
 You did not expect another result, did you?
 
@@ -470,9 +471,10 @@ return `null`. That is not what we want!
 
 Run your test again and... Failure!
 
-{% image 300px %}
-![02-removed-constructor-assignments.png](/static/post/2013-03-31-unit-testing-tutorial-part-v-mock-methods-and-overriding-constructors/02-removed-constructor-assignments.png)
-{% endimage %}
+| ![02-removed-constructor-assignments.png](/static/post/2013-03-31-unit-testing-tutorial-part-v-mock-methods-and-overriding-constructors/02-removed-constructor-assignments.png) |
+|:--:|
+| 02-removed-constructor-assignments.png |
+{:class="table img-link"}
 
 Well of course it is failing - `getMetaTags();` tries to use `$this->html` which is
 empty because we disabled the constructor!

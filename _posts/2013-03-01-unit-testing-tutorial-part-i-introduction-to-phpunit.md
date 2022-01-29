@@ -106,9 +106,10 @@ for Composer's autoloader and load it.
 To run PHPUnit, you simply do `$ ./vendor/bin/phpunit`. This will print all options
 available to you.
 
-{% image 300px %}
-![phpunit-options.png](/static/post/2013-03-01-unit-testing-tutorial-part-i-introduction-to-phpunit/phpunit-options.png)
-{% endimage %}
+| ![phpunit-options.png](/static/post/2013-03-01-unit-testing-tutorial-part-i-introduction-to-phpunit/phpunit-options.png) |
+|:--:|
+| phpunit-options.png |
+{:class="table img-link"}
 
 ## STRUCTURING THE PROJECT
 
@@ -301,9 +302,10 @@ From project root, run PHPUnit: `$ vendor/bin/phpunit`
 
 You should see the coveted green bar:
 
-{% image 300px %}
-![successful-test.png](/static/post/2013-03-01-unit-testing-tutorial-part-i-introduction-to-phpunit/successful-test.png)
-{% endimage %}
+| ![successful-test.png](/static/post/2013-03-01-unit-testing-tutorial-part-i-introduction-to-phpunit/successful-test.png) |
+|:--:|
+| successful-test.png |
+{:class="table img-link"}
 
 You ran a single test file, `1 test`, with a single assertion `1 assertion`.
 

@@ -471,9 +471,10 @@ Open your browser and go to [kohana-tutorial.dev/](http://kohana-tutorial.dev/)
 
 Surprise! It should be working.
 
-{% image 300px %}
-![kohana.kostache.png](/static/post/2012-04-08-getting-started-with-kohana-3-part-iii-controller-mvvm-kostache/kohana.kostache.png)
-{% endimage %}
+| ![kohana.kostache.png](/static/post/2012-04-08-getting-started-with-kohana-3-part-iii-controller-mvvm-kostache/kohana.kostache.png) |
+|:--:|
+| kohana.kostache.png |
+{:class="table img-link"}
 
 ## Wrapping it up
 

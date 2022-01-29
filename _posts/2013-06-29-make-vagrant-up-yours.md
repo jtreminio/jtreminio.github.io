@@ -110,9 +110,10 @@ folders between our operating system `~/www` and the VM `/var/www`
 To get Vagrant working, you simply open the terminal, `cd` into the folder where
 the Vagrantfile is located and run `$ vagrant up`.
 
-{% image 300px %}
-![1.png](/static/post/2013-06-29-make-vagrant-up-yours/1.png)
-{% endimage %}
+| ![1.png](/static/post/2013-06-29-make-vagrant-up-yours/1.png) |
+|:--:|
+| 1.png |
+{:class="table img-link"}
 
 You now have a fully functional virtual machine! What, you don't see it? That's
 because it's invisible by default! To access your new VM, just `$ vagrant ssh`
@@ -120,9 +121,10 @@ and Vagrant will connect you to your VM via SSH.
 
 You can check to see that the shared folders are actually set up:
 
-{% image 300px %}
-![2.png](/static/post/2013-06-29-make-vagrant-up-yours/2.png)
-{% endimage %}
+| ![2.png](/static/post/2013-06-29-make-vagrant-up-yours/2.png) |
+|:--:|
+| 2.png |
+{:class="table img-link"}
 
 MAGIC!
 
@@ -156,15 +158,17 @@ It's fairly simple to understand. To install Apache, for example, you would do:
 Package { 'apache2': }
 ```
 
-{% image 300px %}
-![3.png](/static/post/2013-06-29-make-vagrant-up-yours/3.png)
-{% endimage %}
+| ![3.png](/static/post/2013-06-29-make-vagrant-up-yours/3.png) |
+|:--:|
+| 3.png |
+{:class="table img-link"}
 
 We can go to the IP address we've assigned the VM to test that Apache is installed:
 
-{% image 300px %}
-![4.png](/static/post/2013-06-29-make-vagrant-up-yours/4.png)
-{% endimage %}
+| ![4.png](/static/post/2013-06-29-make-vagrant-up-yours/4.png) |
+|:--:|
+| 4.png |
+{:class="table img-link"}
 
 ### Puppet Modules
 

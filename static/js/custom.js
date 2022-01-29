@@ -127,80 +127,20 @@ const toggleNavbarMobile = () => {
 };
 
 /**
- * load photoswipe
+ * post images are displayed in a table for responsive and captioning support,
+ * but don't include <a> links. Add them here.
  */
-const loadPhotoswipe = () => {
-  // array of slide objects that will be passed to PhotoSwipe()
-  const items = [];
-  const figures = document.querySelectorAll("figure");
+const linkTableImages = () => {
+  document.querySelectorAll("table.img-link").forEach(imgLink => {
+    imgLink.querySelectorAll("img").forEach(img => {
+      const parentEl = img.parentElement;
+      img.classList.add("img-thumbnail");
+      parentEl.innerHTML =
+        `<a href="${img.src}" target="_blank">${parentEl.innerHTML}</a>`;
+    });
 
-  figures.forEach(figure => {
-    if (figure.classList.contains("no-photoswipe")) {
-      return true;
-    }
-
-    const anchor = figure.getElementsByTagName("a")[0];
-    const img = figure.getElementsByTagName("img")[0];
-    const src = anchor.href;
-    const title = img.alt;
-    const msrc = img.src;
-    let item;
-
-    // if data-size on <a> tag is set, read it and create an item
-    if (anchor.getAttribute("size")) {
-      const size = anchor.getAttribute("size").split("x");
-      item = {
-        w: size[0],
-        h: size[1],
-        src,
-        title,
-        msrc,
-      };
-    }
-
-    // if not, set temp default size then load the image to check actual size
-    else {
-      item = {
-        src: src,
-        w: 800, // temp default size
-        h: 600, // temp default size
-        title: title,
-        msrc: msrc,
-      };
-      // load the image to check its dimensions
-      // update the item as soon as w and h are known (check every 30ms)
-      const image = new Image();
-      image.src = src;
-
-      const wait = setInterval(function () {
-        const w = image.naturalWidth;
-        const h = image.naturalHeight;
-
-        if (w && h) {
-          clearInterval(wait);
-          item.w = w;
-          item.h = h;
-        }
-      }, 30);
-    }
-
-    // Save the index of this image then add it to the array
-    const index = items.length;
-    items.push(item);
-
-    // Event handler for click on a figure
-    figure.addEventListener("click", function (event) {
-      event.preventDefault(); // prevent the normal behaviour i.e. load the <a> hyperlink
-      // Get the PSWP element and initialise it with the desired options
-      const pswp = document.querySelector(".pswp");
-
-      const options = {
-        bgOpacity: 0.8,
-        showHideOpacity: true,
-        index,
-      };
-
-      new PhotoSwipe(pswp, PhotoSwipeUI_Default, items, options).init();
+    imgLink.querySelectorAll("tbody tr td").forEach(td => {
+      td.innerHTML = `<figcaption>${td.innerHTML}</figcaption>`;
     });
   });
 };
@@ -223,5 +163,5 @@ const loadPhotoswipe = () => {
   feather.replace();
   addAnchors();
   toggleNavbarMobile();
-  loadPhotoswipe();
+  linkTableImages();
 })();

@@ -209,9 +209,10 @@ class PaymentTest extends \PHPUnit_Framework_TestCase
 }
 ```
 
-{% image 300px %}
-![01-failed-by-outside-dependency.png](/static/post/2013-03-07-unit-testing-tutorial-part-iv-mock-objects-stub-methods-and-dependency-injection/01-failed-by-outside-dependency.png)
-{% endimage %}
+| ![01-failed-by-outside-dependency.png](/static/post/2013-03-07-unit-testing-tutorial-part-iv-mock-objects-stub-methods-and-dependency-injection/01-failed-by-outside-dependency.png) |
+|:--:|
+| 01-failed-by-outside-dependency.png |
+{:class="table img-link"}
 
 ### Explosions!
 

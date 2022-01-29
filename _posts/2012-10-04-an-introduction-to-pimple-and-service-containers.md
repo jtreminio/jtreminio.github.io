@@ -47,9 +47,10 @@ $container = array();
 $container['dateTime'] = new DateTime();
 ```
 
-{% image 300px %}
-![1.png](/static/post/2012-10-04-an-introduction-to-pimple-and-service-containers/1.png)
-{% endimage %}
+| ![1.png](/static/post/2012-10-04-an-introduction-to-pimple-and-service-containers/1.png) |
+|:--:|
+| 1.png |
+{:class="table img-link"}
 
 Here you can see that the `dateTime` key in the `$container` array holds an
 instantiated `DateTime` object.
@@ -67,9 +68,10 @@ $date = $container['dateTime'];
 $formatted = $date->format('Y-m-d H:i:s');
 ```
 
-{% image 300px %}
-![2.png](/static/post/2012-10-04-an-introduction-to-pimple-and-service-containers/2.png)
-{% endimage %}
+| ![2.png](/static/post/2012-10-04-an-introduction-to-pimple-and-service-containers/2.png) |
+|:--:|
+| 2.png |
+{:class="table img-link"}
 
 Let’s define several more!
 
@@ -85,9 +87,10 @@ $container['dateTimeFour'] = new DateTime();
 $container['dateTimeFive'] = new DateTime();
 ```
 
-{% image 300px %}
-![3.png](/static/post/2012-10-04-an-introduction-to-pimple-and-service-containers/3.png)
-{% endimage %}
+| ![3.png](/static/post/2012-10-04-an-introduction-to-pimple-and-service-containers/3.png) |
+|:--:|
+| 3.png |
+{:class="table img-link"}
 
 Notice something? By simple defining the keys you’re actually instantiating the
 objects and putting them in memory. For something as simple as `DateTime` that’s not
@@ -129,9 +132,10 @@ $container['dateTimeFive'] = function() {
 $date = $container['dateTimeOne'];
 ```
 
-{% image 300px %}
-![7.png](/static/post/2012-10-04-an-introduction-to-pimple-and-service-containers/7.png)
-{% endimage %}
+| ![7.png](/static/post/2012-10-04-an-introduction-to-pimple-and-service-containers/7.png) |
+|:--:|
+| 7.png |
+{:class="table img-link"}
 
 Oops. Looks like `$date` is just a `Closure` and not the `DateTime` object we were
 expecting! If you try to use `$date` as a `DateTime` object here you’ll get some
@@ -169,9 +173,10 @@ $container['dateTimeFive'] = function() {
 };
 ```
 
-{% image 300px %}
-![4.png](/static/post/2012-10-04-an-introduction-to-pimple-and-service-containers/4.png)
-{% endimage %}
+| ![4.png](/static/post/2012-10-04-an-introduction-to-pimple-and-service-containers/4.png) |
+|:--:|
+| 4.png |
+{:class="table img-link"}
 
 You now have the same keys defined, but each key does not automatically instantiate
 the object within it, it just holds a closure. Using it is just as simple as before:
@@ -206,9 +211,10 @@ $date = $container['dateTimeOne'];
 $formatted = $date->format('Y-m-d H:i:s');
 ```
 
-{% image 300px %}
-![5.png](/static/post/2012-10-04-an-introduction-to-pimple-and-service-containers/5.png)
-{% endimage %}
+| ![5.png](/static/post/2012-10-04-an-introduction-to-pimple-and-service-containers/5.png) |
+|:--:|
+| 5.png |
+{:class="table img-link"}
 
 You still have 5 closures, but can now instantiate an object on demand – just as if
 you were using the `new` keyword – and you no longer have 5 `DateTime` objects just

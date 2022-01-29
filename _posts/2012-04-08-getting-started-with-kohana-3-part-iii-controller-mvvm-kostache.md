@@ -2,7 +2,7 @@
 layout: post
 categories: [blog]
 date: 2012-04-08
-title: "Getting Started with Kohana 3, Part III – Controller/MVVM/KOstache"
+title: "Getting Started with Kohana 3, Part III – Controller / MVVM / KOstache"
 description: A popular framework tutorial
 slug: getting-started-with-kohana-3-part-iii-controller-mvvm-kostache
 redirect_from:
@@ -15,19 +15,17 @@ tags:
   - server
 ---
 
-{% blockquote warning %}
 > I am no longer using Kohana in any of my personal or professional
 > projects. I have moved to a better, more modular framework in Silex, which I will
 > be writing about shortly. This series has been permanently discontinued.
-{% endblockquote %}
+{:class="warning"}
 
-{% blockquote success %}
 > This is Part III of a multi-part series. Below are the links to other
 > parts of this tutorial!
 > * [Getting Started with Kohana 3, Part I – Initial Setup](2012-03-14-getting-started-with-kohana-3-part-i.md)
 > * [Getting Started with Kohana 3, Part II – Bootstrap](2012-03-23-getting-started-with-kohana-3-part-ii-bootstrap.md)
 > * Getting Started with Kohana 3, Part III – Controller/MVVM/KOstache
-{% endblockquote %}
+{:class="success"}
 
 In my
 [Getting Started with Kohana 3, Part II – Bootstrap](2012-03-23-getting-started-with-kohana-3-part-ii-bootstrap.md),
@@ -347,13 +345,12 @@ within either your master template (`CONTENT_PARTIAL`), the current template
 (eg: “single-blog” template), or any templates any other template calls. These are
 called partials.
 
-{% blockquote warning %}
 > An important note about KOstache templates: All templates should have a
 > `.mustache extension`. For example, our “single-blog” template file would be named
 > `single-blog.mustache`. You should simply omit the extension when defining the names.
 > Also, KOstache will look for your templates in the `application/templates` folder,
 > and it supports as many subfolders as you want, so go hogwild.
-{% endblockquote %}
+{:class="warning"}
 
 `protected $_layout = '.layout';` defines the master template name… which would be
 `.layout.mustache`. The preceding dot in the name isn’t necessary, but I like to put

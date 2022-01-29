@@ -63,10 +63,9 @@ Google will keep you occupied for hours on the subject!
 
 From the Puppet website,
 
-{% blockquote info %}
 > Puppet uses its own configuration language, which was designed to be accessible
 > to sysadmins.
-{% endblockquote %}
+{:class="info"}
 
 [Here you can see an example of Puppet's configuration language](https://github.com/jtreminio/vagrant-puppet-lamp/blob/master/manifests/default.pp).
 

@@ -64,11 +64,10 @@ The VM OS we’ll be installing is Debian. Go to this Debian mirror and download
 latest netinst ISO. It should match `debian-#.#.#-amd64-i386-netinst.iso`.
 [Download Debian ISO to your computer](http://ftp.cae.tntech.edu/debian-cd/).
 
-{% blockquote danger %}
 > The VM we will end up building and running is *not* secure and should
 > not be used in a production environment. You should only set this up as a virtual
 > machine on your local desktop!
-{% endblockquote %}
+{:class="danger"}
 
 ## Install the VM
 
@@ -331,9 +330,8 @@ $ sudo apt-get install mysql-client-5.1 mysql-server-5.1
 On the screens asking for a MySQL password, leave it blank and hit enter. Since this
 is only for a local server there’s no point in setting up a password.
 
-{% blockquote danger %}
 > Do NOT use a blank password in production environments! That’s just stupid.
-{% endblockquote %}
+{:class="danger"}
 
 ## Setting up MySQL
 

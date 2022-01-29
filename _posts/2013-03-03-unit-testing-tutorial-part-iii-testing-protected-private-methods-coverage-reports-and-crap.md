@@ -19,7 +19,6 @@ tags:
 gh_comment_id: 8
 ---
 
-{% blockquote success %}
 > This is Part III of a multi-part series. Below are the links to other parts of
 > this tutorial!
 > * [Unit Testing Tutorial Part I: Introduction to PHPUnit](2013-03-01-unit-testing-tutorial-part-i-introduction-to-phpunit.md)
@@ -27,7 +26,7 @@ gh_comment_id: 8
 > * Unit Testing Tutorial Part III: Testing Protected/Private Methods, Coverage Reports and CRAP
 > * [Unit Testing Tutorial Part IV: Mock Objects, Stub Methods and Dependency Injection](2013-03-07-unit-testing-tutorial-part-iv-mock-objects-stub-methods-and-dependency-injection.md)
 > * [Unit Testing Tutorial Part V: Mock Methods and Overriding Constructors](2013-03-31-unit-testing-tutorial-part-v-mock-methods-and-overriding-constructors.md)
-{% endblockquote %}
+{:class="success"}
 
 A common question I keep hearing repeated is, "How much do I test?".
 
@@ -62,12 +61,11 @@ I will explain the process!
 
 Create a new file at `./phpUnitTutorial/User.php` and paste the following:
 
-{% blockquote danger %}
 > Let me be very clear: the `User` class is *not* a good class. Using `md5()` for
 > passwords should be avoided at all costs! In fact, it is a pretty bad class
 > overall. That said, it provides a very simple and easy to grasp example of what I
 > am teaching.
-{% endblockquote %}
+{:class="danger"}
 
 ```php
 <?php

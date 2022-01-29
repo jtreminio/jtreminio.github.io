@@ -107,10 +107,9 @@ xdebug.var_display_max_depth=20
 xdebug.show_exception_trace=0
 ```
 
-{% blockquote info %}
 > If you're using PHP 5.3, `zend_extension` should be
 > `/usr/local/lib/php/extensions/no-debug-non-zts-20090626/xdebug.so`
-{% endblockquote %}
+{:class="info"}
 
 Restart Apache and call `phpinfo()`. Search for `xdebug` and you should find it.
 

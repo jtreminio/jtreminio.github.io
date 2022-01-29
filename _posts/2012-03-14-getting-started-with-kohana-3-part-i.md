@@ -15,18 +15,16 @@ tags:
   - server
 ---
 
-{% blockquote warning %}
 > I am no longer using Kohana in any of my personal or professional
 > projects. I have moved to a better, more modular framework in Silex, which I will
 > be writing about shortly. This series has been permanently discontinued.
-{% endblockquote %}
+{:class="warning"}
 
-{% blockquote success %}
 > This is Part I of a multi-part series. Below are the links to other parts of this tutorial!
 > * Getting Started with Kohana 3, Part I – Initial Setup
 > * [Getting Started with Kohana 3, Part II – Bootstrap](2012-03-23-getting-started-with-kohana-3-part-ii-bootstrap.md)
 > * [Getting Started with Kohana 3, Part III – Controller/MVVM/KOstache](2012-04-08-getting-started-with-kohana-3-part-iii-controller-mvvm-kostache.md)
-{% endblockquote %}
+{:class="success"}
 
 The Kohana Framework started off as a fork of the very popular CodeIgniter Framework.
 During the KO 2.x versions, it stayed fairly similar to how CodeIgniter functioned, and

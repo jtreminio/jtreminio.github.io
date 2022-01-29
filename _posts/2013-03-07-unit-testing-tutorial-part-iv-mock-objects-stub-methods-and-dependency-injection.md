@@ -19,7 +19,6 @@ tags:
 gh_comment_id: 9
 ---
 
-{% blockquote success %}
 > This is Part IV of a multi-part series. Below are the links to other parts of this
 > tutorial!
 > * [Unit Testing Tutorial Part I: Introduction to PHPUnit](2013-03-01-unit-testing-tutorial-part-i-introduction-to-phpunit.md)
@@ -27,7 +26,7 @@ gh_comment_id: 9
 > * [Unit Testing Tutorial Part III: Testing Protected/Private Methods, Coverage Reports and CRAP](2013-03-03-unit-testing-tutorial-part-iii-testing-protected-private-methods-coverage-reports-and-crap.md)
 > * Unit Testing Tutorial Part IV: Mock Objects, Stub Methods and Dependency Injection
 > * [Unit Testing Tutorial Part V: Mock Methods and Overriding Constructors](2013-03-31-unit-testing-tutorial-part-v-mock-methods-and-overriding-constructors.md)
-{% endblockquote %}
+{:class="success"}
 
 In my previous articles, I have brought you up to speed with writing basic tests for
 basic methods. You are now able to use the `@dataProvider` annotation, generate
@@ -360,10 +359,9 @@ check.
 
 What exactly are the requirements of `is_a()`?
 
-{% blockquote info %}
 > `is_a` — Checks if the object is of this class or has this class as one of
 > its parents
-{% endblockquote %}
+{:class="info"}
 
 Any class that extends `\AuthorizeNetAIM` will pass an `is_a()` check. That part is
 pretty easy. So, how would we pass an object that passes this check? It would need to

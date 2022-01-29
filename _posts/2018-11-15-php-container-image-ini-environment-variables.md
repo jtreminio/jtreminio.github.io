@@ -252,7 +252,6 @@ For settings that ship with default values, I did
 PHP.allow_url_fopen=1
 ```
 
-{% blockquote info %}
 > Notice that I namespaced all my variables. The actual variable name is
 > `PHP.allow_url_fopen` and so the INI file must reference this as
 > `allow_url_fopen=${PHP.allow_url_fopen}`. This simply helps avoid naming
@@ -262,7 +261,7 @@ PHP.allow_url_fopen=1
 > 
 > Thankfully we are not reading these values in Bash, we are reading them in a
 > PHP INI/FPM config file so the variable names are perfectly valid.
-{% endblockquote %}
+{:class="info"}
 
 ### Child Images
 

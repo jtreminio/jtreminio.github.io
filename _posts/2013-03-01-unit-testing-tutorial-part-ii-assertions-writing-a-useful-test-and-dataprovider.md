@@ -19,7 +19,6 @@ tags:
 gh_comment_id: 7
 ---
 
-{% blockquote success %}
 > This is Part II of a multi-part series. Below are the links to other parts of this
 > tutorial!
 > * [Unit Testing Tutorial Part I: Introduction to PHPUnit](2013-03-01-unit-testing-tutorial-part-i-introduction-to-phpunit.md)
@@ -27,7 +26,7 @@ gh_comment_id: 7
 > * [Unit Testing Tutorial Part III: Testing Protected/Private Methods, Coverage Reports and CRAP](2013-03-03-unit-testing-tutorial-part-iii-testing-protected-private-methods-coverage-reports-and-crap.md)
 > * [Unit Testing Tutorial Part IV: Mock Objects, Stub Methods and Dependency Injection](2013-03-07-unit-testing-tutorial-part-iv-mock-objects-stub-methods-and-dependency-injection.md)
 > * [Unit Testing Tutorial Part V: Mock Methods and Overriding Constructors](2013-03-31-unit-testing-tutorial-part-v-mock-methods-and-overriding-constructors.md)
-{% endblockquote %}
+{:class="success"}
 
 In the first part of this series, I walked you through initial installation and
 configuration of PHPUnit for a new project. I showed you some conventions that

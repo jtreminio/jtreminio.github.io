@@ -14,10 +14,9 @@ tags:
   - vm
 ---
 
-{% blockquote warning %}
 > This tutorial has been replaced by
 > [Setting Up a Debian VM, Step by Step](2012-07-04-setting-up-a-debian-vm-step-by-step.md).
-{% endblockquote %}
+{:class="warning"}
 
 [Recently on r/php](http://www.reddit.com/r/PHP/comments/s8bwt/what_is_your_php_development_environment_like/)
 there was a thread asking users about their development environments. The usual
@@ -83,11 +82,10 @@ We’ll using this OS for a couple of reasons:
 
 [Download Ubuntu Server ISO to your computer](http://www.ubuntu.com/start-download?distro=server&bits=32&release=11.10).
 
-{% blockquote danger %}
 > The VM we will end up building and running is *not* secure and should
 > not be used in a production environment. You should only set this up as a virtual
 > machine on your local desktop!
-{% endblockquote %}
+{:class="danger"}
 
 ## Install the VM
 
@@ -345,10 +343,9 @@ Your system can now download MySQL 5.5!
 On the screens asking for a MySQL password, leave it blank and hit enter. Since
 this is only for a local server there’s no point in setting up a password.
 
-{% blockquote danger %}
 > Do NOT use a blank password in production environments! That’s just
 > stupid.
-{% endblockquote %}
+{:class="danger"}
 
 ## Setting up MySQL
 

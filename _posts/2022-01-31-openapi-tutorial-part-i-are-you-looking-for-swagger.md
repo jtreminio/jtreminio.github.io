@@ -1,7 +1,7 @@
 ---
 layout: post
 categories: [blog]
-date: 2022-01-29
+date: 2022-01-31
 title: "OpenAPI Tutorial Part I: Introduction to OpenAPI"
 description: Wait, Don't You Mean Swagger?
 slug: openapi-tutorial-part-i-introduction-to-openapi

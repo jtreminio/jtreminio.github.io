@@ -1,6 +1,8 @@
 Posted on {{ include.data.date | date: "%b %d, %Y"}}
 <br />
-<i class="feather icon-tag"></i>Tags
+<span>
+<i data-feather="tag" alt="tags"></i>
 {% for tag in include.data.tags %}
 <a href="/tags#{{ tag | strip | url_encode }}">{{ tag }}</a>{% unless forloop.last %},{% endunless %}
 {% endfor %}
+</span>

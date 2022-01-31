@@ -40,7 +40,7 @@ const themeToggle = cookie => {
   document.querySelector("a.theme-toggle").addEventListener("click", e => {
     e.preventDefault();
 
-    const dark = document.querySelector('[data-dark-style]');
+    const dark = document.querySelector("[data-dark-style]");
 
     if (dark.disabled) {
       cookie.set("lighttheme", 0, 30);
@@ -97,16 +97,28 @@ const utterancesThemeToggle = style => {
  * add anchors to h# elements
  */
 const addAnchors = () => {
-  const anchorLinkSelectors = document
-    .querySelectorAll("div.post h2, div.post h3, div.post h4");
+  const searchFor = "div.post h2, div.post h3, div.post h4";
+  const anchorLinkSelectors = document.querySelectorAll(searchFor)
+    .forEach(anchorSelector => {
+      let hashPrepend = "";
+      switch (anchorSelector.nodeName) {
+        case "H3":
+          hashPrepend = "### ";
+          break;
+        case "H4":
+          hashPrepend = "#### ";
+          break;
+        case "H2":
+        default:
+          hashPrepend = "## ";
+      }
 
-  [].forEach.call(anchorLinkSelectors, anchorSelector => {
-    anchorSelector.innerHTML +=
-      `<a class="anchor-link" href="#${anchorSelector.id}">` +
-      '<i data-feather="link"></i></a>';
+      anchorSelector.innerHTML = hashPrepend + anchorSelector.innerHTML +
+        `<a class="anchor-link" href="#${anchorSelector.id}">` +
+        '<i data-feather="link"></i></a>';
 
-    anchorSelector.classList.add("anchor-link-container");
-  });
+      anchorSelector.classList.add("anchor-link-container");
+    });
 
   // Trigger feather JS
   feather.replace();
@@ -150,7 +162,7 @@ const linkTableImages = () => {
    * set theme CSS
    */
   if (cookie.get("lighttheme") === "1") {
-    document.querySelector('[data-dark-style]').disabled = true;
+    document.querySelector("[data-dark-style]").disabled = true;
     setDataTheme("light");
     utterancesThemeInit("light");
   } else {

@@ -94,8 +94,20 @@ div.highlight {
   background-color: #f5f5f5;
 }
 
-.intro-header .post-heading .meta a {
-  color: #000;
+.post-meta, .meta {
+  color: #777 !important;
+}
+
+.post-meta span, .meta span {
+    display: flex !important;
+    align-items: center !important;
+    margin-top: 5px !important;
+}
+
+.post-meta span a, .meta span a {
+  color: #777 !important;
+  margin-left: 5px !important;
+  text-decoration: underline;
 }
 
 hr.small {

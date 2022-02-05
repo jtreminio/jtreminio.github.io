@@ -6,12 +6,28 @@ title: "OpenAPI Tutorial Part I: Introduction to OpenAPI"
 description: Wait, Don't You Mean Swagger?
 slug: openapi-tutorial-part-i-introduction-to-openapi
 tags:
+  - api
   - openapi
   - webdev
   - tutorial
   - swagger
 gh_comment_id: 20
 ---
+
+> This is Part I of a multi-part series. Below are the links to other parts of this tutorial!
+>
+> * OpenAPI Tutorial Part I: Introduction to OpenAPI
+> * [OpenAPI Tutorial Part II: Common API Example](2022-02-05-openapi-tutorial-part-ii-common-api-example.md)
+{:class="success"}
+
+> The end result of this article can be found at
+> [jtreminio/openapi-tutorial branch "part-i"](https://github.com/jtreminio/openapi-tutorial/tree/part-i).
+> You can clone it by doing
+>
+> `$ git clone git@github.com:jtreminio/openapi-tutorial.git`
+>
+> Make sure to checkout branch `part-i`.
+{:class="info"}
 
 Stop me if one of these scenarios sounds familiar:
 
@@ -230,7 +246,7 @@ frustrating to setup.
 
 ### Choosing an API to Implement
 
-For this tutorial series we will implement the
+For this tutorial series we will create an API similar (but different) to the
 [Pet Store API](https://petstore.swagger.io/#/) from the ground up. Doing so
 will help make it clear how all the separate pieces fit together to create
 the final product. I will try to make the process mimic how a company with an
@@ -240,9 +256,10 @@ Additionally, we will extend this API to include some more advanced features
 available in OAS 3.x. Not all APIs are as simple as the default Pet Store
 example, so I am hoping this will turn out to be a good learning experience.
 
-Even though the Pet Store API is already written in OpenAPI, simply having the
-final product immediately available is not so great for figuring out how to go
-from zero to final product.
+We will make mistakes, and implement code that may look weird or seem like alot
+of copy and pasting, but I want this tutorial series to seem organic. Not
+everyone begins with a well-made API before moving to OpenAPI, and I want to
+make this useful as a real-world guide.
 
 ## Initial Setup
 
@@ -256,22 +273,19 @@ memorize the commands for regenerating the definitions file, starting the
 documentation server, and  (eventually) creating our SDKs. This will be the
 `bin` directory.
 
-OpenAPI does not have the concept of namespaces. We are going to create classes
-to handle requests (user sending data to our API) and responses
-(our API sending data back to the user). These will be in `Request` and
-`Response` namespaces, respectively, and live within the `src` directory.
+Create directories to hold our Controller and Model classes:
 
 ```bash
-$ mkdir -p ./bin ./src/Request ./src/Response
+$ mkdir -p ./bin ./src/Controller ./src/Model
 
 $ tree
 .
 ├── bin
 │   └── // ... empty
 └── src
-    ├── Request
+    ├── Controller
     │   └── // ... empty
-    └── Response
+    └── Model
         └── // ... empty
 
 ```
@@ -447,10 +461,10 @@ $ tree -a --filesfirst
 │   └── generate.php
 ├── src
 │   ├── OpenApi.php
-│   ├── Request
-│   │   └── // ... empty
-│   └── Response
-│       └── // ... empty
+    ├── Controller
+    │   └── // ... empty
+    └── Model
+        └── // ... empty
 └── vendor
     ├── autoload.php
     ├── bin
@@ -583,10 +597,10 @@ $ tree -a --filesfirst
 │   └── generate.php
 ├── src
 │   ├── OpenApi.php
-│   ├── Request
-│   │   └── // ... empty
-│   └── Response
-│       └── // ... empty
+    ├── Controller
+    │   └── // ... empty
+    └── Model
+        └── // ... empty
 └── vendor
     ├── autoload.php
     ├── bin

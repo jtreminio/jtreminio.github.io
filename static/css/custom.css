@@ -248,6 +248,10 @@ pre {
   font-size: .85em;
 }
 
+a code {
+  text-decoration: underline;
+}
+
 div.highlighter-rouge {
   border: 1px solid #ccc;
   border-radius: 4px;

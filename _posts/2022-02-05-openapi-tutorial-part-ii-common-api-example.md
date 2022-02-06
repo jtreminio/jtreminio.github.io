@@ -18,6 +18,7 @@ gh_comment_id: 21
 >
 > * [OpenAPI Tutorial Part I: Introduction to OpenAPI](2022-01-31-openapi-tutorial-part-i-are-you-looking-for-swagger.md)
 > * OpenAPI Tutorial Part II: Common API Example
+> * [OpenAPI Tutorial Part III: Paths and Basic Request Data](2022-02-06-openapi-tutorial-part-iii-paths-and-basic-request-data.md)
 {:class="success"}
 
 In the first part of this series we

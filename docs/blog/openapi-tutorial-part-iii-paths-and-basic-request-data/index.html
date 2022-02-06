@@ -1,0 +1,699 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="utf-8"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"> <meta name="description" content="Juan Treminio - Dallas based senior web developer"> <meta name="keywords" content=""> <meta property="og:title" content="OpenAPI Tutorial Part III: Paths and Basic Request Data - Juan Treminio - Senior Web Developer Blog"> <meta property="og:type" content="article"> <meta property="og:description" content=" This is Part III of a multi-part series. Below are the links to other parts of this tutorial! OpenAPI Tutorial Part I: Introduction to OpenAPI OpenAPI Tutorial Part II: Common API Ex..."> <meta property="article:tag" content="api"> <meta property="article:tag" content="openapi"> <meta property="article:tag" content="webdev"> <meta property="article:tag" content="tutorial"> <meta property="article:tag" content="swagger"> <meta property="og:url" content="https://jtreminio.com/blog/openapi-tutorial-part-iii-paths-and-basic-request-data/"> <meta property="og:site_name" content="Juan Treminio - Senior Web Developer Blog"> <title>OpenAPI Tutorial Part III: Paths and Basic Request Data - Juan Treminio - Senior Web Developer Blog</title> <link rel="shortcut icon" type="image/png" href="/static/favicon/favicon.ico"/> <link rel="apple-touch-icon" sizes="180x180" href="/static/favicon/apple-touch-icon.png"> <link rel="shortcut icon" type="image/png" href="/static/favicon/favicon-96x96.png" sizes="96x96"/> <link rel="shortcut icon" type="image/png" href="/static/favicon/favicon-32x32.png" sizes="32x32"/> <link rel="shortcut icon" type="image/png" href="/static/favicon/favicon-16x16.png" sizes="16x16"/> <link rel="canonical" href="https://jtreminio.com/blog/openapi-tutorial-part-iii-paths-and-basic-request-data/"> <link href="//cdn.jsdelivr.net/npm/bootstrap-no-fonts-no-js@3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css"/> <link href="//cdnjs.cloudflare.com/ajax/libs/startbootstrap-clean-blog/3.3.7/css/clean-blog.min.css" rel="stylesheet" type="text/css"/> <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css"/> <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css"/> <script src="//cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script> <link rel="stylesheet" href="/static/css/rouge.css"/> <link rel="stylesheet" href="/static/css/custom.css"/> <link rel="stylesheet" href="/static/css/dark.css" data-dark-style/> </head> <body> <nav class="navbar navbar-default navbar-expand-md navbar-custom navbar-fixed-top is-fixed is-visible"> <div class="container-fluid"> <div class="navbar-header page-scroll"> <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar-collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button> <a class="navbar-brand hidden-xs hidden-sm" href="/">Juan Treminio - Senior Web Developer Blog</a> <a class="navbar-brand visible-xs visible-sm" href="/">Juan Treminio - Developer Blog</a> </div> <div class="collapse navbar-collapse" id="main-navbar-collapse"> <ul class="nav navbar-nav navbar-right"> <li><a href="/">Blog</a></li> <li><a href="/about/">About</a></li> <li><a href="/hire-me/">Hire Me</a></li> <li> <a class="btn theme-toggle"> <span class="theme-dark"><i data-feather="moon"></i> Dark Theme</span> <span class="theme-light"><i data-feather="sun"></i> Light Theme</span> </a> </li> </ul> </div> </div> </nav> <header class="intro-header"> <div class="container"> <div class="row"> <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"> <div class="post-heading"> <h1>OpenAPI Tutorial Part III: Paths and Basic Request Data</h1> <h2 class="subheading">Mapping Incoming Data to OpenAPI</h2> <div class="meta">Posted on Feb 06, 2022 <br/> <span> <i data-feather="tag" alt="tags"></i> <a href="/tags#api">api</a>, <a href="/tags#openapi">openapi</a>, <a href="/tags#webdev">webdev</a>, <a href="/tags#tutorial">tutorial</a>, <a href="/tags#swagger">swagger</a> </span> </div> </div> </div> </div> </div> </header> <article> <div class="container"> <div class="row"> <div class="post col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"> <blockquote class="success"> <p>This is Part III of a multi-part series. Below are the links to other parts of this tutorial!</p> <ul> <li><a href="/blog/openapi-tutorial-part-i-introduction-to-openapi/">OpenAPI Tutorial Part I: Introduction to OpenAPI</a></li> <li><a href="/blog/openapi-tutorial-part-ii-common-api-example/">OpenAPI Tutorial Part II: Common API Example</a></li> <li>OpenAPI Tutorial Part III: Paths and Basic Request Data</li> </ul> </blockquote> <blockquote class="info"> <p>The end result of this article can be found at <a href="https://github.com/jtreminio/openapi-tutorial/tree/part-iii">jtreminio/openapi-tutorial branch “part-iii”</a>. You can clone it by doing</p> <p><code class="language-plaintext highlighter-rouge">$ git clone git@github.com:jtreminio/openapi-tutorial.git</code></p> <p>Make sure to checkout branch <code class="language-plaintext highlighter-rouge">part-iii</code>.</p> </blockquote> <p><a href="/blog/openapi-tutorial-part-ii-common-api-example/">OpenAPI Tutorial Part II: Common API Example</a> introduced a basic API codebase that we will begin adding OpenAPI support to.</p> <p>Today we will go over adding paths, and the basic types of request data.</p> <h2 id="is-redoc-documentation-server-running">Is Redoc Documentation Server Running?</h2> <p>Before you go any further, make sure your Redoc server is running:</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="nv">$ </span>./bin/docs.sh
+
+Server started: http://127.0.0.1:8080
+👀  Watching ./ <span class="k">for </span>changes...
+</pre></td></tr></tbody></table></code></pre></div></div> <h2 id="adding-paths">Adding Paths</h2> <p>You will notice that the <code class="language-plaintext highlighter-rouge">jtreminio/openapi-tutorial</code> already contains some helpful comments to help developers know how each endpoint is supposed to work.</p> <p>For example:</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre><span class="kd">class</span> <span class="nc">PetController</span>
+<span class="p">{</span>
+    <span class="cd">/**
+     * POST /pet
+     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">petCreate</span><span class="p">(</span><span class="kt">RequestInterface</span> <span class="nv">$request</span><span class="p">):</span> <span class="kt">string</span>
+    <span class="p">{</span>
+        <span class="c1">// ...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div> <p>There are also endpoints using path parameters with these comments:</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre>    <span class="cd">/**
+     * PUT /pet/{id}/photo
+     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">petUpdatePhoto</span><span class="p">(</span><span class="kt">RequestInterface</span> <span class="nv">$request</span><span class="p">):</span> <span class="kt">string</span>
+    <span class="p">{</span>
+        <span class="c1">// ...</span>
+    <span class="p">}</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div> <p>These comments are strictly for human readers, they do not affect your OpenAPI definitions. I included them because I expect many of your existing APIs might contain similar data. This might be the case for other parts of the codebase - you and your team have probably left behind comments to help each other better understand what the intended purpose of an endpoint is, how it is supposed to be called, what parameters it expects.</p> <p>The benefit of using OpenAPI is you begin codifying these random and haphazard comments into a strict definition.</p> <h3 id="definition-of-a-path">Definition of a Path</h3> <p>Paths are the endpoints your API makes available for users. They will contain the verb (<code class="language-plaintext highlighter-rouge">GET</code>, <code class="language-plaintext highlighter-rouge">POST</code>, <code class="language-plaintext highlighter-rouge">PUT</code>, <code class="language-plaintext highlighter-rouge">DELETE</code>, etc) and, if applicable, path parameters.</p> <p>Paths combine the verb and the endpoint to create a unique definition. All this means is that <code class="language-plaintext highlighter-rouge">POST /order</code> is a different path than <code class="language-plaintext highlighter-rouge">UPDATE /order</code>.</p> <h3 id="your-first-path-definition">Your First Path Definition</h3> <p>Let’s begin with <code class="language-plaintext highlighter-rouge">PetController::petCreate()</code>, which does not have any path parameters:</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre>    <span class="cd">/**
+     * POST /pet
+     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">petCreate</span><span class="p">(</span><span class="kt">RequestInterface</span> <span class="nv">$request</span><span class="p">):</span> <span class="kt">string</span>
+    <span class="p">{</span>
+        <span class="c1">// ...</span>
+    <span class="p">}</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div> <p>Import the <code class="language-plaintext highlighter-rouge">OpenApi\Annotations</code> annotations namespace at the top of the class:</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="cp">&lt;?php</span>
+
+<span class="k">declare</span><span class="p">(</span><span class="n">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
+
+<span class="kn">namespace</span> <span class="nn">PetStoreApi\Controller</span><span class="p">;</span>
+
+<span class="kn">use</span> <span class="nc">OpenApi\Annotations</span> <span class="k">as</span> <span class="no">OA</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">PetStoreApi\Model</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">PetStoreApi\RequestInterface</span><span class="p">;</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div> <p>Now, add our first path definition:</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre><span class="kd">class</span> <span class="nc">PetController</span>
+<span class="p">{</span>
+    <span class="cd">/**
+     * @OA\Post(path="/pet",
+     *     summary="Add a new pet",
+     *     operationId="petCreate",
+     *     tags={"Pet"},
+     * )
+     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">petCreate</span><span class="p">(</span><span class="kt">RequestInterface</span> <span class="nv">$request</span><span class="p">):</span> <span class="kt">string</span>
+    <span class="p">{</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div> <p>Finally, generate the new definitions file:</p> <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="rouge-code"><pre><span class="nv">$ </span>./bin/generate.php
+
+Warning: @OA<span class="se">\P</span>ost<span class="o">()</span> requires at least one @OA<span class="se">\R</span>esponse<span class="o">()</span>
+    <span class="k">in</span> <span class="se">\P</span>etStoreApi<span class="se">\C</span>ontroller<span class="se">\P</span>etController-&gt;petCreate<span class="o">()</span>
+    <span class="k">in</span> ./src/Controller/PetController.php on line 20
+    <span class="k">in</span> ./vendor/zircote/swagger-php/src/Loggers/DefaultLogger.php on line 27
+
+Wrote OAS file to ./bin/../openapi.yaml
+
+Running php-cs-fixer
+Loaded config default from <span class="s2">"./.php-cs-fixer.php"</span><span class="nb">.</span>
+Using cache file <span class="s2">".php-cs-fixer.cache"</span><span class="nb">.</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div> <p>Ignore the warning for now, <a href="http://127.0.0.1:8080">reload your Redoc browser window</a>, and you should see the beginning of some documentation.</p> <table class="table img-link"> <thead> <tr> <th style="text-align: center"><img src="/static/post/2022-02-06-openapi-tutorial-part-iii-paths-and-basic-request-data/your-first-endpoint-definition.png" alt="your-first-endpoint-definition.png"/></th> </tr> </thead> <tbody> <tr> <td style="text-align: center">Your first endpoint definition</td> </tr> </tbody> </table> <p>If you take a look at your <code class="language-plaintext highlighter-rouge">openapi.yaml</code> file you should see the change in the definition:</p> <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="c1"># ...</span>
+<span class="na">paths</span><span class="pi">:</span>
+  <span class="na">/pet</span><span class="pi">:</span>
+    <span class="na">post</span><span class="pi">:</span>
+      <span class="na">tags</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s">Pet</span>
+      <span class="na">summary</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Add</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">new</span><span class="nv"> </span><span class="s">pet'</span>
+      <span class="na">operationId</span><span class="pi">:</span> <span class="s">petCreate</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div> <h3 id="break-it-down---path-annotations">Break It Down - Path Annotations</h3> <p>These four new lines of data are the core pieces of a path definition. Let’s go over each part before moving on.</p> <h4 id="verb--path">Verb + Path</h4> <p>In our <code class="language-plaintext highlighter-rouge">PetController::petCreate()</code> we have added the following:</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre><span class="kd">class</span> <span class="nc">PetController</span>
+<span class="p">{</span>
+    <span class="cd">/**
+     * @OA\Post(path="/pet",
+     *     summary="Add a new pet",
+     *     operationId="petCreate",
+     *     tags={"Pet"},
+     * )
+     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">petCreate</span><span class="p">(</span><span class="kt">RequestInterface</span> <span class="nv">$request</span><span class="p">):</span> <span class="kt">string</span>
+    <span class="p">{</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div> <p>This is a path definition. <code class="language-plaintext highlighter-rouge">zircote/swagger-php</code> has an annotation for each major verb:</p> <ul> <li><code class="language-plaintext highlighter-rouge">@OA\Delete()</code></li> <li><code class="language-plaintext highlighter-rouge">@OA\Get()</code></li> <li><code class="language-plaintext highlighter-rouge">@OA\Head()</code></li> <li><code class="language-plaintext highlighter-rouge">@OA\Options()</code></li> <li><code class="language-plaintext highlighter-rouge">@OA\Patch()</code></li> <li><code class="language-plaintext highlighter-rouge">@OA\Post()</code></li> <li><code class="language-plaintext highlighter-rouge">@OA\Put()</code></li> <li><code class="language-plaintext highlighter-rouge">@OA\Trace()</code></li> </ul> <p>You really only need <code class="language-plaintext highlighter-rouge">@OA\Delete()</code>, <code class="language-plaintext highlighter-rouge">@OA\Get()</code>, <code class="language-plaintext highlighter-rouge">@OA\Post()</code>, and <code class="language-plaintext highlighter-rouge">@OA\Put()</code>.</p> <p>The type of annotation you select and the <code class="language-plaintext highlighter-rouge">path</code> value will be combined in the generated definition.</p> <p><code class="language-plaintext highlighter-rouge">@OA\Post(path="/pet")</code> generates:</p> <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="na">paths</span><span class="pi">:</span>
+  <span class="na">/pet</span><span class="pi">:</span>
+    <span class="na">post</span><span class="pi">:</span>
+      <span class="c1"># ...</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div> <p>While <code class="language-plaintext highlighter-rouge">@OA\Get(path="/pet")</code> generates:</p> <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="na">paths</span><span class="pi">:</span>
+  <span class="na">/pet</span><span class="pi">:</span>
+    <span class="na">get</span><span class="pi">:</span>
+      <span class="c1"># ...</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div> <p>If you have two paths, one with <code class="language-plaintext highlighter-rouge">@OA\Post(path="/pet")</code> and the other with <code class="language-plaintext highlighter-rouge">@OA\Get(path="/pet")</code> you can clearly see how OpenAPI considers these separate definitions:</p> <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="na">paths</span><span class="pi">:</span>
+  <span class="na">/pet</span><span class="pi">:</span>
+    <span class="na">get</span><span class="pi">:</span>
+      <span class="c1"># ...</span>
+    <span class="na">post</span><span class="pi">:</span>
+      <span class="c1"># ...</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div> <h4 id="summary--description">Summary &amp; Description</h4> <p>We also define a <code class="language-plaintext highlighter-rouge">summary</code> value, <code class="language-plaintext highlighter-rouge">summary="Add a new pet"</code>. In Redoc <code class="language-plaintext highlighter-rouge">summary</code> is used for the left sidebar listing all endpoints available, along with the verb (<code class="language-plaintext highlighter-rouge">Post</code>). Each documentation generator will work differently and if you are using something else you will need to experiment yourself!</p> <p>There is also <code class="language-plaintext highlighter-rouge">description</code> which we have not used yet. It is similar to <code class="language-plaintext highlighter-rouge">summary</code> except longer.</p> <h4 id="operation-id">Operation ID</h4> <p><code class="language-plaintext highlighter-rouge">operationId</code> is a unique identifier for this path, <code class="language-plaintext highlighter-rouge">operationId="petCreate"</code>. It must be unique across your entire definitions file. The convention is up to you, some teams like to use <code class="language-plaintext highlighter-rouge">{verb}{Path}{Action}</code> like <code class="language-plaintext highlighter-rouge">postPetCreate</code>. Others use <code class="language-plaintext highlighter-rouge">{action}{PathRoot}</code> like <code class="language-plaintext highlighter-rouge">createPet</code>.</p> <p>I use <code class="language-plaintext highlighter-rouge">{pathRoot}{Action}</code> like <code class="language-plaintext highlighter-rouge">petCreate</code>. It helps group common paths together:</p> <ul> <li><code class="language-plaintext highlighter-rouge">petCreate</code></li> <li><code class="language-plaintext highlighter-rouge">petGet</code></li> <li><code class="language-plaintext highlighter-rouge">petUpdate</code></li> <li><code class="language-plaintext highlighter-rouge">petDelete</code></li> <li><code class="language-plaintext highlighter-rouge">petList</code></li> <li><code class="language-plaintext highlighter-rouge">petFindBy</code></li> <li><code class="language-plaintext highlighter-rouge">petUpdatePhoto</code></li> </ul> <h4 id="tags">Tags</h4> <p>Finally, we use <code class="language-plaintext highlighter-rouge">tags</code> to group common functionality together, <code class="language-plaintext highlighter-rouge">tags={"Pet"}</code>.</p> <p>In Redoc this groups paths under a dropdown. You can think of them as categories. We will eventually have “Pet”, “Customer”, and “Store” tags. One endpoint can have one or more tags.</p> <blockquote class="info"> <p>A note about curly braces <code class="language-plaintext highlighter-rouge">{ }</code>. <code class="language-plaintext highlighter-rouge">zircote/swagger-php</code> uses the <code class="language-plaintext highlighter-rouge">doctrine/annotations</code> library to handle reading annotations. Unfortunately this library does not (currently) support PHP-style array braces <code class="language-plaintext highlighter-rouge">[ ]</code>, which means that even for true arrays we must use curly braces <code class="language-plaintext highlighter-rouge">{ }</code>.</p> <p>You would normally expect to see <code class="language-plaintext highlighter-rouge">tags=["Pet"]</code> but instead we must use <code class="language-plaintext highlighter-rouge">tags={"Pet"}</code>.</p> </blockquote> <p>Now it is time to let OpenAPI know what parameters this endpoint expects!</p> <h2 id="adding-a-body-definition">Adding a Body Definition</h2> <p>The <code class="language-plaintext highlighter-rouge">POST /pet</code> is expecting data as part of the body request, and a possible file upload.</p> <table class="table table-striped"> <thead> <tr> <th>parameter</th> <th>type</th> </tr> </thead> <tbody> <tr> <td><code class="language-plaintext highlighter-rouge">name</code></td> <td>string</td> </tr> <tr> <td><code class="language-plaintext highlighter-rouge">age</code></td> <td>integer</td> </tr> <tr> <td><code class="language-plaintext highlighter-rouge">type</code></td> <td>string <code class="language-plaintext highlighter-rouge">dog</code>, <code class="language-plaintext highlighter-rouge">cat</code>, or <code class="language-plaintext highlighter-rouge">fish</code></td> </tr> <tr> <td><code class="language-plaintext highlighter-rouge">status</code></td> <td>string <code class="language-plaintext highlighter-rouge">available</code>, <code class="language-plaintext highlighter-rouge">pending</code>, or <code class="language-plaintext highlighter-rouge">sold</code></td> </tr> <tr> <td><code class="language-plaintext highlighter-rouge">info</code></td> <td>object <code class="language-plaintext highlighter-rouge">DogInfo</code>, <code class="language-plaintext highlighter-rouge">CatInfo</code>, or <code class="language-plaintext highlighter-rouge">FishInfo</code></td> </tr> <tr> <td><code class="language-plaintext highlighter-rouge">photo</code></td> <td>binary (file upload)</td> </tr> </tbody> </table> <p>This endpoint does not use the <code class="language-plaintext highlighter-rouge">id</code> property in the <code class="language-plaintext highlighter-rouge">Model\Pet</code> class. We will get to that later.</p> <h3 id="body-annotations">Body Annotations</h3> <p>You tell the annotations library this is a body schema by using <code class="language-plaintext highlighter-rouge">@OA\Schema()</code> and defining the <code class="language-plaintext highlighter-rouge">schema</code> property:</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="cd">/**
+ * @OA\Schema(schema="Pet")
+ */</span>
+<span class="kd">class</span> <span class="nc">Pet</span>
+<span class="p">{</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div> <p>Add an <code class="language-plaintext highlighter-rouge">@OA\Property()</code> definition to the <code class="language-plaintext highlighter-rouge">name</code> property:</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre>    <span class="cd">/**
+     * @var string
+     * @OA\Property()
+     */</span>
+    <span class="k">public</span> <span class="nv">$name</span><span class="p">;</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div> <p>The <code class="language-plaintext highlighter-rouge">zircote/swagger-php</code> annotation library supports auto-detecting the property type by reading the <code class="language-plaintext highlighter-rouge">@var</code> attached to each property, or detecting any default value assigned to the property. However, I find it is best to explicitly define the type:</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre>    <span class="cd">/**
+     * @var string
+     * @OA\Property(type="string")
+     */</span>
+    <span class="k">public</span> <span class="nv">$name</span><span class="p">;</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div> <p>Now, if you generate the definitions file again (<code class="language-plaintext highlighter-rouge">$ ./bin/generate.php</code>) you will see the new schema:</p> <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="na">components</span><span class="pi">:</span>
+  <span class="na">schemas</span><span class="pi">:</span>
+    <span class="na">Pet</span><span class="pi">:</span>
+      <span class="na">properties</span><span class="pi">:</span>
+        <span class="na">name</span><span class="pi">:</span>
+          <span class="na">type</span><span class="pi">:</span> <span class="s">string</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">object</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div> <p>Do the same for <code class="language-plaintext highlighter-rouge">age</code>, <code class="language-plaintext highlighter-rouge">type</code>, and <code class="language-plaintext highlighter-rouge">status</code>:</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+</pre></td><td class="rouge-code"><pre>    <span class="cd">/**
+     * @var int
+     * @OA\Property(type="integer")
+     */</span>
+    <span class="k">public</span> <span class="nv">$age</span><span class="p">;</span>
+
+    <span class="c1">// ...</span>
+
+    <span class="cd">/**
+     * @var string "dog"|"cat"|"fish"
+     * @OA\Property(type="string")
+     */</span>
+    <span class="k">public</span> <span class="nv">$type</span><span class="p">;</span>
+
+    <span class="c1">// ...</span>
+
+    <span class="cd">/**
+     * @var string "available"|"pending"|"sold"
+     * @OA\Property(type="string")
+     */</span>
+    <span class="k">public</span> <span class="nv">$status</span> <span class="o">=</span> <span class="s1">'available'</span><span class="p">;</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div> <p>So far the types are simple, <code class="language-plaintext highlighter-rouge">type="integer"</code> and <code class="language-plaintext highlighter-rouge">type="string"</code>. What would you expect a file upload to be? If you guessed <code class="language-plaintext highlighter-rouge">type="file"</code> or <code class="language-plaintext highlighter-rouge">type="binary"</code> you would be forgiven for being wrong.</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre>    <span class="cd">/**
+     * @var \SplFileInfo|null
+     * @OA\Property(type="string",
+     *     format="binary",
+     * )
+     */</span>
+    <span class="k">public</span> <span class="nv">$photo</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div> <blockquote class="warning"> <p>For now, let’s skip over adding a definition for <code class="language-plaintext highlighter-rouge">info</code>. I promise we will come back to it in later parts of this series, but discriminators are a bit more advanced than what you are learning right now.</p> </blockquote> <p>Regenerate your definitions file (<code class="language-plaintext highlighter-rouge">$ ./bin/generate.php</code>) and behold:</p> <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+</pre></td><td class="rouge-code"><pre><span class="na">components</span><span class="pi">:</span>
+  <span class="na">schemas</span><span class="pi">:</span>
+    <span class="na">Pet</span><span class="pi">:</span>
+      <span class="na">properties</span><span class="pi">:</span>
+        <span class="na">name</span><span class="pi">:</span>
+          <span class="na">type</span><span class="pi">:</span> <span class="s">string</span>
+        <span class="na">age</span><span class="pi">:</span>
+          <span class="na">type</span><span class="pi">:</span> <span class="s">integer</span>
+        <span class="na">photo</span><span class="pi">:</span>
+          <span class="na">type</span><span class="pi">:</span> <span class="s">string</span>
+          <span class="na">format</span><span class="pi">:</span> <span class="s">binary</span>
+        <span class="na">type</span><span class="pi">:</span>
+          <span class="na">description</span><span class="pi">:</span> <span class="s1">'</span><span class="s">"dog"|"cat"|"fish"'</span>
+          <span class="na">type</span><span class="pi">:</span> <span class="s">string</span>
+        <span class="na">status</span><span class="pi">:</span>
+          <span class="na">description</span><span class="pi">:</span> <span class="s1">'</span><span class="s">"available"|"pending"|"sold"'</span>
+          <span class="na">type</span><span class="pi">:</span> <span class="s">string</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">object</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div> <h3 id="break-it-down---body-annotations">Break It Down - Body Annotations</h3> <p><code class="language-plaintext highlighter-rouge">zircote/swagger-php</code> is helping us out quite a bit here. We first tell it that this entire class is a schema definition:</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="cd">/**
+ * @OA\Schema(schema="Pet")
+ */</span>
+<span class="kd">class</span> <span class="nc">Pet</span>
+<span class="p">{</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div> <p>That generates this YAML:</p> <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="na">components</span><span class="pi">:</span>
+  <span class="na">schemas</span><span class="pi">:</span>
+    <span class="na">Pet</span><span class="pi">:</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div> <p>You can change <code class="language-plaintext highlighter-rouge">schema</code> to any unique name you want, it is completely separate from the actual class name. We only used the same name for class and schema to make this easier to learn.</p> <p>With the above, <code class="language-plaintext highlighter-rouge">zircote/swagger-php</code> now knows that the class directly following the annotation will contain more annotations that should be added to the definition. That is why this annotation works:</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre>    <span class="cd">/**
+     * @var string "dog"|"cat"|"fish"
+     * @OA\Property(type="string")
+     */</span>
+    <span class="k">public</span> <span class="nv">$type</span><span class="p">;</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div> <p>The <code class="language-plaintext highlighter-rouge">@OA\Property()</code> annotations works in a similar way to the <code class="language-plaintext highlighter-rouge">@OA\Schema()</code> annotations - it is attached to the property directly following the annotation. So, the following would not affect <code class="language-plaintext highlighter-rouge">$info</code>:</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre>    <span class="cd">/**
+     * @var string "dog"|"cat"|"fish"
+     * @OA\Property(type="string")
+     */</span>
+    <span class="k">public</span> <span class="nv">$type</span><span class="p">;</span>
+
+    <span class="cd">/**
+     * @var DogInfo|CatInfo|FishInfo
+     */</span>
+    <span class="k">public</span> <span class="nv">$info</span><span class="p">;</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div> <p>You will also notice that any text added in the <code class="language-plaintext highlighter-rouge">@var</code> docblock is used as the parameter’s description. We can change this later but keep it for now.</p> <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre>        <span class="na">type</span><span class="pi">:</span>
+          <span class="na">description</span><span class="pi">:</span> <span class="s1">'</span><span class="s">"dog"|"cat"|"fish"'</span>
+          <span class="na">type</span><span class="pi">:</span> <span class="s">string</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div> <p>If you reload your documentation page you will not actually see any of these changes! For that, we need to reference this new <code class="language-plaintext highlighter-rouge">Pet</code> schema from the <code class="language-plaintext highlighter-rouge">POST /pet</code> path.</p> <h2 id="referencing-a-schema">Referencing a Schema</h2> <p>Back in <code class="language-plaintext highlighter-rouge">PetController::petCreate()</code>, update the path annotation to:</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre></td><td class="rouge-code"><pre>    <span class="cd">/**
+     * @OA\Post(path="/pet",
+     *     summary="Add a new pet",
+     *     operationId="petCreate",
+     *     tags={"Pet"},
+     *     @OA\RequestBody(
+     *         @OA\MediaType(mediaType="multipart/form-data",
+     *             @OA\Schema(ref="#/components/schemas/Pet"),
+     *         ),
+     *     ),
+     * )
+     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">petCreate</span><span class="p">(</span><span class="kt">RequestInterface</span> <span class="nv">$request</span><span class="p">):</span> <span class="kt">string</span>
+    <span class="p">{</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div> <p>Refresh your documentation page and see the magic:</p> <table class="table img-link"> <thead> <tr> <th style="text-align: center"><img src="/static/post/2022-02-06-openapi-tutorial-part-iii-paths-and-basic-request-data/your-first-request-body.png" alt="your-first-request-body.png"/></th> </tr> </thead> <tbody> <tr> <td style="text-align: center">Your first request body</td> </tr> </tbody> </table> <h3 id="break-it-down---requestbody-annotations">Break It Down - RequestBody Annotations</h3> <p>I just introduced two new annotations to you, <code class="language-plaintext highlighter-rouge">@OA\RequestBody()</code> and <code class="language-plaintext highlighter-rouge">@OA\MediaType()</code>.</p> <p>For an endpoint that expects body data (for example, from forms) we use the <code class="language-plaintext highlighter-rouge">@OA\RequestBody()</code> annotation. This annotation should only be combined with <code class="language-plaintext highlighter-rouge">@OA\Post()</code> and <code class="language-plaintext highlighter-rouge">@OA\Put()</code> (and <code class="language-plaintext highlighter-rouge">@OA\Patch()</code> if you ever use it).</p> <p><code class="language-plaintext highlighter-rouge">@OA\MediaType()</code> defines the content-type this endpoint will accept. For any endpoint that will accept a file upload, you must use <code class="language-plaintext highlighter-rouge">multipart/form-data</code>. You can use anything here, but should probably stick with the most common:</p> <ul> <li><code class="language-plaintext highlighter-rouge">application/json</code></li> <li><code class="language-plaintext highlighter-rouge">application/xml</code></li> <li><code class="language-plaintext highlighter-rouge">text/plain; charset=utf-8</code></li> </ul> <p>You can see more examples in <a href="https://swagger.io/docs/specification/media-types/">Swagger’s Media Type page</a>.</p> <p>So far what we have is</p> <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre><span class="na">paths</span><span class="pi">:</span>
+  <span class="na">/pet</span><span class="pi">:</span>
+    <span class="na">post</span><span class="pi">:</span>
+      <span class="na">tags</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s">Pet</span>
+      <span class="na">summary</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Add</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">new</span><span class="nv"> </span><span class="s">pet'</span>
+      <span class="na">operationId</span><span class="pi">:</span> <span class="s">petCreate</span>
+      <span class="na">requestBody</span><span class="pi">:</span>
+        <span class="na">content</span><span class="pi">:</span>
+          <span class="na">multipart/form-data</span><span class="pi">:</span>
+            <span class="c1"># ...</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div> <p>Finally, you see the powerful <code class="language-plaintext highlighter-rouge">ref</code> for the first time. <code class="language-plaintext highlighter-rouge">ref</code> deserves to have a large chunk of text explaining it, but for now let’s keep it simple.</p> <h4 id="at-a-glance---ref">At a Glance - <code class="language-plaintext highlighter-rouge">ref</code></h4> <p><code class="language-plaintext highlighter-rouge">ref</code> is actually <code class="language-plaintext highlighter-rouge">$ref</code> when written to the <code class="language-plaintext highlighter-rouge">openapi.yaml</code> file. However, our annotations library expects <code class="language-plaintext highlighter-rouge">ref</code>. Here is what it looks like:</p> <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="rouge-code"><pre><span class="na">paths</span><span class="pi">:</span>
+  <span class="na">/pet</span><span class="pi">:</span>
+    <span class="na">post</span><span class="pi">:</span>
+      <span class="na">tags</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s">Pet</span>
+      <span class="na">summary</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Add</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">new</span><span class="nv"> </span><span class="s">pet'</span>
+      <span class="na">operationId</span><span class="pi">:</span> <span class="s">petCreate</span>
+      <span class="na">requestBody</span><span class="pi">:</span>
+        <span class="na">content</span><span class="pi">:</span>
+          <span class="na">multipart/form-data</span><span class="pi">:</span>
+            <span class="na">schema</span><span class="pi">:</span>
+              <span class="na">$ref</span><span class="pi">:</span> <span class="s1">'</span><span class="s">#/components/schemas/Pet'</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div> <p>We use this special tool to reference schema defined in other parts of our definitions file. The first parts are the location OpenAPI can find the schema: <code class="language-plaintext highlighter-rouge">#/components/schemas</code>.</p> <p>The last part is the actual schema name, <code class="language-plaintext highlighter-rouge">Pet</code>.</p> <p>This is powerful because it allows us to reuse schemas without having to copy and paste their definitions over and over.</p> <h2 id="enum-property-types">Enum Property Types</h2> <p>So far we have only added simple property types to our definitions, those that are <code class="language-plaintext highlighter-rouge">string</code>, <code class="language-plaintext highlighter-rouge">integer</code>, or <code class="language-plaintext highlighter-rouge">string::binary</code> (file upload).</p> <p>The <code class="language-plaintext highlighter-rouge">string::binary</code> type clues us in that we can have further sub-types. One such example are enums.</p> <p>The <code class="language-plaintext highlighter-rouge">Pet::$type</code> property is currently defined as</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre>    <span class="cd">/**
+     * @var string "dog"|"cat"|"fish"
+     * @OA\Property(type="string")
+     */</span>
+    <span class="k">public</span> <span class="nv">$type</span><span class="p">;</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div> <p>However, the <code class="language-plaintext highlighter-rouge">"dog"|"cat"|"fish"</code> part is only a docblock description, it does not actually apply to the OpenAPI definition (outside of description).</p> <p>We can easily tell OpenAPI this is an enum by using <code class="language-plaintext highlighter-rouge">string::enum</code>:</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre>    <span class="cd">/**
+     * @var string
+     * @OA\Property(type="string",
+     *     enum={"dog", "cat", "fish"}
+     * )
+     */</span>
+    <span class="k">public</span> <span class="nv">$type</span><span class="p">;</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div> <p>Now our definitions file knows this is an enum and will require that the string is only one of the allowed:</p> <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="rouge-code"><pre><span class="na">components</span><span class="pi">:</span>
+  <span class="na">schemas</span><span class="pi">:</span>
+    <span class="na">Pet</span><span class="pi">:</span>
+      <span class="na">properties</span><span class="pi">:</span>
+        <span class="c1"># ...</span>
+        <span class="na">type</span><span class="pi">:</span>
+          <span class="na">type</span><span class="pi">:</span> <span class="s">string</span>
+          <span class="na">enum</span><span class="pi">:</span>
+            <span class="pi">-</span> <span class="s">dog</span>
+            <span class="pi">-</span> <span class="s">cat</span>
+            <span class="pi">-</span> <span class="s">fish</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">object</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div> <p>Do the same for <code class="language-plaintext highlighter-rouge">status</code>:</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre>    <span class="cd">/**
+    * @var string
+    * @OA\Property(type="string",
+    *     enum={"available", "pending", "sold"}
+    * )
+    */</span>
+   <span class="k">public</span> <span class="nv">$status</span> <span class="o">=</span> <span class="s1">'available'</span><span class="p">;</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div> <p>Regenerate your descriptions file:</p> <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+</pre></td><td class="rouge-code"><pre><span class="na">components</span><span class="pi">:</span>
+ <span class="na">schemas</span><span class="pi">:</span>
+   <span class="na">Pet</span><span class="pi">:</span>
+     <span class="na">properties</span><span class="pi">:</span>
+       <span class="c1"># ...</span>
+       <span class="na">type</span><span class="pi">:</span>
+         <span class="na">type</span><span class="pi">:</span> <span class="s">string</span>
+         <span class="na">enum</span><span class="pi">:</span>
+           <span class="pi">-</span> <span class="s">dog</span>
+           <span class="pi">-</span> <span class="s">cat</span>
+           <span class="pi">-</span> <span class="s">fish</span>
+       <span class="na">status</span><span class="pi">:</span>
+         <span class="na">type</span><span class="pi">:</span> <span class="s">string</span>
+         <span class="na">enum</span><span class="pi">:</span>
+           <span class="pi">-</span> <span class="s">available</span>
+           <span class="pi">-</span> <span class="s">pending</span>
+           <span class="pi">-</span> <span class="s">sold</span>
+     <span class="na">type</span><span class="pi">:</span> <span class="s">object</span>
+ 
+</pre></td></tr></tbody></table></code></pre></div></div> <p>Now <a href="http://127.0.0.1:8080">reload your Redoc browser window</a> and we see something useful:</p> <table class="table img-link"> <thead> <tr> <th style="text-align: center"><img src="/static/post/2022-02-06-openapi-tutorial-part-iii-paths-and-basic-request-data/enums.png" alt="enums.png"/></th> </tr> </thead> <tbody> <tr> <td style="text-align: center">Enums example</td> </tr> </tbody> </table> <h3 id="but-wait-theres-more">But Wait, There’s More</h3> <p>So far we have used <code class="language-plaintext highlighter-rouge">zircote/swagger-php</code> for things that we can easily do by manually-creating the definitions file. Let me show you one immediate benefit!</p> <p>Enums are just arrays of values and are defined as you would expect:</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre>    <span class="cd">/**
+     * @var string
+     * @OA\Property(type="string",
+     *     enum={"dog", "cat", "fish"}
+     * )
+     */</span>
+    <span class="k">public</span> <span class="nv">$type</span><span class="p">;</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div> <p>Since the annotations live in a PHP class, we can benefit from actual PHP code in the annotations. If this enum is just an array, why not create a constant that contains the possible values?</p> <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+</pre></td><td class="rouge-code"><pre><span class="cd">/**
+ * @OA\Schema(schema="Pet")
+ */</span>
+<span class="kd">class</span> <span class="nc">Pet</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">const</span> <span class="no">TYPE_ENUM</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">'dog'</span><span class="p">,</span>
+        <span class="s1">'cat'</span><span class="p">,</span>
+        <span class="s1">'fish'</span><span class="p">,</span>
+    <span class="p">];</span>
+
+    <span class="k">public</span> <span class="k">const</span> <span class="no">STATUS_ENUM</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">'available'</span><span class="p">,</span>
+        <span class="s1">'pending'</span><span class="p">,</span>
+        <span class="s1">'sold'</span><span class="p">,</span>
+    <span class="p">];</span>
+
+    <span class="c1">// ...</span>
+
+    <span class="cd">/**
+     * @var string
+     * @OA\Property(type="string",
+     *     enum=\PetStoreApi\Model\Pet::TYPE_ENUM
+     * )
+     */</span>
+    <span class="k">public</span> <span class="nv">$type</span><span class="p">;</span>
+
+    <span class="c1">// ...</span>
+
+    <span class="cd">/**
+     * @var string
+     * @OA\Property(type="string",
+     *     enum=\PetStoreApi\Model\Pet::STATUS_ENUM
+     * )
+     */</span>
+    <span class="k">public</span> <span class="nv">$status</span> <span class="o">=</span> <span class="s1">'available'</span><span class="p">;</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div> <p>Note that you need to use the FQDN when reference a constant in this manner.</p> <p>This is only the most basic of what you can do with constants. As we go further along in this series we will see more useful examples!</p> <h2 id="wrapping-it-up">Wrapping It Up</h2> <p>We have our first path defined! It even has some (basic) parameters, including a file upload and two enums!</p> <p>In the next part of this series we will create more paths and their parameters, and we will go over how to add complex parameter types like arrays, objects, and arrays of objects.</p> <p>So much left to do, but having the Redoc documentation to see our changes as we make them is a great motivator. I encourage you to continue playing with the API and reading both the <a href="https://swagger.io/docs/specification/about/">Swagger OpenAPI Guide</a> and the <a href="http://zircote.github.io/swagger-php/"><code class="language-plaintext highlighter-rouge">zircote/swagger-php</code></a> documentation to further familiarize yourself with the concepts we have learned so far, and what we will learn in the upcoming parts of this series.</p> <p>Until next time, this is Señor PHP Developer Juan Treminio wishing you adios!</p> <hr class="invisible"> <ul class="pager"> <li class="previous"> <a href="/blog/openapi-tutorial-part-ii-common-api-example/" data-toggle="tooltip" data-placement="top" title="OpenAPI Tutorial Part II: Common API Example"> Previous &rarr;<br> <span>OpenAPI Tutorial Part II: Common API Example</span> </a> </li> </ul> <hr class="invisible"> <div class="comment"> <script src="//utteranc.es/client.js" repo="jtreminio/jtreminio.github.io" issue-number="22" theme="photon-dark" crossorigin="anonymous" async></script> </div> </div> </div> </div> </article> <footer> <div class="container"> <div class="row"> <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"> <ul class="list-inline text-center footer-icons"> <li><a href="mailto:jtreminio@gmail.com"><i data-feather="mail"></i></a></li> <li> <a href="https://github.com/jtreminio" target="_blank"> <i data-feather="github"></i> </a> </li> <li> <a href="https://twitter.com/juantreminio" target="_blank"> <i data-feather="twitter"></i> </a> </li> <li> <a href="https://www.linkedin.com/in/jtreminio-1" target="_blank"> <i data-feather="linkedin"></i> </a> </li> </ul> </div> </div> </div> </footer> </body> <script src="/static/js/custom.js"></script> </html>

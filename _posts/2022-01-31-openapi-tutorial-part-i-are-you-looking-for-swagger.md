@@ -18,6 +18,7 @@ gh_comment_id: 20
 >
 > * OpenAPI Tutorial Part I: Introduction to OpenAPI
 > * [OpenAPI Tutorial Part II: Common API Example](2022-02-05-openapi-tutorial-part-ii-common-api-example.md)
+> * [OpenAPI Tutorial Part III: Paths and Basic Request Data](2022-02-06-openapi-tutorial-part-iii-paths-and-basic-request-data.md)
 {:class="success"}
 
 > The end result of this article can be found at
